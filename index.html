@@ -445,17 +445,23 @@ async function lookupOrder(){
 }
 async function showConfirmation(ses){
   const box = document.getElementById('confirmbox');
-  try {
-    const r = await fetch(FN + 'store-orders?session=' + encodeURIComponent(ses));
-    if (!r.ok) throw 0;
-    const o = await r.json();
-    box.innerHTML = '<div class="cf-in"><div class="cf-t">✅ ¡Pago completado!</div>' +
-      '<div class="cf-n">Tu número de orden es <b>' + esc(o.order_number) + '</b></div>' +
-      '<div class="cf-s">' + (o.method === 'pickup' ? '📍 Recogida en persona — te contactaremos para coordinar.' : '📦 Envío — te avisaremos cuando salga, con tu número de rastreo.') + '</div>' +
-      '<div class="cf-s">Guarda tu número: con él y tu email puedes ver el estado tocando 📦 arriba a la derecha.</div></div>';
-    box.style.display = 'block';
-    box.scrollIntoView({ behavior: 'smooth' });
-  } catch(e) { toast('¡Pago completado! Gracias por tu compra ✓'); }
+  for (let i = 0; i < 6; i++) {
+    try {
+      const r = await fetch(FN + 'store-orders?session=' + encodeURIComponent(ses));
+      if (r.ok) {
+        const o = await r.json();
+        box.innerHTML = '<div class="cf-in"><div class="cf-t">✅ ¡Pago completado!</div>' +
+          '<div class="cf-n">Tu número de orden es <b>' + esc(o.order_number) + '</b></div>' +
+          '<div class="cf-s">' + (o.method === 'pickup' ? '📍 Recogida en persona — te contactaremos para coordinar.' : '📦 Envío — te avisaremos cuando salga, con tu número de rastreo.') + '</div>' +
+          '<div class="cf-s">Guarda tu número: con él y tu email puedes ver el estado tocando 📦 arriba a la derecha.</div></div>';
+        box.style.display = 'block';
+        box.scrollIntoView({ behavior: 'smooth' });
+        return;
+      }
+    } catch(e) {}
+    await new Promise(res => setTimeout(res, 2500));
+  }
+  toast('¡Pago completado! Gracias por tu compra ✓');
 }
 /* ===== Estado de vendidos (servidor) + arranque ===== */
 async function loadSold(){
