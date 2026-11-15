@@ -191,11 +191,17 @@
 // ===== CATÁLOGO — añadir un producto = un bloque aquí (fotos, descripción y su link de Stripe) =====
 const PRODUCTS = [
   { id:"aretes-tiffany", brand:"Tiffany & Co.", name:"Victoria® Vine Climber Earrings — rose gold con diamantes", cat:"Joyería",
-    price:4995, was:6400, badge:"Prueba", rating:"5.0 (1)",
+    price:2675, was:6400, badge:"Prueba", rating:"5.0 (1)",
     desc:"Aretes Tiffany Victoria® Vine Climber en oro rosa de 18K (Au750) con diamantes redondos y marquesa, aprox. 0.33 ct en total.\n\nNuevos, sin usar, en su caja azul original de Tiffany & Co. Cierres patentados de seguridad (Pat. No. 6,557,220). Grabados: ©Tiffany & Co. · Au750 · Pat. No. 6557220.\n\nPrecio de tienda: $6,400. Aquí, directo y sin intermediarios.",
     meta:"Condición: Nuevo, sin usar · Incluye: caja original Tiffany · Envío: asegurado, con firma",
     photos:["assets/ejemplo-aretes.jpg","assets/aretes-2.jpg","assets/aretes-3.jpg","assets/aretes-4.jpg","assets/aretes-5.jpg","assets/aretes-6.jpg","assets/aretes-7.jpg"],
-    link:"https://buy.stripe.com/test_aFa28j261arEeq036pgMw00", status:"test" }
+    link:"https://buy.stripe.com/test_aFa28j261arEeq036pgMw00", status:"test" },
+  { id:"anillo-lock-tiffany", brand:"Tiffany & Co.", name:"Lock Ring — oro rosa con diamantes pavé, talla 6", cat:"Joyería",
+    price:2400, was:0, badge:"", rating:"5.0 (1)",
+    desc:"Anillo Tiffany Lock en oro rosa de 18K con diamantes en pavé. El Lock es una de las colecciones icónicas de Tiffany & Co.: un símbolo de unión con su mecanismo giratorio inspirado en un candado.\n\nNuevo, sin usar, en su caja azul original de Tiffany & Co. Talla 6.",
+    meta:"Condición: Nuevo, sin usar · Talla: 6 · Incluye: caja original Tiffany · Envío: asegurado, con firma",
+    photos:["assets/lock-1.jpg","assets/lock-2.jpg","assets/lock-3.jpg","assets/lock-4.jpg","assets/lock-5.jpg","assets/lock-6.jpg"],
+    link:"", status:"sold" }
 ];
 // =================================================================================================
 const FN = 'https://lewfysgyapmqlhkwxlwo.supabase.co/functions/v1/';
