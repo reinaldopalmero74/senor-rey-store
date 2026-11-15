@@ -58,6 +58,34 @@
   .fin{ max-width:1120px; margin:0 auto; display:flex; flex-wrap:wrap; gap:22px; justify-content:space-between; font-size:13px; line-height:1.7; }
   .fin b{ color:var(--cream); display:block; margin-bottom:4px; letter-spacing:1px; }
   .pay{ text-align:center; border-top:1px solid #2A4258; margin-top:18px; padding-top:14px; font-size:12.5px; letter-spacing:1px; }
+
+  /* ===== Barra de herramientas / vistas ===== */
+  .toolbar{ display:flex; flex-wrap:wrap; gap:10px; align-items:center; margin-bottom:16px; }
+  .toolbar label{ font-size:13px; color:var(--mut); display:flex; align-items:center; gap:6px; }
+  .toolbar select{ padding:8px 10px; border:1px solid var(--line); border-radius:8px; background:#fff; font-size:13.5px; color:var(--ink); }
+  .tbtn{ border:1px solid var(--line); background:#fff; color:var(--ink); padding:8px 13px; border-radius:8px; font-size:13.5px; cursor:pointer; }
+  .tbtn.on{ background:var(--navy); color:var(--cream); border-color:var(--navy); }
+  .views{ margin-left:auto; display:flex; gap:6px; }
+  .grid.list{ grid-template-columns:1fr; }
+  .grid.list .card{ flex-direction:row; }
+  .grid.list .ph{ width:170px; flex:none; aspect-ratio:1/1; }
+  @media (max-width:560px){ .grid.list .ph{ width:120px; } }
+  .heart{ position:absolute; top:8px; right:8px; background:rgba(255,255,255,.92); border:0; width:34px; height:34px; border-radius:50%; font-size:16px; cursor:pointer; color:#B0BEC9; box-shadow:0 1px 5px rgba(0,0,0,.18); }
+  .heart.on{ color:#C0392B; }
+  .quickadd{ margin-top:8px; }
+  /* ===== Lightbox ===== */
+  .lightbox{ position:fixed; inset:0; background:rgba(8,15,24,.94); z-index:80; display:none; align-items:center; justify-content:center; cursor:zoom-out; }
+  .lightbox.open{ display:flex; }
+  .lightbox img{ max-width:94vw; max-height:92vh; border-radius:10px; }
+  /* ===== Relacionados / recientes ===== */
+  .rel{ max-width:1020px; margin:0 auto; padding:0 18px 30px; }
+  .rel h3{ font-family:Georgia,serif; font-weight:normal; font-size:20px; margin-bottom:12px; }
+  .relgrid{ display:grid; grid-template-columns:repeat(auto-fill,minmax(150px,1fr)); gap:12px; }
+  .mini{ background:#fff; border:1px solid var(--line); border-radius:10px; overflow:hidden; cursor:pointer; }
+  .mini img{ width:100%; aspect-ratio:1/1; object-fit:cover; display:block; background:var(--paper); }
+  .mini div{ padding:8px 10px; font-size:13px; line-height:1.35; }
+  .mini b{ color:var(--navy); }
+  .share{ background:#fff; border:1px solid var(--line); color:var(--ink); }
   /* ===== Vista de producto ===== */
   .sheet{ position:fixed; inset:0; z-index:50; background:var(--cream); overflow-y:auto; display:none; }
   .sheet.open{ display:block; }
@@ -116,9 +144,17 @@
 </section>
 <div class="wrap" id="productos">
   <div class="secrow"><h3>Productos destacados</h3><span id="count"></span></div>
+  <div class="toolbar">
+    <label>Ordenar <select id="sort"><option value="featured">Destacados</option><option value="price-asc">Precio: menor a mayor</option><option value="price-desc">Precio: mayor a menor</option><option value="name">Nombre A–Z</option></select></label>
+    <label>Precio máx. <select id="maxp"><option value="0">Sin límite</option><option value="500">$500</option><option value="1000">$1,000</option><option value="2500">$2,500</option><option value="5000">$5,000</option></select></label>
+    <label><input type="checkbox" id="hidesold"> Ocultar vendidos</label>
+    <button class="tbtn" id="favonly">♥ Favoritos</button>
+    <div class="views"><button class="tbtn on" id="vgrid" title="Vista en cuadrícula">▦</button><button class="tbtn" id="vlist" title="Vista en lista">☰</button></div>
+  </div>
   <div class="grid" id="grid"></div>
   <div class="empty" id="empty">La tienda está recibiendo sus primeros productos.<br>Vuelve pronto — cada artículo es único.</div>
 </div>
+<div class="wrap" id="recentwrap" style="display:none"><div class="secrow"><h3>Vistos recientemente</h3></div><div class="relgrid" id="recent"></div></div>
 <div class="trust">
   <div>🔒 <b>Pago 100% seguro</b>Tu tarjeta se procesa en Stripe — nunca pasa por esta página.</div>
   <div>📦 <b>Envío asegurado</b>Empaque discreto, con firma y seguro por el valor total.</div>
@@ -138,6 +174,7 @@
 <div class="sheet" id="sheet">
   <div class="sheetbar"><button onclick="closeDetail()">←</button><div>SEÑOR REY STORE</div></div>
   <div class="detail" id="detail"></div>
+  <div class="rel" id="rel"></div>
 </div>
 
 <!-- Carrito -->
@@ -147,6 +184,7 @@
   <div class="citems" id="citems"></div>
   <div class="cfoot" id="cfoot"></div>
 </aside>
+<div class="lightbox" id="lightbox" onclick="this.classList.remove('open')"><img id="lightimg" alt=""></div>
 <div class="toast" id="toast">Añadido al carrito ✓</div>
 
 <script>
@@ -160,44 +198,70 @@ const PRODUCTS = [
     link:"https://buy.stripe.com/test_aFa28j261arEeq036pgMw00", status:"test" }
 ];
 // =================================================================================================
+const FN = 'https://lewfysgyapmqlhkwxlwo.supabase.co/functions/v1/';
 const grid = document.getElementById('grid'), count = document.getElementById('count'),
       emptyEl = document.getElementById('empty'), catsEl = document.getElementById('cats'), q = document.getElementById('q');
 const money = n => '$' + n.toLocaleString('en-US');
-let cat = "Todos", cart = [];
+let cat = "Todos", cart = [], SOLD = new Set();
+let sortBy = 'featured', maxPrice = 0, hideSold = false, favOnly = false, view = 'grid';
+let favs = new Set(JSON.parse(localStorage.getItem('srs_favs') || '[]'));
+let recent = JSON.parse(localStorage.getItem('srs_recent') || '[]');
+const isSold = p => p.status === 'sold' || SOLD.has(p.id);
 const CATS = ["Todos", ...new Set(PRODUCTS.map(p => p.cat))];
 CATS.forEach(c => { const b = document.createElement('button'); b.className = 'chip' + (c === cat ? ' on' : ''); b.textContent = c;
   b.onclick = () => { cat = c; catsEl.querySelectorAll('.chip').forEach(x => x.classList.toggle('on', x.textContent === c)); render(); }; catsEl.appendChild(b); });
 function stars(p){ return '<div class="stars">★★★★★ <b>' + p.rating + '</b></div>'; }
+function visible(){
+  const term = q.value.trim().toLowerCase();
+  let list = PRODUCTS.filter(p =>
+    (cat === "Todos" || p.cat === cat) &&
+    (!term || (p.brand + ' ' + p.name).toLowerCase().includes(term)) &&
+    (!maxPrice || p.price <= maxPrice) &&
+    (!hideSold || !isSold(p)) &&
+    (!favOnly || favs.has(p.id)));
+  if (sortBy === 'price-asc') list.sort((a, b) => a.price - b.price);
+  if (sortBy === 'price-desc') list.sort((a, b) => b.price - a.price);
+  if (sortBy === 'name') list.sort((a, b) => a.name.localeCompare(b.name));
+  return list;
+}
 function render(){
-  const term = q.value.trim().toLowerCase(); grid.innerHTML = ''; let n = 0;
-  for (const p of PRODUCTS) {
-    if (cat !== "Todos" && p.cat !== cat) continue;
-    if (term && !(p.brand + ' ' + p.name).toLowerCase().includes(term)) continue;
-    n++;
-    const sold = p.status === 'sold';
+  const list = visible(); grid.innerHTML = ''; grid.className = 'grid' + (view === 'list' ? ' list' : '');
+  for (const p of list) {
+    const sold = isSold(p);
     const d = document.createElement('div'); d.className = 'card'; d.onclick = () => openDetail(p.id);
     d.innerHTML =
       '<div class="ph">' + (p.photos && p.photos[0] ? '<img src="' + p.photos[0] + '" alt="">' : '') +
-      (p.badge ? '<span class="badge' + (sold ? ' sold' : (p.badge.startsWith('-') ? ' off' : '')) + '">' + p.badge + '</span>' : '') + '</div>' +
+      (sold ? '<span class="badge sold">Vendido</span>' : (p.badge ? '<span class="badge' + (p.badge.startsWith('-') ? ' off' : '') + '">' + p.badge + '</span>' : '')) +
+      '<button class="heart' + (favs.has(p.id) ? ' on' : '') + '" title="Favorito">♥</button></div>' +
       '<div class="bd"><div class="brand">' + p.brand + '</div><h4>' + p.name + '</h4>' + stars(p) +
       '<div class="pricerow"><span class="price">' + money(p.price) + '</span>' + (p.was ? '<span class="was">' + money(p.was) + '</span>' : '') + '</div>' +
-      (sold ? '<a class="buy off">Vendido</a>' : '<a class="buy">Ver producto</a>') + '</div>';
+      (sold ? '<a class="buy off">Vendido</a>' : '<a class="buy">Ver producto</a><button class="buy navy quickadd">+ Carrito</button>') + '</div>';
+    d.querySelector('.heart').onclick = e => { e.stopPropagation(); toggleFav(p.id); };
+    const qa = d.querySelector('.quickadd'); if (qa) qa.onclick = e => { e.stopPropagation(); addToCart(p.id); };
     grid.appendChild(d);
   }
-  count.textContent = n + (n === 1 ? ' producto' : ' productos');
-  emptyEl.style.display = n ? 'none' : 'block';
+  count.textContent = list.length + (list.length === 1 ? ' producto' : ' productos');
+  emptyEl.style.display = list.length ? 'none' : 'block';
   if (!PRODUCTS.length) emptyEl.innerHTML = 'La tienda está recibiendo sus primeros productos.<br>Vuelve pronto — cada artículo es único.';
-  else if (!n) emptyEl.textContent = 'Sin resultados para esa búsqueda.';
+  else if (!list.length) emptyEl.textContent = 'Sin resultados con esos filtros.';
+  renderRecent();
 }
-q.addEventListener('input', render);
-document.getElementById('qbtn').onclick = render;
+function toggleFav(id){ favs.has(id) ? favs.delete(id) : favs.add(id); localStorage.setItem('srs_favs', JSON.stringify([...favs])); render(); }
+function renderRecent(){
+  const wrap = document.getElementById('recentwrap'), box = document.getElementById('recent');
+  const items = recent.map(id => PRODUCTS.find(p => p.id === id)).filter(Boolean).slice(0, 4);
+  if (!items.length) { wrap.style.display = 'none'; return; }
+  wrap.style.display = 'block';
+  box.innerHTML = items.map(p => '<div class="mini" onclick="openDetail(\'' + p.id + '\')"><img src="' + (p.photos[0] || '') + '"><div>' + p.brand + ' — ' + p.name + '<br><b>' + money(p.price) + '</b></div></div>').join('');
+}
 /* ===== Detalle de producto ===== */
 let current = null;
-function openDetail(id){
+function openDetail(id, keep){
   const p = PRODUCTS.find(x => x.id === id); if (!p) return; current = p;
-  const sold = p.status === 'sold';
+  if (!keep) { recent = [id, ...recent.filter(x => x !== id)].slice(0, 6); localStorage.setItem('srs_recent', JSON.stringify(recent)); }
+  const sold = isSold(p);
   document.getElementById('detail').innerHTML =
-    '<div class="gal"><div class="main"><img id="mainimg" src="' + (p.photos[0] || '') + '" alt=""></div>' +
+    '<div class="gal"><div class="main"><img id="mainimg" src="' + (p.photos[0] || '') + '" alt="" onclick="zoom()" style="cursor:zoom-in"></div>' +
     '<div class="thumbs">' + p.photos.map((f, i) => '<img src="' + f + '" class="' + (i === 0 ? 'on' : '') + '" onclick="swap(this)">').join('') + '</div></div>' +
     '<div class="info"><div class="brand">' + p.brand + '</div><h2>' + p.name + '</h2>' + stars(p) +
     '<div class="pricerow"><span class="price">' + money(p.price) + '</span>' + (p.was ? '<span class="was">' + money(p.was) + '</span>' : '') + '</div>' +
@@ -206,17 +270,32 @@ function openDetail(id){
     (sold ? '<button class="buy off">Vendido</button>'
           : '<button class="buy navy" onclick="addToCart(\'' + p.id + '\')">🛒 Añadir al carrito</button>' +
             (p.link ? '<button class="buy" onclick="window.location=\'' + p.link + '\'">Comprar ahora — pagar con tarjeta</button>' : '<button class="buy off">Disponible pronto</button>')) +
+    '<button class="buy share" onclick="shareProduct(\'' + p.id + '\')">🔗 Compartir este producto</button>' +
+    '<button class="buy share" onclick="toggleFav(\'' + p.id + '\')">' + (favs.has(p.id) ? '♥ En tus favoritos' : '♡ Añadir a favoritos') + '</button>' +
     '</div></div>';
+  const rel = PRODUCTS.filter(x => x.id !== p.id && x.cat === p.cat).slice(0, 3);
+  document.getElementById('rel').innerHTML = rel.length ? '<h3>También te puede interesar</h3><div class="relgrid">' +
+    rel.map(r => '<div class="mini" onclick="openDetail(\'' + r.id + '\')"><img src="' + (r.photos[0] || '') + '"><div>' + r.brand + ' — ' + r.name + '<br><b>' + money(r.price) + '</b></div></div>').join('') + '</div>' : '';
   document.getElementById('sheet').classList.add('open');
   document.getElementById('sheet').scrollTop = 0;
+  history.replaceState(null, '', '#' + id);
+  renderRecent();
+}
+function zoom(){ const m = document.getElementById('mainimg'); if (!m) return; document.getElementById('lightimg').src = m.src; document.getElementById('lightbox').classList.add('open'); }
+async function shareProduct(id){
+  const url = location.origin + location.pathname + '#' + id;
+  const p = PRODUCTS.find(x => x.id === id);
+  if (navigator.share) { try { await navigator.share({ title: 'Señor Rey Store', text: p.brand + ' — ' + p.name + ' · ' + money(p.price), url }); } catch(e) {} }
+  else { try { await navigator.clipboard.writeText(url); toast('Link copiado ✓'); } catch(e) { toast(url); } }
 }
 function swap(el){ document.getElementById('mainimg').src = el.src; el.parentElement.querySelectorAll('img').forEach(i => i.classList.toggle('on', i === el)); }
-function closeDetail(){ document.getElementById('sheet').classList.remove('open'); }
+function closeDetail(){ document.getElementById('sheet').classList.remove('open'); history.replaceState(null, '', location.pathname); }
 /* ===== Carrito ===== */
+function toast(msg){ const t = document.getElementById('toast'); t.textContent = msg; t.classList.add('show'); setTimeout(() => t.classList.remove('show'), 1800); }
 function addToCart(id){
+  const p = PRODUCTS.find(x => x.id === id); if (p && isSold(p)) { toast('Ese artículo ya se vendió'); return; }
   if (!cart.includes(id)) cart.push(id);
-  updateCart();
-  const t = document.getElementById('toast'); t.classList.add('show'); setTimeout(() => t.classList.remove('show'), 1600);
+  updateCart(); toast('Añadido al carrito ✓');
 }
 function removeFromCart(id){ cart = cart.filter(x => x !== id); updateCart(); }
 function cartTotal(){ return cart.reduce((s, id) => s + (PRODUCTS.find(p => p.id === id) || {price:0}).price, 0); }
@@ -234,18 +313,33 @@ function updateCart(){
 async function checkout(){
   const n = document.getElementById('cnotice');
   try {
-    const r = await fetch('https://lewfysgyapmqlhkwxlwo.supabase.co/functions/v1/store-checkout', { method:'POST', headers:{ 'Content-Type':'application/json' }, body: JSON.stringify({ items: cart }) });
+    const r = await fetch(FN + 'store-checkout', { method:'POST', headers:{ 'Content-Type':'application/json' }, body: JSON.stringify({ items: cart }) });
     const d = await r.json();
     if (d.url) { window.location = d.url; return; }
+    if (d.error === 'sold_out') { await loadSold(); cart = cart.filter(id => !SOLD.has(id)); updateCart(); render(); throw new Error('sold'); }
     throw new Error(d.error || 'error');
   } catch(e) {
-    if (n) { n.style.display = 'block'; n.textContent = 'No se pudo abrir el pago combinado. Cada artículo también se puede pagar individual con "Comprar ahora" en su página.'; }
+    if (n) { n.style.display = 'block'; n.textContent = e.message === 'sold' ? 'Uno de los artículos ya se vendió y salió de tu carrito.' : 'No se pudo abrir el pago combinado. Cada artículo también se puede pagar individual con "Comprar ahora" en su página.'; }
   }
 }
 function openCart(){ updateCart(); document.getElementById('drawer').classList.add('open'); document.getElementById('backdrop').classList.add('open'); }
 function closeCart(){ document.getElementById('drawer').classList.remove('open'); document.getElementById('backdrop').classList.remove('open'); }
-render();
-if (new URLSearchParams(location.search).get('pago') === 'ok') { const t = document.getElementById('toast'); t.textContent = '¡Pago completado! Gracias por tu compra ✓'; t.classList.add('show'); setTimeout(() => t.classList.remove('show'), 4000); }
+/* ===== Estado de vendidos (servidor) + arranque ===== */
+async function loadSold(){
+  try { const r = await fetch(FN + 'store-status'); const d = await r.json(); SOLD = new Set(d.sold || []); } catch(e) {}
+}
+document.getElementById('sort').onchange = e => { sortBy = e.target.value; render(); };
+document.getElementById('maxp').onchange = e => { maxPrice = Number(e.target.value); render(); };
+document.getElementById('hidesold').onchange = e => { hideSold = e.target.checked; render(); };
+document.getElementById('favonly').onclick = e => { favOnly = !favOnly; e.target.classList.toggle('on', favOnly); render(); };
+document.getElementById('vgrid').onclick = () => { view = 'grid'; document.getElementById('vgrid').classList.add('on'); document.getElementById('vlist').classList.remove('on'); render(); };
+document.getElementById('vlist').onclick = () => { view = 'list'; document.getElementById('vlist').classList.add('on'); document.getElementById('vgrid').classList.remove('on'); render(); };
+q.addEventListener('input', render);
+document.getElementById('qbtn').onclick = render;
+(async () => { await loadSold(); render();
+  if (new URLSearchParams(location.search).get('pago') === 'ok') toast('¡Pago completado! Gracias por tu compra ✓');
+  const h = location.hash.replace('#', ''); if (h && PRODUCTS.some(p => p.id === h)) openDetail(h);
+})();
 </script>
 </body>
 </html>
