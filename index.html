@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Señor Rey Store — Venta directa</title>
+<title>Señor Rey Marketplace — Venta directa</title>
 <style>
   :root{ --navy:#16283C; --navy2:#1D3247; --gold:#C9A227; --gold2:#E3C766; --cream:#FAF6EE; --paper:#F3ECDD; --ink:#22303C; --mut:#5A6B78; --red:#8A2B2B; --line:#E5DCC6; }
   *{ margin:0; padding:0; box-sizing:border-box; }
@@ -207,7 +207,7 @@
 <body>
 <div class="topbar">Envío asegurado a todo EE. UU. · Pago seguro con tarjeta</div>
 <div class="shopbar">
-  <div class="logo" onclick="window.scrollTo({top:0,behavior:'smooth'})">SEÑOR <span>REY</span> STORE</div>
+  <div class="logo" onclick="window.scrollTo({top:0,behavior:'smooth'})">SEÑOR <span>REY</span> MARKETPLACE</div>
   <div class="search"><input id="q" type="search" placeholder="Buscar en la tienda…"><button id="qbtn" aria-label="Buscar">🔍</button></div>
   <div class="icons"><a title="Estado de mi orden" onclick="openOrder()">📦</a><a title="Carrito" onclick="openCart()">🛒<span class="cartn" id="cartn">0</span></a></div>
 </div>
@@ -250,17 +250,17 @@
 </div>
 <footer>
   <div class="fin">
-    <div><b>SEÑOR REY STORE</b>Venta directa de productos seleccionados<br>Miami, Florida</div>
+    <div><b>SEÑOR REY MARKETPLACE</b>Venta directa de productos seleccionados<br>Miami, Florida</div>
     <div><b>AYUDA</b>Cómo comprar<br>Envíos y entregas<br><a href="#faq" style="color:inherit">Preguntas frecuentes</a></div>
     <div><b>CONTACTO</b>Escríbenos antes de comprar<br>y confirmamos cada detalle.</div>
   </div>
   <div class="pay">ACEPTAMOS VISA · MASTERCARD · AMEX · DISCOVER · APPLE PAY — VÍA STRIPE</div>
-  <div style="text-align:center;padding:11px 10px 14px;font-size:12.5px;background:var(--navy)"><a href="terminos.html" style="color:var(--gold2)">Términos y condiciones</a> <span style="color:var(--cream);opacity:.6">·</span> <a href="privacidad.html" style="color:var(--gold2)">Política de privacidad</a> <span style="color:var(--cream);opacity:.6">·</span> <span style="color:var(--cream);opacity:.85">© 2026 Señor Rey Store</span></div>
+  <div style="text-align:center;padding:11px 10px 14px;font-size:12.5px;background:var(--navy)"><a href="terminos.html" style="color:var(--gold2)">Términos y condiciones</a> <span style="color:var(--cream);opacity:.6">·</span> <a href="privacidad.html" style="color:var(--gold2)">Política de privacidad</a> <span style="color:var(--cream);opacity:.6">·</span> <span style="color:var(--cream);opacity:.85">© 2026 Señor Rey Marketplace</span></div>
 </footer>
 
 <!-- Vista de producto -->
 <div class="sheet" id="sheet">
-  <div class="sheetbar"><button onclick="closeDetail()">←</button><div>SEÑOR REY STORE</div></div>
+  <div class="sheetbar"><button onclick="closeDetail()">←</button><div>SEÑOR REY MARKETPLACE</div></div>
   <div class="detail" id="detail"></div>
   <div class="rel" id="rel"></div>
 </div>
@@ -400,7 +400,7 @@ function zoom(){ const m = document.getElementById('mainimg'); if (!m) return; d
 async function shareProduct(id){
   const url = location.origin + location.pathname + '#' + id;
   const p = PRODUCTS.find(x => x.id === id);
-  if (navigator.share) { try { await navigator.share({ title: 'Señor Rey Store', text: p.brand + ' — ' + p.name + ' · ' + money(p.price), url }); } catch(e) {} }
+  if (navigator.share) { try { await navigator.share({ title: 'Señor Rey Marketplace', text: p.brand + ' — ' + p.name + ' · ' + money(p.price), url }); } catch(e) {} }
   else { try { await navigator.clipboard.writeText(url); toast('Link copiado ✓'); } catch(e) { toast(url); } }
 }
 function swap(el){ document.getElementById('mainimg').src = el.src; el.parentElement.querySelectorAll('img').forEach(i => i.classList.toggle('on', i === el)); }
@@ -534,7 +534,7 @@ q.addEventListener('input', render);
 document.getElementById('qbtn').onclick = render;
 /* ===== Chat de ayuda (IA) ===== */
 let chatHist = [], chatOpened = false, chatBusy = false;
-function toggleChat(){ const p = document.getElementById('chatpanel'); const open = p.classList.toggle('open'); if (open && !chatOpened) { chatOpened = true; chatAdd('bot', '¡Hola! \u{1F44B} Soy el asistente de Señor Rey Store. Pregúntame por envíos, recogida, el estado de tu orden o cualquier producto.'); document.getElementById('chatin').addEventListener('keydown', e => { if (e.key === 'Enter') chatSend(); }); } if (open) setTimeout(() => document.getElementById('chatin').focus(), 60); }
+function toggleChat(){ const p = document.getElementById('chatpanel'); const open = p.classList.toggle('open'); if (open && !chatOpened) { chatOpened = true; chatAdd('bot', '¡Hola! \u{1F44B} Soy el asistente de Señor Rey Marketplace. Pregúntame por envíos, recogida, el estado de tu orden o cualquier producto.'); document.getElementById('chatin').addEventListener('keydown', e => { if (e.key === 'Enter') chatSend(); }); } if (open) setTimeout(() => document.getElementById('chatin').focus(), 60); }
 function chatAdd(who, text){ const box = document.getElementById('chatmsgs'); const d = document.createElement('div'); d.className = 'cbub ' + who; d.innerHTML = text.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/\*\*([^*]+)\*\*/g, '<b>$1</b>'); box.appendChild(d); box.scrollTop = box.scrollHeight; return d; }
 async function chatSend(){ if (chatBusy) return; const inp = document.getElementById('chatin'); const text = inp.value.trim(); if (!text) return; inp.value = ''; chatAdd('me', text); chatHist.push({ role: 'user', text }); chatBusy = true; const wait = chatAdd('bot', 'Escribiendo…'); try { const r = await fetch(FN + 'store-chat', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ messages: chatHist }) }); const d = await r.json(); if (!d.reply) throw 0; wait.remove(); chatAdd('bot', d.reply); chatHist.push({ role: 'model', text: d.reply }); } catch (e) { wait.remove(); chatAdd('bot', 'Perdona, ahora mismo no puedo responder. Escríbenos a ralph9@muse.ai y te ayudamos enseguida.'); } chatBusy = false; }
 (async () => { await loadSold(); render();
@@ -545,7 +545,7 @@ async function chatSend(){ if (chatBusy) return; const inp = document.getElement
 </script>
 <button class="chatbtn" id="chatbtn" onclick="toggleChat()">💬 Ayuda</button>
 <div class="chatpanel" id="chatpanel">
-  <div class="chathead"><span>💬 Ayuda — Señor Rey Store</span><button onclick="toggleChat()" aria-label="Cerrar">✕</button></div>
+  <div class="chathead"><span>💬 Ayuda — Señor Rey Marketplace</span><button onclick="toggleChat()" aria-label="Cerrar">✕</button></div>
   <div class="chatmsgs" id="chatmsgs"></div>
   <div class="chatrow"><input id="chatin" placeholder="Escribe tu pregunta…" maxlength="600"><button onclick="chatSend()">Enviar</button></div>
 </div>
