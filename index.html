@@ -54,6 +54,14 @@
   .trust{ display:grid; grid-template-columns:repeat(auto-fit,minmax(200px,1fr)); gap:14px; max-width:1120px; margin:26px auto 8px; padding:0 18px; }
   .trust div{ background:#fff; border:1px solid var(--line); border-radius:10px; padding:14px 16px; font-size:13.5px; line-height:1.5; }
   .trust b{ display:block; font-size:14.5px; margin-bottom:2px; }
+  .faq{ max-width:1120px; margin:30px auto 6px; padding:0 18px; }
+  .faq h3{ color:var(--navy); font-size:21px; margin:0 0 12px; }
+  .faq details{ background:#fff; border:1px solid var(--line); border-radius:10px; margin-bottom:9px; }
+  .faq summary{ cursor:pointer; padding:13px 16px; font-weight:700; color:var(--navy); font-size:14.5px; list-style:none; }
+  .faq summary::-webkit-details-marker{ display:none; }
+  .faq summary::after{ content:"+"; float:right; color:var(--gold); font-size:18px; line-height:1; }
+  .faq details[open ] summary::after{ content:"–"; }
+  .faq details p{ margin:0; padding:0 16px 14px; font-size:13.5px; line-height:1.55; color:var(--ink); }
   footer{ background:var(--navy); color:#B9C4CE; margin-top:28px; padding:26px 18px; }
   .fin{ max-width:1120px; margin:0 auto; display:flex; flex-wrap:wrap; gap:22px; justify-content:space-between; font-size:13px; line-height:1.7; }
   .fin b{ color:var(--cream); display:block; margin-bottom:4px; letter-spacing:1px; }
@@ -217,10 +225,21 @@
   <div>✅ <b>Autenticidad verificada</b>Cada artículo se revisa antes de publicarse.</div>
   <div>🤝 <b>Trato directo</b>Sin intermediarios: compras directo al vendedor.</div>
 </div>
+<div class="faq" id="faq">
+  <h3>Preguntas frecuentes</h3>
+  <details><summary>¿Cómo compro?</summary><p>Agrega tus artículos al carrito y toca <b>Pagar</b>: el cobro se hace en la página segura de Stripe con tu tarjeta. Al terminar, recibes un correo de confirmación con tu <b>número de orden</b>.</p></details>
+  <details><summary>¿Cuánto cuesta el envío?</summary><p>Depende del valor total de tu orden: menos de $200 → <b>$12</b> · de $200 a $999 → <b>$25</b> · $1,000 o más → <b>$39</b>. Siempre es envío <b>asegurado y con firma</b>, y tarda de 2 a 5 días laborables.</p></details>
+  <details><summary>¿Puedo recoger en persona?</summary><p>Sí. Al pagar elige <b>📍 Recoger</b> — no tiene costo — y te contactamos por correo para coordinar el día y la hora en Miami, Florida.</p></details>
+  <details><summary>¿Cómo sigo mi orden?</summary><p>Con el botón <b>📦 "Estado de tu orden"</b> en la parte superior de esta página, usando tu número de orden y tu correo. Cuando tu orden salga, ahí mismo verás el enlace de rastreo.</p></details>
+  <details><summary>¿Los artículos son auténticos?</summary><p>Sí. Cada pieza se <b>revisa y verifica antes de publicarse</b>, y se vende tal como se muestra en las fotos. Son artículos únicos: cuando se venden, desaparecen de la tienda.</p></details>
+  <details><summary>¿Qué pasa si mi orden llega dañada o diferente a lo descrito?</summary><p>Escríbenos con tu número de orden apenas la recibas y lo resolvemos contigo directamente. Guarda la caja y el empaque hasta que cerremos el caso.</p></details>
+  <details><summary>¿Hacen envíos fuera de Estados Unidos?</summary><p>Por ahora solo enviamos <b>dentro de Estados Unidos</b>.</p></details>
+  <details><summary>¿Puedo dejar un review de mi compra?</summary><p>¡Claro! Cuando tu orden se entregue, te llega un correo con el enlace para dejar tu review. También puedes escribirlo en la página del artículo, en la sección <b>"Comentarios de clientes"</b>.</p></details>
+</div>
 <footer>
   <div class="fin">
     <div><b>SEÑOR REY STORE</b>Venta directa de productos seleccionados<br>Miami, Florida</div>
-    <div><b>AYUDA</b>Cómo comprar<br>Envíos y entregas<br>Preguntas frecuentes</div>
+    <div><b>AYUDA</b>Cómo comprar<br>Envíos y entregas<br><a href="#faq" style="color:inherit">Preguntas frecuentes</a></div>
     <div><b>CONTACTO</b>Escríbenos antes de comprar<br>y confirmamos cada detalle.</div>
   </div>
   <div class="pay">ACEPTAMOS VISA · MASTERCARD · AMEX · DISCOVER · APPLE PAY — VÍA STRIPE</div>
