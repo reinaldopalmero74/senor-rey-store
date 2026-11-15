@@ -231,17 +231,21 @@ function updateCart(){
     '<small>Cada artículo es único. El pago se procesa seguro en Stripe.</small>' +
     '<button class="buy" onclick="checkout()">Pagar ahora</button><div class="notice" id="cnotice"></div>';
 }
-function checkout(){
-  if (cart.length === 1) { const p = PRODUCTS.find(x => x.id === cart[0]); if (p && p.link) { window.location = p.link; return; } }
-  const n = document.getElementById('cnotice'); if (!n) return;
-  n.style.display = 'block';
-  n.textContent = cart.length > 1
-    ? 'El pago combinado de varios artículos se activa con la función de cobro del servidor (un solo pago por todo el carrito). Mientras tanto, cada artículo se puede pagar individual con "Comprar ahora".'
-    : 'Este artículo aún no tiene link de pago activo.';
+async function checkout(){
+  const n = document.getElementById('cnotice');
+  try {
+    const r = await fetch('https://lewfysgyapmqlhkwxlwo.supabase.co/functions/v1/store-checkout', { method:'POST', headers:{ 'Content-Type':'application/json' }, body: JSON.stringify({ items: cart }) });
+    const d = await r.json();
+    if (d.url) { window.location = d.url; return; }
+    throw new Error(d.error || 'error');
+  } catch(e) {
+    if (n) { n.style.display = 'block'; n.textContent = 'No se pudo abrir el pago combinado. Cada artículo también se puede pagar individual con "Comprar ahora" en su página.'; }
+  }
 }
 function openCart(){ updateCart(); document.getElementById('drawer').classList.add('open'); document.getElementById('backdrop').classList.add('open'); }
 function closeCart(){ document.getElementById('drawer').classList.remove('open'); document.getElementById('backdrop').classList.remove('open'); }
 render();
+if (new URLSearchParams(location.search).get('pago') === 'ok') { const t = document.getElementById('toast'); t.textContent = '¡Pago completado! Gracias por tu compra ✓'; t.classList.add('show'); setTimeout(() => t.classList.remove('show'), 4000); }
 </script>
 </body>
 </html>
