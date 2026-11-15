@@ -140,6 +140,24 @@
   .notice{ background:var(--paper); border:1px solid var(--line); border-radius:8px; padding:10px 12px; font-size:13px; line-height:1.55; margin-top:10px; display:none; }
   .toast{ position:fixed; left:50%; bottom:22px; transform:translateX(-50%) translateY(80px); background:var(--navy); color:var(--cream); padding:12px 20px; border-radius:24px; font-size:14px; z-index:70; transition:transform .3s; box-shadow:0 6px 20px rgba(0,0,0,.3); }
   .toast.show{ transform:translateX(-50%); }
+
+  .dmethod{ border:1px solid #e3e7ee; border-radius:10px; padding:10px 12px; margin-bottom:10px; }
+  .dmethod .dm-t{ font-weight:700; margin-bottom:6px; }
+  .dmethod label{ display:inline-flex; align-items:center; gap:5px; margin-right:14px; cursor:pointer; }
+  .dmethod .dm-note{ font-size:12px; color:#5a6a7d; margin-top:6px; }
+  #confirmbox .cf-in{ background:#eaf7ee; border:1px solid #bfe6cc; border-radius:12px; padding:16px 18px; }
+  .cf-t{ font-size:19px; font-weight:800; } .cf-n{ font-size:17px; margin-top:4px; } .cf-s{ color:#33503c; margin-top:4px; font-size:14px; }
+  .omodal{ position:fixed; inset:0; background:rgba(8,15,24,.7); z-index:90; display:none; align-items:flex-start; justify-content:center; padding:40px 14px; overflow:auto; }
+  .omodal.open{ display:flex; }
+  .ocard{ background:#fff; border-radius:14px; max-width:420px; width:100%; padding:20px; position:relative; box-sizing:border-box; }
+  .ocard h3{ margin:0 0 12px; }
+  .ocard input{ width:100%; box-sizing:border-box; padding:10px 12px; margin-bottom:10px; border:1px solid #ccd4de; border-radius:8px; font-size:15px; }
+  .ocard .ox{ position:absolute; top:10px; right:12px; background:none; border:0; font-size:18px; cursor:pointer; }
+  .oresult{ margin-top:14px; } .o-num{ font-size:16px; } .o-items{ color:#44505c; margin:4px 0 10px; font-size:14px; }
+  .steps{ display:flex; gap:6px; margin:10px 0; }
+  .step{ flex:1; text-align:center; font-size:12px; color:#8a97a5; border-top:3px solid #dde3ea; padding-top:6px; }
+  .step.on{ color:#127a3e; border-color:#127a3e; font-weight:700; }
+  .o-track{ margin-top:8px; } .o-err{ color:#b3261e; } .o-note{ margin-top:8px; color:#33503c; }
 </style>
 </head>
 <body>
@@ -147,7 +165,7 @@
 <div class="shopbar">
   <div class="logo" onclick="window.scrollTo({top:0,behavior:'smooth'})">SEÑOR <span>REY</span> STORE</div>
   <div class="search"><input id="q" type="search" placeholder="Buscar en la tienda…"><button id="qbtn" aria-label="Buscar">🔍</button></div>
-  <div class="icons"><a title="Mi cuenta">👤</a><a title="Carrito" onclick="openCart()">🛒<span class="cartn" id="cartn">0</span></a></div>
+  <div class="icons"><a title="Estado de mi orden" onclick="openOrder()">📦</a><a title="Carrito" onclick="openCart()">🛒<span class="cartn" id="cartn">0</span></a></div>
 </div>
 <nav class="cats" id="cats"></nav>
 <section class="hero">
@@ -155,6 +173,7 @@
   <p>De todo un poco, vendido por su dueño y sin intermediarios ni fees de marketplace. Cada artículo es único: cuando se vende, desaparece.</p>
   <a href="#productos">Ver productos</a>
 </section>
+<div class="wrap" id="confirmbox" style="display:none"></div>
 <div class="wrap" id="productos">
   <div class="secrow"><h3>Productos destacados</h3><span id="count"></span></div>
   <div class="toolbar">
@@ -197,6 +216,16 @@
   <div class="citems" id="citems"></div>
   <div class="cfoot" id="cfoot"></div>
 </aside>
+<div class="omodal" id="omodal" onclick="if(event.target===this)closeOrder()">
+  <div class="ocard">
+    <button class="ox" onclick="closeOrder()">✕</button>
+    <h3>📦 Estado de tu orden</h3>
+    <input id="onum" placeholder="Número de orden (ej. SRS-1001)" autocomplete="off">
+    <input id="oemail" type="email" placeholder="Tu email de compra">
+    <button class="buy" onclick="lookupOrder()">Ver estado</button>
+    <div class="oresult" id="oresult"></div>
+  </div>
+</div>
 <div class="lightbox" id="lightbox" onclick="this.classList.remove('open')"><img id="lightimg" alt=""></div>
 <div class="toast" id="toast">Añadido al carrito ✓</div>
 
@@ -346,6 +375,14 @@ async function postComment(id){
   } catch(e) { err.style.display = 'block'; err.textContent = 'No se pudo publicar. Inténtalo de nuevo.'; }
 }
 /* ===== Carrito ===== */
+let delivery = 'shipping';
+function setDelivery(m){ delivery = m; updateCart(); }
+function dmethodHTML(){
+  return '<div class="dmethod"><div class="dm-t">¿Cómo lo recibes?</div>' +
+  '<label><input type="radio" name="dmethod" value="shipping"' + (delivery === 'shipping' ? ' checked' : '') + ' onchange="setDelivery(\'shipping\')"> 🚚 Envío</label>' +
+  '<label><input type="radio" name="dmethod" value="pickup"' + (delivery === 'pickup' ? ' checked' : '') + ' onchange="setDelivery(\'pickup\')"> 📍 Recoger</label>' +
+  '<div class="dm-note">' + (delivery === 'pickup' ? 'Recoges en persona en Miami. Coordinamos el punto por mensaje tras la compra.' : 'Envío asegurado con firma a todo EE. UU.') + '</div></div>';
+}
 function toast(msg){ const t = document.getElementById('toast'); t.textContent = msg; t.classList.add('show'); setTimeout(() => t.classList.remove('show'), 1800); }
 function addToCart(id){
   const p = PRODUCTS.find(x => x.id === id); if (p && isSold(p)) { toast('Ese artículo ya se vendió'); return; }
@@ -361,14 +398,14 @@ function updateCart(){
   box.innerHTML = cart.map(id => { const p = PRODUCTS.find(x => x.id === id); return '' +
     '<div class="citem"><img src="' + (p.photos[0] || '') + '"><div class="nm">' + p.brand + ' — ' + p.name + '<div class="pr">' + money(p.price) + '</div></div>' +
     '<button onclick="removeFromCart(\'' + id + '\')" title="Quitar">✕</button></div>'; }).join('');
-  foot.innerHTML = '<div class="row total"><span>Total</span><span>' + money(cartTotal()) + '</span></div>' +
+  foot.innerHTML = dmethodHTML() + '<div class="row total"><span>Total</span><span>' + money(cartTotal()) + '</span></div>' +
     '<small>Cada artículo es único. El pago se procesa seguro en Stripe.</small>' +
     '<button class="buy" onclick="checkout()">Pagar ahora</button><div class="notice" id="cnotice"></div>';
 }
 async function checkout(){
   const n = document.getElementById('cnotice');
   try {
-    const r = await fetch(FN + 'store-checkout', { method:'POST', headers:{ 'Content-Type':'application/json' }, body: JSON.stringify({ items: cart }) });
+    const r = await fetch(FN + 'store-checkout', { method:'POST', headers:{ 'Content-Type':'application/json' }, body: JSON.stringify({ items: cart, method: delivery }) });
     const d = await r.json();
     if (d.url) { window.location = d.url; return; }
     if (d.error === 'sold_out') { await loadSold(); cart = cart.filter(id => !SOLD.has(id)); updateCart(); render(); throw new Error('sold'); }
@@ -379,6 +416,42 @@ async function checkout(){
 }
 function openCart(){ updateCart(); document.getElementById('drawer').classList.add('open'); document.getElementById('backdrop').classList.add('open'); }
 function closeCart(){ document.getElementById('drawer').classList.remove('open'); document.getElementById('backdrop').classList.remove('open'); }
+/* ===== Órdenes: confirmación y consulta de estado ===== */
+function openOrder(){ document.getElementById('omodal').classList.add('open'); }
+function closeOrder(){ document.getElementById('omodal').classList.remove('open'); }
+function statusHTML(o){
+  const steps = o.method === 'pickup' ? ['Pagada', 'Lista para recoger', 'Entregada'] : ['Pagada', 'Enviada', 'Entregada'];
+  const idx = o.method === 'pickup' ? ({ paid:0, ready:1, picked_up:2 }[o.status] ?? 0) : ({ paid:0, shipped:1, delivered:2 }[o.status] ?? 0);
+  let h = '<div class="o-num">Orden <b>' + esc(o.order_number) + '</b> · ' + money(o.total_cents / 100) + '</div>';
+  h += '<div class="o-items">' + (o.items || []).map(i => esc(i.name || i.id)).join('<br>') + '</div>';
+  h += '<div class="steps">' + steps.map((t, i) => '<div class="step' + (i <= idx ? ' on' : '') + '"><span>' + (i <= idx ? '●' : '○') + '</span><br>' + t + '</div>').join('') + '</div>';
+  if (o.tracking_number) h += '<div class="o-track">Rastreo: ' + (o.tracking_url ? '<a href="' + o.tracking_url + '" target="_blank" rel="noopener">' + esc(o.tracking_number) + '</a>' : esc(o.tracking_number)) + (o.carrier ? ' (' + esc(String(o.carrier).toUpperCase()) + ')' : '') + '</div>';
+  if (o.method === 'pickup' && o.status === 'paid') h += '<div class="o-note">Te contactaremos para coordinar la recogida.</div>';
+  return h;
+}
+async function lookupOrder(){
+  const out = document.getElementById('oresult');
+  out.innerHTML = 'Buscando…';
+  try {
+    const r = await fetch(FN + 'store-orders', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ order: document.getElementById('onum').value, email: document.getElementById('oemail').value }) });
+    if (!r.ok) throw 0;
+    out.innerHTML = statusHTML(await r.json());
+  } catch(e) { out.innerHTML = '<div class="o-err">No encontramos esa orden con ese email. Revisa los datos e inténtalo de nuevo.</div>'; }
+}
+async function showConfirmation(ses){
+  const box = document.getElementById('confirmbox');
+  try {
+    const r = await fetch(FN + 'store-orders?session=' + encodeURIComponent(ses));
+    if (!r.ok) throw 0;
+    const o = await r.json();
+    box.innerHTML = '<div class="cf-in"><div class="cf-t">✅ ¡Pago completado!</div>' +
+      '<div class="cf-n">Tu número de orden es <b>' + esc(o.order_number) + '</b></div>' +
+      '<div class="cf-s">' + (o.method === 'pickup' ? '📍 Recogida en persona — te contactaremos para coordinar.' : '📦 Envío — te avisaremos cuando salga, con tu número de rastreo.') + '</div>' +
+      '<div class="cf-s">Guarda tu número: con él y tu email puedes ver el estado tocando 📦 arriba a la derecha.</div></div>';
+    box.style.display = 'block';
+    box.scrollIntoView({ behavior: 'smooth' });
+  } catch(e) { toast('¡Pago completado! Gracias por tu compra ✓'); }
+}
 /* ===== Estado de vendidos (servidor) + arranque ===== */
 async function loadSold(){
   try { const r = await fetch(FN + 'store-status'); const d = await r.json(); SOLD = new Set(d.sold || []); } catch(e) {}
@@ -392,7 +465,8 @@ document.getElementById('vlist').onclick = () => { view = 'list'; document.getEl
 q.addEventListener('input', render);
 document.getElementById('qbtn').onclick = render;
 (async () => { await loadSold(); render();
-  if (new URLSearchParams(location.search).get('pago') === 'ok') toast('¡Pago completado! Gracias por tu compra ✓');
+  const qs = new URLSearchParams(location.search);
+  if (qs.get('pago') === 'ok') { cart = []; updateCart(); if (qs.get('sesion')) showConfirmation(qs.get('sesion')); else toast('¡Pago completado! Gracias por tu compra ✓'); setTimeout(async () => { await loadSold(); render(); }, 3000); }
   const h = location.hash.replace('#', ''); if (h && PRODUCTS.some(p => p.id === h)) openDetail(h);
 })();
 </script>
