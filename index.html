@@ -73,6 +73,19 @@
   .heart{ position:absolute; top:8px; right:8px; background:rgba(255,255,255,.92); border:0; width:34px; height:34px; border-radius:50%; font-size:16px; cursor:pointer; color:#B0BEC9; box-shadow:0 1px 5px rgba(0,0,0,.18); }
   .heart.on{ color:#C0392B; }
   .quickadd{ margin-top:8px; }
+
+  /* ===== Comentarios ===== */
+  .comments{ grid-column:1 / -1; background:#fff; border:1px solid var(--line); border-radius:14px; padding:18px; margin-top:6px; }
+  .comments h3{ font-family:Georgia,serif; font-weight:normal; font-size:20px; margin-bottom:12px; }
+  .comment{ border-top:1px solid var(--line); padding:12px 0; }
+  .comment:first-of-type{ border-top:0; }
+  .comment .who{ font-weight:bold; font-size:14px; }
+  .comment .when{ color:var(--mut); font-size:12px; margin-left:8px; }
+  .comment .txt{ font-size:14.5px; line-height:1.5; margin-top:4px; }
+  .cform{ border-top:1px solid var(--line); margin-top:14px; padding-top:14px; display:grid; gap:9px; }
+  .cform input, .cform textarea, .cform select{ padding:10px 12px; border:1px solid var(--line); border-radius:9px; font-size:14.5px; font-family:inherit; width:100%; }
+  .cform textarea{ min-height:74px; resize:vertical; }
+  .cempty{ color:var(--mut); font-size:14px; padding:8px 0; }
   /* ===== Lightbox ===== */
   .lightbox{ position:fixed; inset:0; background:rgba(8,15,24,.94); z-index:80; display:none; align-items:center; justify-content:center; cursor:zoom-out; }
   .lightbox.open{ display:flex; }
@@ -106,7 +119,37 @@
   .desc{ font-size:15px; line-height:1.65; color:#3D4C59; margin:12px 0; white-space:pre-line; }
   .meta{ font-size:13.5px; color:var(--mut); line-height:1.8; border-top:1px solid var(--line); border-bottom:1px solid var(--line); padding:10px 0; margin:12px 0 16px; }
   .btnrow{ display:flex; flex-direction:column; gap:10px; }
-  /* ===== Carrito ===== */
+  /* ===== Comentarios ===== */
+function esc(t){ return String(t).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c])); }
+function commentHTML(c){
+  const f = new Date(c.created_at).toLocaleDateString('es-US', { day:'numeric', month:'short', year:'numeric' });
+  return '<div class="comment"><span class="who">' + esc(c.name) + '</span><span class="when">' + f + '</span>' +
+    '<div class="stars">' + '★'.repeat(c.rating) + '☆'.repeat(5 - c.rating) + '</div><div class="txt">' + esc(c.body) + '</div></div>';
+}
+async function loadComments(id){
+  const box = document.getElementById('clist'); if (!box) return;
+  try {
+    const r = await fetch(FN + 'store-comments?item=' + encodeURIComponent(id));
+    const d = await r.json();
+    box.innerHTML = (d.comments && d.comments.length) ? d.comments.map(commentHTML).join('') : '<div class="cempty">Sé el primero en comentar este producto.</div>';
+  } catch(e) { box.innerHTML = '<div class="cempty">Los comentarios no cargaron en este momento.</div>'; }
+}
+async function postComment(id){
+  const name = document.getElementById('cname').value.trim(), body = document.getElementById('cbody').value.trim(),
+        rating = document.getElementById('crating').value, err = document.getElementById('cerr');
+  if (!name || !body) { err.style.display = 'block'; err.textContent = 'Escribe tu nombre y el comentario.'; return; }
+  try {
+    const r = await fetch(FN + 'store-comments', { method:'POST', headers:{ 'Content-Type':'application/json' }, body: JSON.stringify({ item: id, name, rating: Number(rating), body }) });
+    const d = await r.json();
+    if (!d.comment) throw new Error(d.error || 'error');
+    const box = document.getElementById('clist');
+    if (box.querySelector('.cempty')) box.innerHTML = '';
+    box.insertAdjacentHTML('afterbegin', commentHTML(d.comment));
+    document.getElementById('cbody').value = '';
+    toast('Comentario publicado ✓');
+  } catch(e) { err.style.display = 'block'; err.textContent = 'No se pudo publicar. Inténtalo de nuevo.'; }
+}
+/* ===== Carrito ===== */
   .backdrop{ position:fixed; inset:0; background:rgba(10,20,32,.5); z-index:60; display:none; }
   .backdrop.open{ display:block; }
   .drawer{ position:fixed; top:0; right:0; bottom:0; width:min(380px,92vw); background:#fff; z-index:61; transform:translateX(105%); transition:transform .25s; display:flex; flex-direction:column; box-shadow:-6px 0 24px rgba(0,0,0,.25); }
@@ -278,7 +321,13 @@ function openDetail(id, keep){
             (p.link ? '<button class="buy" onclick="window.location=\'' + p.link + '\'">Comprar ahora — pagar con tarjeta</button>' : '<button class="buy off">Disponible pronto</button>')) +
     '<button class="buy share" onclick="shareProduct(\'' + p.id + '\')">🔗 Compartir este producto</button>' +
     '<button class="buy share" onclick="toggleFav(\'' + p.id + '\')">' + (favs.has(p.id) ? '♥ En tus favoritos' : '♡ Añadir a favoritos') + '</button>' +
-    '</div></div>';
+    '</div></div>' +
+    '<div class="comments"><h3>Comentarios y reseñas</h3><div id="clist"><div class="cempty">Cargando…</div></div>' +
+    '<div class="cform"><input id="cname" maxlength="40" placeholder="Tu nombre">' +
+    '<select id="crating"><option value="5">★★★★★ — Excelente</option><option value="4">★★★★ — Muy bueno</option><option value="3">★★★ — Bueno</option><option value="2">★★ — Regular</option><option value="1">★ — Malo</option></select>' +
+    '<textarea id="cbody" maxlength="600" placeholder="Escribe tu comentario sobre este producto…"></textarea>' +
+    '<button class="buy navy" onclick="postComment(\'' + p.id + '\')">Publicar comentario</button><div class="notice" id="cerr"></div></div></div>';
+  loadComments(p.id);
   const rel = PRODUCTS.filter(x => x.id !== p.id && x.cat === p.cat).slice(0, 3);
   document.getElementById('rel').innerHTML = rel.length ? '<h3>También te puede interesar</h3><div class="relgrid">' +
     rel.map(r => '<div class="mini" onclick="openDetail(\'' + r.id + '\')"><img src="' + (r.photos[0] || '') + '"><div>' + r.brand + ' — ' + r.name + '<br><b>' + money(r.price) + '</b></div></div>').join('') + '</div>' : '';
