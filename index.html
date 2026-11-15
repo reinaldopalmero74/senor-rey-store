@@ -8,36 +8,31 @@
   :root{ --navy:#16283C; --navy2:#1D3247; --gold:#C9A227; --gold2:#E3C766; --cream:#FAF6EE; --paper:#F3ECDD; --ink:#22303C; --mut:#5A6B78; --red:#8A2B2B; --line:#E5DCC6; }
   *{ margin:0; padding:0; box-sizing:border-box; }
   body{ font-family:-apple-system,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif; background:var(--cream); color:var(--ink); }
-  /* Barra superior */
   .topbar{ background:var(--gold); color:var(--navy); text-align:center; font-size:12px; font-weight:700; letter-spacing:1.5px; padding:7px 10px; text-transform:uppercase; }
-  /* Header de tienda */
-  .shopbar{ position:sticky; top:0; z-index:10; background:var(--navy); color:var(--cream); display:flex; align-items:center; gap:14px; padding:12px 18px; box-shadow:0 2px 10px rgba(0,0,0,.25); }
-  .logo{ font-family:Georgia,serif; font-size:22px; letter-spacing:2px; white-space:nowrap; }
+  .shopbar{ position:sticky; top:0; z-index:30; background:var(--navy); color:var(--cream); display:flex; align-items:center; gap:14px; padding:12px 18px; box-shadow:0 2px 10px rgba(0,0,0,.25); }
+  .logo{ font-family:Georgia,serif; font-size:22px; letter-spacing:2px; white-space:nowrap; cursor:pointer; }
   .logo span{ color:var(--gold); }
   .search{ flex:1; max-width:520px; margin:0 auto; display:flex; background:#fff; border-radius:24px; overflow:hidden; }
-  .search input{ flex:1; border:0; padding:10px 16px; font-size:14px; outline:none; }
+  .search input{ flex:1; border:0; padding:10px 16px; font-size:14px; outline:none; min-width:0; }
   .search button{ border:0; background:var(--gold); color:var(--navy); padding:0 18px; font-size:16px; cursor:pointer; }
   .icons{ display:flex; gap:16px; font-size:20px; }
-  .icons a{ color:var(--cream); text-decoration:none; position:relative; }
+  .icons a{ color:var(--cream); text-decoration:none; position:relative; cursor:pointer; }
   .cartn{ position:absolute; top:-7px; right:-10px; background:var(--gold); color:var(--navy); font-size:10px; font-weight:800; border-radius:50%; width:17px; height:17px; display:flex; align-items:center; justify-content:center; }
-  /* Categorías */
   .cats{ background:var(--navy2); display:flex; gap:8px; padding:10px 18px; overflow-x:auto; }
   .chip{ border:1px solid #3D546E; background:transparent; color:#C9D4DE; padding:7px 16px; border-radius:20px; font-size:13px; cursor:pointer; white-space:nowrap; }
   .chip.on{ background:var(--gold); border-color:var(--gold); color:var(--navy); font-weight:700; }
-  /* Hero */
   .hero{ background:linear-gradient(120deg,var(--navy) 55%,#274b6d); color:var(--cream); text-align:center; padding:40px 18px 34px; }
   .hero h2{ font-family:Georgia,serif; font-weight:normal; font-size:32px; line-height:1.25; }
   .hero h2 em{ color:var(--gold2); font-style:normal; }
   .hero p{ color:#B9C4CE; margin:10px auto 18px; max-width:520px; font-size:15px; line-height:1.55; }
   .hero a{ background:var(--gold); color:var(--navy); font-weight:800; text-decoration:none; padding:12px 26px; border-radius:26px; display:inline-block; }
-  /* Grid */
   .wrap{ max-width:1120px; margin:0 auto; padding:24px 18px 6px; }
   .secrow{ display:flex; justify-content:space-between; align-items:baseline; margin-bottom:14px; }
   .secrow h3{ font-family:Georgia,serif; font-weight:normal; font-size:23px; }
   .secrow span{ color:var(--mut); font-size:13px; }
   .grid{ display:grid; grid-template-columns:repeat(auto-fill,minmax(230px,1fr)); gap:18px; }
   @media (max-width:560px){ .grid{ grid-template-columns:repeat(2,1fr); gap:12px; } .logo{ font-size:17px; } .hero h2{ font-size:25px; } }
-  .card{ background:#fff; border:1px solid var(--line); border-radius:12px; overflow:hidden; display:flex; flex-direction:column; box-shadow:0 2px 8px rgba(22,40,60,.06); transition:transform .15s, box-shadow .15s; }
+  .card{ background:#fff; border:1px solid var(--line); border-radius:12px; overflow:hidden; display:flex; flex-direction:column; box-shadow:0 2px 8px rgba(22,40,60,.06); transition:transform .15s, box-shadow .15s; cursor:pointer; }
   .card:hover{ transform:translateY(-3px); box-shadow:0 8px 20px rgba(22,40,60,.13); }
   .ph{ position:relative; aspect-ratio:1/1; background:var(--paper); }
   .ph img{ width:100%; height:100%; object-fit:cover; display:block; }
@@ -52,26 +47,66 @@
   .pricerow{ margin-top:auto; padding-top:6px; display:flex; align-items:baseline; gap:8px; }
   .price{ font-size:19px; font-weight:800; color:var(--navy); }
   .was{ font-size:13.5px; color:#9AA7B1; text-decoration:line-through; }
-  .buy{ display:block; text-align:center; background:var(--gold); color:var(--navy); text-decoration:none; font-weight:800; font-size:14px; padding:11px; border-radius:8px; margin-top:9px; }
+  .buy{ display:block; text-align:center; background:var(--gold); color:var(--navy); text-decoration:none; font-weight:800; font-size:14px; padding:11px; border-radius:8px; margin-top:9px; border:0; cursor:pointer; width:100%; }
+  .buy.navy{ background:var(--navy); color:var(--cream); }
   .buy.off{ background:#D8D2C2; color:#7A7462; pointer-events:none; }
-  .empty{ text-align:center; color:var(--mut); padding:34px 0; display:none; }
-  /* Confianza */
+  .empty{ text-align:center; color:var(--mut); padding:34px 0; display:none; line-height:1.7; }
   .trust{ display:grid; grid-template-columns:repeat(auto-fit,minmax(200px,1fr)); gap:14px; max-width:1120px; margin:26px auto 8px; padding:0 18px; }
   .trust div{ background:#fff; border:1px solid var(--line); border-radius:10px; padding:14px 16px; font-size:13.5px; line-height:1.5; }
   .trust b{ display:block; font-size:14.5px; margin-bottom:2px; }
-  /* Footer */
   footer{ background:var(--navy); color:#B9C4CE; margin-top:28px; padding:26px 18px; }
   .fin{ max-width:1120px; margin:0 auto; display:flex; flex-wrap:wrap; gap:22px; justify-content:space-between; font-size:13px; line-height:1.7; }
   .fin b{ color:var(--cream); display:block; margin-bottom:4px; letter-spacing:1px; }
   .pay{ text-align:center; border-top:1px solid #2A4258; margin-top:18px; padding-top:14px; font-size:12.5px; letter-spacing:1px; }
+  /* ===== Vista de producto ===== */
+  .sheet{ position:fixed; inset:0; z-index:50; background:var(--cream); overflow-y:auto; display:none; }
+  .sheet.open{ display:block; }
+  .sheetbar{ position:sticky; top:0; background:var(--navy); color:var(--cream); display:flex; align-items:center; gap:12px; padding:12px 18px; z-index:2; }
+  .sheetbar button{ background:none; border:0; color:var(--cream); font-size:20px; cursor:pointer; }
+  .sheetbar div{ font-family:Georgia,serif; letter-spacing:1.5px; font-size:15px; }
+  .detail{ max-width:1020px; margin:0 auto; padding:20px 18px 34px; display:grid; grid-template-columns:1fr 1fr; gap:26px; }
+  @media (max-width:760px){ .detail{ grid-template-columns:1fr; } }
+  .gal .main{ aspect-ratio:1/1; background:var(--paper); border-radius:12px; overflow:hidden; border:1px solid var(--line); }
+  .gal .main img{ width:100%; height:100%; object-fit:cover; display:block; }
+  .thumbs{ display:flex; gap:8px; margin-top:10px; flex-wrap:wrap; }
+  .thumbs img{ width:64px; height:64px; object-fit:cover; border-radius:8px; border:2px solid transparent; cursor:pointer; }
+  .thumbs img.on{ border-color:var(--gold); }
+  .info h2{ font-family:Georgia,serif; font-weight:normal; font-size:26px; line-height:1.3; margin:4px 0 6px; }
+  .info .pricerow{ margin:10px 0 4px; }
+  .info .price{ font-size:27px; }
+  .info .was{ font-size:16px; }
+  .desc{ font-size:15px; line-height:1.65; color:#3D4C59; margin:12px 0; white-space:pre-line; }
+  .meta{ font-size:13.5px; color:var(--mut); line-height:1.8; border-top:1px solid var(--line); border-bottom:1px solid var(--line); padding:10px 0; margin:12px 0 16px; }
+  .btnrow{ display:flex; flex-direction:column; gap:10px; }
+  /* ===== Carrito ===== */
+  .backdrop{ position:fixed; inset:0; background:rgba(10,20,32,.5); z-index:60; display:none; }
+  .backdrop.open{ display:block; }
+  .drawer{ position:fixed; top:0; right:0; bottom:0; width:min(380px,92vw); background:#fff; z-index:61; transform:translateX(105%); transition:transform .25s; display:flex; flex-direction:column; box-shadow:-6px 0 24px rgba(0,0,0,.25); }
+  .drawer.open{ transform:none; }
+  .drawer header{ background:var(--navy); color:var(--cream); padding:15px 18px; display:flex; justify-content:space-between; align-items:center; font-family:Georgia,serif; letter-spacing:1px; }
+  .drawer header button{ background:none; border:0; color:var(--cream); font-size:20px; cursor:pointer; }
+  .citems{ flex:1; overflow-y:auto; padding:14px 16px; display:flex; flex-direction:column; gap:12px; }
+  .citem{ display:flex; gap:12px; border:1px solid var(--line); border-radius:10px; padding:10px; }
+  .citem img{ width:64px; height:64px; object-fit:cover; border-radius:8px; background:var(--paper); }
+  .citem .nm{ font-size:14px; font-weight:600; line-height:1.35; flex:1; }
+  .citem .pr{ font-weight:800; color:var(--navy); font-size:14.5px; margin-top:3px; }
+  .citem button{ background:none; border:0; color:var(--red); font-size:17px; cursor:pointer; align-self:flex-start; }
+  .cempty{ text-align:center; color:var(--mut); padding:30px 0; line-height:1.7; }
+  .cfoot{ border-top:1px solid var(--line); padding:15px 18px; }
+  .cfoot .row{ display:flex; justify-content:space-between; font-size:15px; margin-bottom:4px; }
+  .cfoot .row.total{ font-size:18px; font-weight:800; color:var(--navy); }
+  .cfoot small{ color:var(--mut); display:block; margin:6px 0 10px; line-height:1.5; }
+  .notice{ background:var(--paper); border:1px solid var(--line); border-radius:8px; padding:10px 12px; font-size:13px; line-height:1.55; margin-top:10px; display:none; }
+  .toast{ position:fixed; left:50%; bottom:22px; transform:translateX(-50%) translateY(80px); background:var(--navy); color:var(--cream); padding:12px 20px; border-radius:24px; font-size:14px; z-index:70; transition:transform .3s; box-shadow:0 6px 20px rgba(0,0,0,.3); }
+  .toast.show{ transform:translateX(-50%); }
 </style>
 </head>
 <body>
 <div class="topbar">Envío asegurado a todo EE. UU. · Pago seguro con tarjeta</div>
 <div class="shopbar">
-  <div class="logo">SEÑOR <span>REY</span> STORE</div>
+  <div class="logo" onclick="window.scrollTo({top:0,behavior:'smooth'})">SEÑOR <span>REY</span> STORE</div>
   <div class="search"><input id="q" type="search" placeholder="Buscar en la tienda…"><button id="qbtn" aria-label="Buscar">🔍</button></div>
-  <div class="icons"><a href="#" title="Mi cuenta">👤</a><a href="#" title="Carrito">🛒<span class="cartn">0</span></a></div>
+  <div class="icons"><a title="Mi cuenta">👤</a><a title="Carrito" onclick="openCart()">🛒<span class="cartn" id="cartn">0</span></a></div>
 </div>
 <nav class="cats" id="cats"></nav>
 <section class="hero">
@@ -98,20 +133,41 @@
   </div>
   <div class="pay">ACEPTAMOS VISA · MASTERCARD · AMEX · DISCOVER · APPLE PAY — VÍA STRIPE</div>
 </footer>
+
+<!-- Vista de producto -->
+<div class="sheet" id="sheet">
+  <div class="sheetbar"><button onclick="closeDetail()">←</button><div>SEÑOR REY STORE</div></div>
+  <div class="detail" id="detail"></div>
+</div>
+
+<!-- Carrito -->
+<div class="backdrop" id="backdrop" onclick="closeCart()"></div>
+<aside class="drawer" id="drawer">
+  <header><span>🛒 Tu carrito</span><button onclick="closeCart()">✕</button></header>
+  <div class="citems" id="citems"></div>
+  <div class="cfoot" id="cfoot"></div>
+</aside>
+<div class="toast" id="toast">Añadido al carrito ✓</div>
+
 <script>
-// ===== CATÁLOGO — añadir un producto = una línea aquí + su link de pago de Stripe =====
+// ===== CATÁLOGO — añadir un producto = un bloque aquí (fotos, descripción y su link de Stripe) =====
 const PRODUCTS = [
-  { brand:"Tiffany & Co.", name:"Victoria® Vine Climber Earrings — rose gold con diamantes", cat:"Joyería", price:4995, was:6400, badge:"Prueba", rating:"5.0 (1)", img:"assets/ejemplo-aretes.jpg", link:"https://buy.stripe.com/test_aFa28j261arEeq036pgMw00", status:"test" }
+  { id:"aretes-tiffany", brand:"Tiffany & Co.", name:"Victoria® Vine Climber Earrings — rose gold con diamantes", cat:"Joyería",
+    price:4995, was:6400, badge:"Prueba", rating:"5.0 (1)",
+    desc:"Aretes Tiffany Victoria® Vine Climber en oro rosa de 18K (Au750) con diamantes redondos y marquesa, aprox. 0.33 ct en total.\n\nNuevos, sin usar, en su caja azul original de Tiffany & Co. Cierres patentados de seguridad (Pat. No. 6,557,220). Grabados: ©Tiffany & Co. · Au750 · Pat. No. 6557220.\n\nPrecio de tienda: $6,400. Aquí, directo y sin intermediarios.",
+    meta:"Condición: Nuevo, sin usar · Incluye: caja original Tiffany · Envío: asegurado, con firma",
+    photos:["assets/ejemplo-aretes.jpg","assets/aretes-2.jpg","assets/aretes-3.jpg","assets/aretes-4.jpg","assets/aretes-5.jpg","assets/aretes-6.jpg","assets/aretes-7.jpg"],
+    link:"https://buy.stripe.com/test_aFa28j261arEeq036pgMw00", status:"test" }
 ];
-const CATS = ["Todos", ...new Set(PRODUCTS.map(p => p.cat))];
-// ======================================================================================
+// =================================================================================================
 const grid = document.getElementById('grid'), count = document.getElementById('count'),
-      empty = document.getElementById('empty'), catsEl = document.getElementById('cats'),
-      q = document.getElementById('q');
-let cat = "Todos";
+      emptyEl = document.getElementById('empty'), catsEl = document.getElementById('cats'), q = document.getElementById('q');
+const money = n => '$' + n.toLocaleString('en-US');
+let cat = "Todos", cart = [];
+const CATS = ["Todos", ...new Set(PRODUCTS.map(p => p.cat))];
 CATS.forEach(c => { const b = document.createElement('button'); b.className = 'chip' + (c === cat ? ' on' : ''); b.textContent = c;
   b.onclick = () => { cat = c; catsEl.querySelectorAll('.chip').forEach(x => x.classList.toggle('on', x.textContent === c)); render(); }; catsEl.appendChild(b); });
-const money = n => '$' + n.toLocaleString('en-US');
+function stars(p){ return '<div class="stars">★★★★★ <b>' + p.rating + '</b></div>'; }
 function render(){
   const term = q.value.trim().toLowerCase(); grid.innerHTML = ''; let n = 0;
   for (const p of PRODUCTS) {
@@ -119,22 +175,72 @@ function render(){
     if (term && !(p.brand + ' ' + p.name).toLowerCase().includes(term)) continue;
     n++;
     const sold = p.status === 'sold';
-    const d = document.createElement('div'); d.className = 'card';
+    const d = document.createElement('div'); d.className = 'card'; d.onclick = () => openDetail(p.id);
     d.innerHTML =
-      '<div class="ph">' + (p.img ? '<img src="' + p.img + '" alt="">' : '') +
+      '<div class="ph">' + (p.photos && p.photos[0] ? '<img src="' + p.photos[0] + '" alt="">' : '') +
       (p.badge ? '<span class="badge' + (sold ? ' sold' : (p.badge.startsWith('-') ? ' off' : '')) + '">' + p.badge + '</span>' : '') + '</div>' +
-      '<div class="bd"><div class="brand">' + p.brand + '</div><h4>' + p.name + '</h4>' +
-      '<div class="stars">★★★★★ <b>' + p.rating + '</b></div>' +
+      '<div class="bd"><div class="brand">' + p.brand + '</div><h4>' + p.name + '</h4>' + stars(p) +
       '<div class="pricerow"><span class="price">' + money(p.price) + '</span>' + (p.was ? '<span class="was">' + money(p.was) + '</span>' : '') + '</div>' +
-      (sold ? '<a class="buy off">Vendido</a>' : (p.link ? '<a class="buy" href="' + p.link + '">Comprar ahora</a>' : '<a class="buy off">Disponible pronto</a>')) +
-      '</div>';
+      (sold ? '<a class="buy off">Vendido</a>' : '<a class="buy">Ver producto</a>') + '</div>';
     grid.appendChild(d);
   }
   count.textContent = n + (n === 1 ? ' producto' : ' productos');
-  empty.style.display = n ? 'none' : 'block';
+  emptyEl.style.display = n ? 'none' : 'block';
+  if (!PRODUCTS.length) emptyEl.innerHTML = 'La tienda está recibiendo sus primeros productos.<br>Vuelve pronto — cada artículo es único.';
+  else if (!n) emptyEl.textContent = 'Sin resultados para esa búsqueda.';
 }
 q.addEventListener('input', render);
 document.getElementById('qbtn').onclick = render;
+/* ===== Detalle de producto ===== */
+let current = null;
+function openDetail(id){
+  const p = PRODUCTS.find(x => x.id === id); if (!p) return; current = p;
+  const sold = p.status === 'sold';
+  document.getElementById('detail').innerHTML =
+    '<div class="gal"><div class="main"><img id="mainimg" src="' + (p.photos[0] || '') + '" alt=""></div>' +
+    '<div class="thumbs">' + p.photos.map((f, i) => '<img src="' + f + '" class="' + (i === 0 ? 'on' : '') + '" onclick="swap(this)">').join('') + '</div></div>' +
+    '<div class="info"><div class="brand">' + p.brand + '</div><h2>' + p.name + '</h2>' + stars(p) +
+    '<div class="pricerow"><span class="price">' + money(p.price) + '</span>' + (p.was ? '<span class="was">' + money(p.was) + '</span>' : '') + '</div>' +
+    '<div class="desc">' + p.desc + '</div><div class="meta">' + (p.meta || '') + '</div>' +
+    '<div class="btnrow">' +
+    (sold ? '<button class="buy off">Vendido</button>'
+          : '<button class="buy navy" onclick="addToCart(\'' + p.id + '\')">🛒 Añadir al carrito</button>' +
+            (p.link ? '<button class="buy" onclick="window.location=\'' + p.link + '\'">Comprar ahora — pagar con tarjeta</button>' : '<button class="buy off">Disponible pronto</button>')) +
+    '</div></div>';
+  document.getElementById('sheet').classList.add('open');
+  document.getElementById('sheet').scrollTop = 0;
+}
+function swap(el){ document.getElementById('mainimg').src = el.src; el.parentElement.querySelectorAll('img').forEach(i => i.classList.toggle('on', i === el)); }
+function closeDetail(){ document.getElementById('sheet').classList.remove('open'); }
+/* ===== Carrito ===== */
+function addToCart(id){
+  if (!cart.includes(id)) cart.push(id);
+  updateCart();
+  const t = document.getElementById('toast'); t.classList.add('show'); setTimeout(() => t.classList.remove('show'), 1600);
+}
+function removeFromCart(id){ cart = cart.filter(x => x !== id); updateCart(); }
+function cartTotal(){ return cart.reduce((s, id) => s + (PRODUCTS.find(p => p.id === id) || {price:0}).price, 0); }
+function updateCart(){
+  document.getElementById('cartn').textContent = cart.length;
+  const box = document.getElementById('citems'), foot = document.getElementById('cfoot');
+  if (!cart.length) { box.innerHTML = '<div class="cempty">Tu carrito está vacío.<br>Toca un producto para verlo y añadirlo.</div>'; foot.innerHTML = ''; return; }
+  box.innerHTML = cart.map(id => { const p = PRODUCTS.find(x => x.id === id); return '' +
+    '<div class="citem"><img src="' + (p.photos[0] || '') + '"><div class="nm">' + p.brand + ' — ' + p.name + '<div class="pr">' + money(p.price) + '</div></div>' +
+    '<button onclick="removeFromCart(\'' + id + '\')" title="Quitar">✕</button></div>'; }).join('');
+  foot.innerHTML = '<div class="row total"><span>Total</span><span>' + money(cartTotal()) + '</span></div>' +
+    '<small>Cada artículo es único. El pago se procesa seguro en Stripe.</small>' +
+    '<button class="buy" onclick="checkout()">Pagar ahora</button><div class="notice" id="cnotice"></div>';
+}
+function checkout(){
+  if (cart.length === 1) { const p = PRODUCTS.find(x => x.id === cart[0]); if (p && p.link) { window.location = p.link; return; } }
+  const n = document.getElementById('cnotice'); if (!n) return;
+  n.style.display = 'block';
+  n.textContent = cart.length > 1
+    ? 'El pago combinado de varios artículos se activa con la función de cobro del servidor (un solo pago por todo el carrito). Mientras tanto, cada artículo se puede pagar individual con "Comprar ahora".'
+    : 'Este artículo aún no tiene link de pago activo.';
+}
+function openCart(){ updateCart(); document.getElementById('drawer').classList.add('open'); document.getElementById('backdrop').classList.add('open'); }
+function closeCart(){ document.getElementById('drawer').classList.remove('open'); document.getElementById('backdrop').classList.remove('open'); }
 render();
 </script>
 </body>
