@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Señor Rey Marketplace — Venta directa</title>
+<title>Señor Rey Marketplace — Direct Sales</title>
 <style>
   :root{ --navy:#16283C; --navy2:#1D3247; --gold:#C9A227; --gold2:#E3C766; --cream:#FAF6EE; --paper:#F3ECDD; --ink:#22303C; --mut:#5A6B78; --red:#8A2B2B; --line:#E5DCC6; }
   *{ margin:0; padding:0; box-sizing:border-box; }
@@ -15,8 +15,11 @@
   .search{ flex:1; max-width:520px; margin:0 auto; display:flex; background:#fff; border-radius:24px; overflow:hidden; }
   .search input{ flex:1; border:0; padding:10px 16px; font-size:14px; outline:none; min-width:0; }
   .search button{ border:0; background:var(--gold); color:var(--navy); padding:0 18px; font-size:16px; cursor:pointer; }
-  .icons{ display:flex; gap:16px; font-size:20px; }
+  .icons{ display:flex; gap:16px; font-size:20px; align-items:center; }
   .icons a{ color:var(--cream); text-decoration:none; position:relative; cursor:pointer; }
+  .langsw{ display:flex; border:1px solid #3D546E; border-radius:16px; overflow:hidden; font-size:12px; font-weight:700; }
+  .langsw button{ background:transparent; border:0; color:#C9D4DE; padding:5px 10px; cursor:pointer; font-weight:700; }
+  .langsw button.on{ background:var(--gold); color:var(--navy); }
   .cartn{ position:absolute; top:-7px; right:-10px; background:var(--gold); color:var(--navy); font-size:10px; font-weight:800; border-radius:50%; width:17px; height:17px; display:flex; align-items:center; justify-content:center; }
   .cats{ background:var(--navy2); display:flex; gap:8px; padding:10px 18px; overflow-x:auto; }
   .chip{ border:1px solid #3D546E; background:transparent; color:#C9D4DE; padding:7px 16px; border-radius:20px; font-size:13px; cursor:pointer; white-space:nowrap; }
@@ -77,6 +80,7 @@
   footer{ background:var(--navy); color:#B9C4CE; margin-top:28px; padding:26px 18px; }
   .fin{ max-width:1120px; margin:0 auto; display:flex; flex-wrap:wrap; gap:22px; justify-content:space-between; font-size:13px; line-height:1.7; }
   .fin b{ color:var(--cream); display:block; margin-bottom:4px; letter-spacing:1px; }
+  .fin a{ color:inherit; }
   .pay{ text-align:center; border-top:1px solid #2A4258; margin-top:18px; padding-top:14px; font-size:12.5px; letter-spacing:1px; }
 
   /* ===== Barra de herramientas / vistas ===== */
@@ -205,57 +209,57 @@
 </style>
 </head>
 <body>
-<div class="topbar">Envío asegurado a todo EE. UU. · Pago seguro con tarjeta</div>
+<div class="topbar" data-i18n="topbar">Insured shipping across the U.S. · Secure card payments</div>
 <div class="shopbar">
   <div class="logo" onclick="window.scrollTo({top:0,behavior:'smooth'})">SEÑOR <span>REY</span> MARKETPLACE</div>
-  <div class="search"><input id="q" type="search" placeholder="Buscar en la tienda…"><button id="qbtn" aria-label="Buscar">🔍</button></div>
-  <div class="icons"><a title="Estado de mi orden" onclick="openOrder()">📦</a><a title="Carrito" onclick="openCart()">🛒<span class="cartn" id="cartn">0</span></a></div>
+  <div class="search"><input id="q" type="search" data-i18n-ph="searchPh" placeholder="Search the store…"><button id="qbtn" aria-label="Search">🔍</button></div>
+  <div class="icons"><span class="langsw"><button id="langEn" onclick="setLang('en')">EN</button><button id="langEs" onclick="setLang('es')">ES</button></span><a data-i18n-title="orderStatusTitle" title="Order status" onclick="openOrder()">📦</a><a data-i18n-title="cartTitleAttr" title="Cart" onclick="openCart()">🛒<span class="cartn" id="cartn">0</span></a></div>
 </div>
 <nav class="cats" id="cats"></nav>
 <section class="hero">
-  <h2>Piezas únicas. <em>Precios directos.</em></h2>
-  <p>De todo un poco, vendido por su dueño y sin intermediarios ni fees de marketplace. Cada artículo es único: cuando se vende, desaparece.</p>
-  <a href="#productos">Ver productos</a>
+  <h2 data-i18n="heroH">Unique pieces. <em>Direct prices.</em></h2>
+  <p data-i18n="heroP">A little of everything, sold by its owner — no middlemen, no marketplace fees. Every item is one of a kind: when it sells, it's gone.</p>
+  <a href="#productos" data-i18n="heroBtn">Shop products</a>
 </section>
 <div class="wrap" id="confirmbox" style="display:none"></div>
 <div class="wrap" id="productos">
-  <div class="secrow"><h3>Productos destacados</h3><span id="count"></span></div>
+  <div class="secrow"><h3 data-i18n="featured">Featured products</h3><span id="count"></span></div>
   <div class="toolbar">
-    <label>Ordenar <select id="sort"><option value="featured">Destacados</option><option value="price-asc">Precio: menor a mayor</option><option value="price-desc">Precio: mayor a menor</option><option value="name">Nombre A–Z</option></select></label>
-    <label>Precio máx. <select id="maxp"><option value="0">Sin límite</option><option value="500">$500</option><option value="1000">$1,000</option><option value="2500">$2,500</option><option value="5000">$5,000</option></select></label>
-    <label><input type="checkbox" id="hidesold"> Ocultar vendidos</label>
-    <button class="tbtn" id="favonly">♥ Favoritos</button>
-    <div class="views"><button class="tbtn on" id="vgrid" title="Vista en cuadrícula">▦</button><button class="tbtn" id="vlist" title="Vista en lista">☰</button></div>
+    <label><span data-i18n="sortLbl">Sort</span> <select id="sort"><option value="featured" data-i18n="sortFeatured">Featured</option><option value="price-asc" data-i18n="sortPriceAsc">Price: low to high</option><option value="price-desc" data-i18n="sortPriceDesc">Price: high to low</option><option value="name" data-i18n="sortName">Name A–Z</option></select></label>
+    <label><span data-i18n="maxpLbl">Max price</span> <select id="maxp"><option value="0" data-i18n="maxpNone">No limit</option><option value="500">$500</option><option value="1000">$1,000</option><option value="2500">$2,500</option><option value="5000">$5,000</option></select></label>
+    <label><input type="checkbox" id="hidesold"> <span data-i18n="hideSold">Hide sold</span></label>
+    <button class="tbtn" id="favonly">♥ <span data-i18n="favOnly">Favorites</span></button>
+    <div class="views"><button class="tbtn on" id="vgrid" data-i18n-title="viewGrid" title="Grid view">▦</button><button class="tbtn" id="vlist" data-i18n-title="viewList" title="List view">☰</button></div>
   </div>
   <div class="grid" id="grid"></div>
-  <div class="empty" id="empty">La tienda está recibiendo sus primeros productos.<br>Vuelve pronto — cada artículo es único.</div>
+  <div class="empty" id="empty"></div>
 </div>
-<div class="wrap" id="recentwrap" style="display:none"><div class="secrow"><h3>Vistos recientemente</h3></div><div class="relgrid" id="recent"></div></div>
+<div class="wrap" id="recentwrap" style="display:none"><div class="secrow"><h3 data-i18n="recent">Recently viewed</h3></div><div class="relgrid" id="recent"></div></div>
 <div class="trust">
-  <div>🔒 <b>Pago 100% seguro</b>Tu tarjeta se procesa en Stripe — nunca pasa por esta página.</div>
-  <div>📦 <b>Envío asegurado</b>Empaque discreto, con firma y seguro por el valor total.</div>
-  <div>✅ <b>Autenticidad verificada</b>Cada artículo se revisa antes de publicarse.</div>
-  <div>🤝 <b>Trato directo</b>Sin intermediarios: compras directo al vendedor.</div>
+  <div>🔒 <b data-i18n="trust1t">100% secure payment</b><span data-i18n="trust1">Your card is processed by Stripe — it never passes through this page.</span></div>
+  <div>📦 <b data-i18n="trust2t">Insured shipping</b><span data-i18n="trust2">Discreet packaging, with signature and insurance for the full value.</span></div>
+  <div>✅ <b data-i18n="trust3t">Verified authenticity</b><span data-i18n="trust3">Every item is inspected before it is listed.</span></div>
+  <div>🤝 <b data-i18n="trust4t">Direct deal</b><span data-i18n="trust4">No middlemen: you buy straight from the seller.</span></div>
 </div>
 <div class="faq" id="faq">
-  <h3>Preguntas frecuentes</h3>
-  <details><summary>¿Cómo compro?</summary><p>Agrega tus artículos al carrito y toca <b>Pagar</b>: el cobro se hace en la página segura de Stripe con tu tarjeta. Al terminar, recibes un correo de confirmación con tu <b>número de orden</b>.</p></details>
-  <details><summary>¿Cuánto cuesta el envío?</summary><p>Depende del valor total de tu orden: menos de $200 → <b>$12</b> · de $200 a $999 → <b>$25</b> · $1,000 o más → <b>$39</b>. Siempre es envío <b>asegurado y con firma</b>, y tarda de 2 a 5 días laborables.</p></details>
-  <details><summary>¿Puedo recoger en persona?</summary><p>Sí. Al pagar elige <b>📍 Recoger</b> — no tiene costo — y te contactamos por correo para coordinar el día y la hora en Miami, Florida.</p></details>
-  <details><summary>¿Cómo sigo mi orden?</summary><p>Con el botón <b>📦 "Estado de tu orden"</b> en la parte superior de esta página, usando tu número de orden y tu correo. Cuando tu orden salga, ahí mismo verás el enlace de rastreo.</p></details>
-  <details><summary>¿Los artículos son auténticos?</summary><p>Sí. Cada pieza se <b>revisa y verifica antes de publicarse</b>, y se vende tal como se muestra en las fotos. Son artículos únicos: cuando se venden, desaparecen de la tienda.</p></details>
-  <details><summary>¿Qué pasa si mi orden llega dañada o diferente a lo descrito?</summary><p>Escríbenos con tu número de orden apenas la recibas y lo resolvemos contigo directamente. Guarda la caja y el empaque hasta que cerremos el caso.</p></details>
-  <details><summary>¿Hacen envíos fuera de Estados Unidos?</summary><p>Por ahora solo enviamos <b>dentro de Estados Unidos</b>.</p></details>
-  <details><summary>¿Puedo dejar un review de mi compra?</summary><p>¡Claro! Cuando tu orden se entregue, te llega un correo con el enlace para dejar tu review. También puedes escribirlo en la página del artículo, en la sección <b>"Comentarios de clientes"</b>.</p></details>
+  <h3 data-i18n="faqH">Frequently asked questions</h3>
+  <details id="faq-buy"><summary data-i18n="faq1q">How do I buy?</summary><p data-i18n="faq1a">Add your items to the cart and tap <b>Pay</b>: checkout happens on Stripe's secure page with your card. When you finish, you'll receive a confirmation email with your <b>order number</b>.</p></details>
+  <details id="faq-ship"><summary data-i18n="faq2q">How much is shipping?</summary><p data-i18n="faq2a">It depends on your order total: under $200 → <b>$12</b> · $200 to $999 → <b>$25</b> · $1,000 or more → <b>$39</b>. Shipping is always <b>insured and signature-required</b>, and takes 2 to 5 business days.</p></details>
+  <details><summary data-i18n="faq3q">Can I pick up in person?</summary><p data-i18n="faq3a">Yes. At checkout choose <b>📍 Pickup</b> — it's free — and we'll email you to arrange the day and time in Miami, Florida.</p></details>
+  <details><summary data-i18n="faq4q">How do I track my order?</summary><p data-i18n="faq4a">With the <b>📦 "Order status"</b> button at the top of this page, using your order number and your email. When your order ships, the tracking link appears right there.</p></details>
+  <details><summary data-i18n="faq5q">Are the items authentic?</summary><p data-i18n="faq5a">Yes. Every piece is <b>inspected and verified before it is listed</b>, and sold exactly as shown in the photos. These are one-of-a-kind items: when they sell, they're gone from the store.</p></details>
+  <details><summary data-i18n="faq6q">What if my order arrives damaged or different from the description?</summary><p data-i18n="faq6a">Write to us with your order number as soon as you receive it and we'll resolve it with you directly. Keep the box and packaging until we close the case.</p></details>
+  <details><summary data-i18n="faq7q">Do you ship outside the United States?</summary><p data-i18n="faq7a">For now we only ship <b>within the United States</b>.</p></details>
+  <details><summary data-i18n="faq8q">Can I leave a review of my purchase?</summary><p data-i18n="faq8a">Of course! When your order is delivered, you'll get an email with the link to leave your review. You can also write it on the item's page, in the <b>"Customer comments"</b> section.</p></details>
 </div>
 <footer>
   <div class="fin">
-    <div><b>SEÑOR REY MARKETPLACE</b>Venta directa de productos seleccionados<br>Miami, Florida</div>
-    <div><b>AYUDA</b>Cómo comprar<br>Envíos y entregas<br><a href="#faq" style="color:inherit">Preguntas frecuentes</a></div>
-    <div><b>CONTACTO</b>Escríbenos antes de comprar<br>y confirmamos cada detalle.</div>
+    <div><b>SEÑOR REY MARKETPLACE</b><span data-i18n="footAbout">Direct sales of selected products</span><br>Miami, Florida</div>
+    <div><b data-i18n="footHelp">HELP</b><a href="#faq" onclick="openFaq('faq-buy')" data-i18n="footHow">How to buy</a><br><a href="#faq" onclick="openFaq('faq-ship')" data-i18n="footShip">Shipping &amp; delivery</a><br><a href="#faq" data-i18n="footFaq">Frequently asked questions</a></div>
+    <div><b data-i18n="footContact">CONTACT</b><span data-i18n="footContactTxt">Write to us before you buy and we'll confirm every detail.</span><br><a href="mailto:ventas@senorrey.com" style="color:var(--gold2)">ventas@senorrey.com</a></div>
   </div>
-  <div class="pay">ACEPTAMOS VISA · MASTERCARD · AMEX · DISCOVER · APPLE PAY — VÍA STRIPE</div>
-  <div style="text-align:center;padding:11px 10px 14px;font-size:12.5px;background:var(--navy)"><a href="terminos.html" style="color:var(--gold2)">Términos y condiciones</a> <span style="color:var(--cream);opacity:.6">·</span> <a href="privacidad.html" style="color:var(--gold2)">Política de privacidad</a> <span style="color:var(--cream);opacity:.6">·</span> <span style="color:var(--cream);opacity:.85">© 2026 Señor Rey Marketplace</span></div>
+  <div class="pay" data-i18n="payLine">WE ACCEPT VISA · MASTERCARD · AMEX · DISCOVER · APPLE PAY — VIA STRIPE</div>
+  <div style="text-align:center;padding:11px 10px 14px;font-size:12.5px;background:var(--navy)"><a href="terminos.html" style="color:var(--gold2)" data-i18n="termsLink">Terms &amp; conditions</a> <span style="color:var(--cream);opacity:.6">·</span> <a href="privacidad.html" style="color:var(--gold2)" data-i18n="privLink">Privacy policy</a> <span style="color:var(--cream);opacity:.6">·</span> <span style="color:var(--cream);opacity:.85">© 2026 Señor Rey Marketplace</span></div>
 </footer>
 
 <!-- Vista de producto -->
@@ -268,45 +272,136 @@
 <!-- Carrito -->
 <div class="backdrop" id="backdrop" onclick="closeCart()"></div>
 <aside class="drawer" id="drawer">
-  <header><span>🛒 Tu carrito</span><button onclick="closeCart()">✕</button></header>
+  <header><span>🛒 <span data-i18n="cartTitle">Your cart</span></span><button onclick="closeCart()">✕</button></header>
   <div class="citems" id="citems"></div>
   <div class="cfoot" id="cfoot"></div>
 </aside>
 <div class="omodal" id="omodal" onclick="if(event.target===this)closeOrder()">
   <div class="ocard">
     <button class="ox" onclick="closeOrder()">✕</button>
-    <h3>📦 Estado de tu orden</h3>
-    <input id="onum" placeholder="Número de orden (ej. SRS-1001)" autocomplete="off">
-    <input id="oemail" type="email" placeholder="Tu email de compra">
-    <button class="buy" onclick="lookupOrder()">Ver estado</button>
+    <h3>📦 <span data-i18n="orderTitle">Order status</span></h3>
+    <input id="onum" data-i18n-ph="orderNumPh" placeholder="Order number (e.g. SRM-1001)" autocomplete="off">
+    <input id="oemail" type="email" data-i18n-ph="orderEmailPh" placeholder="Your purchase email">
+    <button class="buy" onclick="lookupOrder()" data-i18n="orderBtn">Check status</button>
     <div class="oresult" id="oresult"></div>
   </div>
 </div>
 <div class="lightbox" id="lightbox" onclick="this.classList.remove('open')"><img id="lightimg" alt=""></div>
-<div class="toast" id="toast">Añadido al carrito ✓</div>
+<div class="toast" id="toast"></div>
 
 <script>
-// ===== CATÁLOGO — añadir un producto = un bloque aquí (fotos, descripción y su link de Stripe) =====
+// ===== CATÁLOGO — añadir un producto = un bloque aquí (name/desc/meta en EN + nameEs/descEs/metaEs) =====
 const PRODUCTS = [
-  { id:"aretes-tiffany", brand:"Tiffany & Co.", name:"Victoria® Vine Climber Earrings — rose gold con diamantes", cat:"Joyería",
+  { id:"aretes-tiffany", brand:"Tiffany & Co.", cat:"Joyería",
+    name:"Victoria® Vine Climber Earrings — rose gold with diamonds", nameEs:"Aretes Victoria® Vine Climber — oro rosa con diamantes",
     price:2675, was:6400, badge:"Prueba", rating:"",
-    desc:"Aretes Tiffany Victoria® Vine Climber en oro rosa de 18K (Au750) con diamantes redondos y marquesa, aprox. 0.33 ct en total.\n\nNuevos, sin usar, en su caja azul original de Tiffany & Co. Cierres patentados de seguridad (Pat. No. 6,557,220). Grabados: ©Tiffany & Co. · Au750 · Pat. No. 6557220.\n\nPrecio de tienda: $6,400. Aquí, directo y sin intermediarios.",
-    meta:"Condición: Nuevo, sin usar · Incluye: caja original Tiffany · Envío: asegurado, con firma",
+    desc:"Tiffany Victoria® Vine Climber earrings in 18K rose gold (Au750) with round and marquise diamonds, approx. 0.33 ct in total.\n\nNew, unworn, in their original Tiffany & Co. blue box. Patented security closures (Pat. No. 6,557,220). Engravings: ©Tiffany & Co. · Au750 · Pat. No. 6557220.\n\nRetail price: $6,400. Here, direct with no middlemen.",
+    descEs:"Aretes Tiffany Victoria® Vine Climber en oro rosa de 18K (Au750) con diamantes redondos y marquesa, aprox. 0.33 ct en total.\n\nNuevos, sin usar, en su caja azul original de Tiffany & Co. Cierres patentados de seguridad (Pat. No. 6,557,220). Grabados: ©Tiffany & Co. · Au750 · Pat. No. 6557220.\n\nPrecio de tienda: $6,400. Aquí, directo y sin intermediarios.",
+    meta:"Condition: New, unworn · Includes: original Tiffany box · Shipping: insured, signature required",
+    metaEs:"Condición: Nuevo, sin usar · Incluye: caja original Tiffany · Envío: asegurado, con firma",
     photos:["assets/ejemplo-aretes.jpg","assets/aretes-2.jpg","assets/aretes-3.jpg","assets/aretes-4.jpg","assets/aretes-5.jpg","assets/aretes-6.jpg","assets/aretes-7.jpg"],
     link:"https://buy.stripe.com/test_aFa28j261arEeq036pgMw00", status:"test" },
-  { id:"anillo-lock-tiffany", brand:"Tiffany & Co.", name:"Lock Ring — oro rosa con diamantes pavé, talla 6", cat:"Joyería",
+  { id:"anillo-lock-tiffany", brand:"Tiffany & Co.", cat:"Joyería",
+    name:"Lock Ring — rose gold with pavé diamonds, size 6", nameEs:"Lock Ring — oro rosa con diamantes pavé, talla 6",
     price:2400, was:6400, badge:"", rating:"",
-    desc:"Anillo Tiffany Lock en oro rosa de 18K con diamantes en pavé. El Lock es una de las colecciones icónicas de Tiffany & Co.: un símbolo de unión con su mecanismo giratorio inspirado en un candado.\n\nNuevo, sin usar, en su caja azul original de Tiffany & Co. Talla 6.",
-    meta:"Condición: Nuevo, sin usar · Talla: 6 · Incluye: caja original Tiffany · Envío: asegurado, con firma",
+    desc:"Tiffany Lock ring in 18K rose gold with pavé diamonds. The Lock is one of Tiffany & Co.'s iconic collections: a symbol of togetherness with its swivel mechanism inspired by a padlock.\n\nNew, unworn, in its original Tiffany & Co. blue box. Size 6.",
+    descEs:"Anillo Tiffany Lock en oro rosa de 18K con diamantes en pavé. El Lock es una de las colecciones icónicas de Tiffany & Co.: un símbolo de unión con su mecanismo giratorio inspirado en un candado.\n\nNuevo, sin usar, en su caja azul original de Tiffany & Co. Talla 6.",
+    meta:"Condition: New, unworn · Size: 6 · Includes: original Tiffany box · Shipping: insured, signature required",
+    metaEs:"Condición: Nuevo, sin usar · Talla: 6 · Incluye: caja original Tiffany · Envío: asegurado, con firma",
     photos:["assets/lock-1.jpg","assets/lock-2.jpg","assets/lock-3.jpg","assets/lock-4.jpg","assets/lock-5.jpg","assets/lock-6.jpg"],
     link:"", status:"sold" },
-  { id:"cartera-kenzo-rue-vivienne", brand:"Kenzo", name:"'Rue Vivienne' Large Bag — canvas beige y cuero negro, con correa", cat:"Bolsos",
+  { id:"cartera-kenzo-rue-vivienne", brand:"Kenzo", cat:"Bolsos",
+    name:"'Rue Vivienne' Large Bag — beige canvas and black leather, with strap", nameEs:"'Rue Vivienne' Large Bag — canvas beige y cuero negro, con correa",
     price:650, was:830, badge:"", rating:"",
-    desc:"Cartera Kenzo 'Rue Vivienne' grande con correa, de la era de NIGO como director artístico de la casa.\n\nCanvas beige con ribetes, asa y detalles en cuero negro. Placa frontal Kenzo Paris en relieve y cierre metálico plateado. Asa de mano y correa de hombro desmontable y ajustable.\n\nNueva, sin usar. Precio retail: $830–$1,140.",
-    meta:"Condición: Nuevo, sin usar · Incluye: correa de hombro desmontable · Envío: asegurado, con firma",
+    desc:"Kenzo 'Rue Vivienne' large bag with strap, from NIGO's era as the house's artistic director.\n\nBeige canvas with trims, handle and details in black leather. Raised Kenzo Paris front plaque and silver-tone metal clasp. Top handle and detachable, adjustable shoulder strap.\n\nNew, unused. Retail price: $830–$1,140.",
+    descEs:"Cartera Kenzo 'Rue Vivienne' grande con correa, de la era de NIGO como director artístico de la casa.\n\nCanvas beige con ribetes, asa y detalles en cuero negro. Placa frontal Kenzo Paris en relieve y cierre metálico plateado. Asa de mano y correa de hombro desmontable y ajustable.\n\nNueva, sin usar. Precio retail: $830–$1,140.",
+    meta:"Condition: New, unused · Includes: detachable shoulder strap · Shipping: insured, signature required",
+    metaEs:"Condición: Nuevo, sin usar · Incluye: correa de hombro desmontable · Envío: asegurado, con firma",
     photos:["assets/kenzo-1.jpg"], link:"", status:"sold" }
 ];
 // =================================================================================================
+/* ===== Idioma / Language — inglés por defecto, elección guardada ===== */
+const STR = {
+en: { titleTag:"Señor Rey Marketplace — Direct Sales", topbar:"Insured shipping across the U.S. · Secure card payments", searchPh:"Search the store…", orderStatusTitle:"Order status", cartTitleAttr:"Cart", viewGrid:"Grid view", viewList:"List view",
+  heroH:"Unique pieces. <em>Direct prices.</em>", heroP:"A little of everything, sold by its owner — no middlemen, no marketplace fees. Every item is one of a kind: when it sells, it's gone.", heroBtn:"Shop products",
+  featured:"Featured products", recent:"Recently viewed", sortLbl:"Sort", sortFeatured:"Featured", sortPriceAsc:"Price: low to high", sortPriceDesc:"Price: high to low", sortName:"Name A–Z", maxpLbl:"Max price", maxpNone:"No limit", hideSold:"Hide sold", favOnly:"Favorites",
+  trust1t:"100% secure payment", trust1:"Your card is processed by Stripe — it never passes through this page.", trust2t:"Insured shipping", trust2:"Discreet packaging, with signature and insurance for the full value.", trust3t:"Verified authenticity", trust3:"Every item is inspected before it is listed.", trust4t:"Direct deal", trust4:"No middlemen: you buy straight from the seller.",
+  faqH:"Frequently asked questions",
+  faq1q:"How do I buy?", faq1a:"Add your items to the cart and tap <b>Pay</b>: checkout happens on Stripe's secure page with your card. When you finish, you'll receive a confirmation email with your <b>order number</b>.",
+  faq2q:"How much is shipping?", faq2a:"It depends on your order total: under $200 → <b>$12</b> · $200 to $999 → <b>$25</b> · $1,000 or more → <b>$39</b>. Shipping is always <b>insured and signature-required</b>, and takes 2 to 5 business days.",
+  faq3q:"Can I pick up in person?", faq3a:"Yes. At checkout choose <b>📍 Pickup</b> — it's free — and we'll email you to arrange the day and time in Miami, Florida.",
+  faq4q:"How do I track my order?", faq4a:"With the <b>📦 \"Order status\"</b> button at the top of this page, using your order number and your email. When your order ships, the tracking link appears right there.",
+  faq5q:"Are the items authentic?", faq5a:"Yes. Every piece is <b>inspected and verified before it is listed</b>, and sold exactly as shown in the photos. These are one-of-a-kind items: when they sell, they're gone from the store.",
+  faq6q:"What if my order arrives damaged or different from the description?", faq6a:"Write to us with your order number as soon as you receive it and we'll resolve it with you directly. Keep the box and packaging until we close the case.",
+  faq7q:"Do you ship outside the United States?", faq7a:"For now we only ship <b>within the United States</b>.",
+  faq8q:"Can I leave a review of my purchase?", faq8a:"Of course! When your order is delivered, you'll get an email with the link to leave your review. You can also write it on the item's page, in the <b>\"Customer comments\"</b> section.",
+  footAbout:"Direct sales of selected products", footHelp:"HELP", footHow:"How to buy", footShip:"Shipping & delivery", footFaq:"Frequently asked questions", footContact:"CONTACT", footContactTxt:"Write to us before you buy and we'll confirm every detail.",
+  payLine:"WE ACCEPT VISA · MASTERCARD · AMEX · DISCOVER · APPLE PAY — VIA STRIPE", termsLink:"Terms & conditions", privLink:"Privacy policy",
+  cartTitle:"Your cart", orderTitle:"Order status", orderNumPh:"Order number (e.g. SRM-1001)", orderEmailPh:"Your purchase email", orderBtn:"Check status",
+  allCat:"All", productOne:" product", productsMany:" products", noResults:"No results with those filters.", emptyDefault:"The store is receiving its first products.<br>Check back soon — every item is one of a kind.",
+  soldLbl:"Sold", viewProduct:"View product", addCartShort:"+ Cart", favAttr:"Favorite", badgeTest:"Test", inFavs:"♥ In your favorites", addFav:"♡ Add to favorites", shareBtn:"🔗 Share this product",
+  addToCartBtn:"🛒 Add to cart", buyNowBtn:"Buy now — pay by card", availSoon:"Available soon",
+  commentsH:"Comments & reviews", loadingTxt:"Loading…", firstComment:"Be the first to comment on this product.", commentsFail:"Comments couldn't load right now.", yourNamePh:"Your name",
+  rate5:"★★★★★ — Excellent", rate4:"★★★★ — Very good", rate3:"★★★ — Good", rate2:"★★ — Fair", rate1:"★ — Poor", commentPh:"Write your comment about this product…", postBtn:"Post comment", nameBodyErr:"Please write your name and the comment.", postFail:"It couldn't be posted. Please try again.", postedToast:"Comment posted ✓",
+  relH:"You may also like", dmTitle:"How do you receive it?", dmShip:"🚚 Shipping", dmPickup:"📍 Pickup", dmShipNote:"Insured, signature-required shipping across the U.S. The rate adjusts to your order's value.", dmPickupNote:"Pick up in person in Miami. We'll coordinate the spot by message after your purchase.",
+  shipRowLbl:"Insured shipping", pickupRowLbl:"Pickup", totalLbl:"Total", cartNote:"Every item is one of a kind. Payment is processed securely by Stripe.", payNowBtn:"Pay now", cartEmpty:"Your cart is empty.<br>Tap a product to view it and add it.",
+  soldToast:"That item has already sold", addedToast:"Added to cart ✓", soldOutNotice:"One of the items just sold and was removed from your cart.", checkoutFail:"The combined payment couldn't be opened. Each item can also be paid individually with \"Buy now\" on its page.",
+  removeAttr:"Remove", orderWord:"Order", trackingLbl:"Tracking", pickupNoteStatus:"We'll contact you to coordinate the pickup.", searchingTxt:"Searching…", orderNotFound:"We couldn't find that order with that email. Check the details and try again.",
+  stepsShip:["Paid","Shipped","Delivered"], stepsPickup:["Paid","Ready for pickup","Picked up"],
+  confTitle:"✅ Payment complete!", confOrderIs:"Your order number is", confPickup:"📍 Local pickup — we'll contact you to coordinate.", confShip:"📦 Shipping — we'll let you know when it ships, with your tracking number.", confSave:"Save your number: with it and your email you can check the status with the 📦 button at the top right.", thanksToast:"Payment complete! Thanks for your purchase ✓", linkCopied:"Link copied ✓",
+  chatBtn:"💬 Help", chatTitle:"💬 Help — Señor Rey Marketplace", chatPh:"Type your question…", chatSend:"Send", chatGreet:"Hi! \u{1F44B} I'm the Señor Rey Marketplace assistant. Ask me about shipping, pickup, your order status, or any product.", chatTyping:"Typing…", chatFail:"Sorry, I can't answer right now. Write to us at ventas@senorrey.com and we'll help you right away." },
+es: { titleTag:"Señor Rey Marketplace — Venta directa", topbar:"Envío asegurado a todo EE. UU. · Pago seguro con tarjeta", searchPh:"Buscar en la tienda…", orderStatusTitle:"Estado de mi orden", cartTitleAttr:"Carrito", viewGrid:"Vista en cuadrícula", viewList:"Vista en lista",
+  heroH:"Piezas únicas. <em>Precios directos.</em>", heroP:"De todo un poco, vendido por su dueño y sin intermediarios ni fees de marketplace. Cada artículo es único: cuando se vende, desaparece.", heroBtn:"Ver productos",
+  featured:"Productos destacados", recent:"Vistos recientemente", sortLbl:"Ordenar", sortFeatured:"Destacados", sortPriceAsc:"Precio: menor a mayor", sortPriceDesc:"Precio: mayor a menor", sortName:"Nombre A–Z", maxpLbl:"Precio máx.", maxpNone:"Sin límite", hideSold:"Ocultar vendidos", favOnly:"Favoritos",
+  trust1t:"Pago 100% seguro", trust1:"Tu tarjeta se procesa en Stripe — nunca pasa por esta página.", trust2t:"Envío asegurado", trust2:"Empaque discreto, con firma y seguro por el valor total.", trust3t:"Autenticidad verificada", trust3:"Cada artículo se revisa antes de publicarse.", trust4t:"Trato directo", trust4:"Sin intermediarios: compras directo al vendedor.",
+  faqH:"Preguntas frecuentes",
+  faq1q:"¿Cómo compro?", faq1a:"Agrega tus artículos al carrito y toca <b>Pagar</b>: el cobro se hace en la página segura de Stripe con tu tarjeta. Al terminar, recibes un correo de confirmación con tu <b>número de orden</b>.",
+  faq2q:"¿Cuánto cuesta el envío?", faq2a:"Depende del valor total de tu orden: menos de $200 → <b>$12</b> · de $200 a $999 → <b>$25</b> · $1,000 o más → <b>$39</b>. Siempre es envío <b>asegurado y con firma</b>, y tarda de 2 a 5 días laborables.",
+  faq3q:"¿Puedo recoger en persona?", faq3a:"Sí. Al pagar elige <b>📍 Recoger</b> — no tiene costo — y te contactamos por correo para coordinar el día y la hora en Miami, Florida.",
+  faq4q:"¿Cómo sigo mi orden?", faq4a:"Con el botón <b>📦 \"Estado de tu orden\"</b> en la parte superior de esta página, usando tu número de orden y tu correo. Cuando tu orden salga, ahí mismo verás el enlace de rastreo.",
+  faq5q:"¿Los artículos son auténticos?", faq5a:"Sí. Cada pieza se <b>revisa y verifica antes de publicarse</b>, y se vende tal como se muestra en las fotos. Son artículos únicos: cuando se venden, desaparecen de la tienda.",
+  faq6q:"¿Qué pasa si mi orden llega dañada o diferente a lo descrito?", faq6a:"Escríbenos con tu número de orden apenas la recibas y lo resolvemos contigo directamente. Guarda la caja y el empaque hasta que cerremos el caso.",
+  faq7q:"¿Hacen envíos fuera de Estados Unidos?", faq7a:"Por ahora solo enviamos <b>dentro de Estados Unidos</b>.",
+  faq8q:"¿Puedo dejar un review de mi compra?", faq8a:"¡Claro! Cuando tu orden se entregue, te llega un correo con el enlace para dejar tu review. También puedes escribirlo en la página del artículo, en la sección <b>\"Comentarios de clientes\"</b>.",
+  footAbout:"Venta directa de productos seleccionados", footHelp:"AYUDA", footHow:"Cómo comprar", footShip:"Envíos y entregas", footFaq:"Preguntas frecuentes", footContact:"CONTACTO", footContactTxt:"Escríbenos antes de comprar y confirmamos cada detalle.",
+  payLine:"ACEPTAMOS VISA · MASTERCARD · AMEX · DISCOVER · APPLE PAY — VÍA STRIPE", termsLink:"Términos y condiciones", privLink:"Política de privacidad",
+  cartTitle:"Tu carrito", orderTitle:"Estado de tu orden", orderNumPh:"Número de orden (ej. SRM-1001)", orderEmailPh:"Tu email de compra", orderBtn:"Ver estado",
+  allCat:"Todos", productOne:" producto", productsMany:" productos", noResults:"Sin resultados con esos filtros.", emptyDefault:"La tienda está recibiendo sus primeros productos.<br>Vuelve pronto — cada artículo es único.",
+  soldLbl:"Vendido", viewProduct:"Ver producto", addCartShort:"+ Carrito", favAttr:"Favorito", badgeTest:"Prueba", inFavs:"♥ En tus favoritos", addFav:"♡ Añadir a favoritos", shareBtn:"🔗 Compartir este producto",
+  addToCartBtn:"🛒 Añadir al carrito", buyNowBtn:"Comprar ahora — pagar con tarjeta", availSoon:"Disponible pronto",
+  commentsH:"Comentarios y reseñas", loadingTxt:"Cargando…", firstComment:"Sé el primero en comentar este producto.", commentsFail:"Los comentarios no cargaron en este momento.", yourNamePh:"Tu nombre",
+  rate5:"★★★★★ — Excelente", rate4:"★★★★ — Muy bueno", rate3:"★★★ — Bueno", rate2:"★★ — Regular", rate1:"★ — Malo", commentPh:"Escribe tu comentario sobre este producto…", postBtn:"Publicar comentario", nameBodyErr:"Escribe tu nombre y el comentario.", postFail:"No se pudo publicar. Inténtalo de nuevo.", postedToast:"Comentario publicado ✓",
+  relH:"También te puede interesar", dmTitle:"¿Cómo lo recibes?", dmShip:"🚚 Envío", dmPickup:"📍 Recoger", dmShipNote:"Envío asegurado con firma a todo EE. UU. El flete se ajusta al valor de tu orden.", dmPickupNote:"Recoges en persona en Miami. Coordinamos el punto por mensaje tras la compra.",
+  shipRowLbl:"Envío asegurado", pickupRowLbl:"Recoger", totalLbl:"Total", cartNote:"Cada artículo es único. El pago se procesa seguro en Stripe.", payNowBtn:"Pagar ahora", cartEmpty:"Tu carrito está vacío.<br>Toca un producto para verlo y añadirlo.",
+  soldToast:"Ese artículo ya se vendió", addedToast:"Añadido al carrito ✓", soldOutNotice:"Uno de los artículos ya se vendió y salió de tu carrito.", checkoutFail:"No se pudo abrir el pago combinado. Cada artículo también se puede pagar individual con \"Comprar ahora\" en su página.",
+  removeAttr:"Quitar", orderWord:"Orden", trackingLbl:"Rastreo", pickupNoteStatus:"Te contactaremos para coordinar la recogida.", searchingTxt:"Buscando…", orderNotFound:"No encontramos esa orden con ese email. Revisa los datos e inténtalo de nuevo.",
+  stepsShip:["Pagada","Enviada","Entregada"], stepsPickup:["Pagada","Lista para recoger","Entregada"],
+  confTitle:"✅ ¡Pago completado!", confOrderIs:"Tu número de orden es", confPickup:"📍 Recogida en persona — te contactaremos para coordinar.", confShip:"📦 Envío — te avisaremos cuando salga, con tu número de rastreo.", confSave:"Guarda tu número: con él y tu email puedes ver el estado tocando 📦 arriba a la derecha.", thanksToast:"¡Pago completado! Gracias por tu compra ✓", linkCopied:"Link copiado ✓",
+  chatBtn:"💬 Ayuda", chatTitle:"💬 Ayuda — Señor Rey Marketplace", chatPh:"Escribe tu pregunta…", chatSend:"Enviar", chatGreet:"¡Hola! \u{1F44B} Soy el asistente de Señor Rey Marketplace. Pregúntame por envíos, recogida, el estado de tu orden o cualquier producto.", chatTyping:"Escribiendo…", chatFail:"Perdona, ahora mismo no puedo responder. Escríbenos a ventas@senorrey.com y te ayudamos enseguida." }
+};
+const CATL = { "Joyería": { en: "Jewelry", es: "Joyería" }, "Bolsos": { en: "Bags", es: "Bolsos" } };
+let lang = localStorage.getItem('srm_lang') === 'es' ? 'es' : 'en';
+const t = k => (STR[lang] && STR[lang][k]) || STR.en[k] || k;
+const pname = p => lang === 'es' ? (p.nameEs || p.name) : p.name;
+const pdesc = p => lang === 'es' ? (p.descEs || p.desc) : p.desc;
+const pmeta = p => lang === 'es' ? (p.metaEs || p.meta) : p.meta;
+const catName = c => (CATL[c] && CATL[c][lang]) || c;
+function openFaq(id){ const d = document.getElementById(id); if (d) { d.open = true; } }
+function applyLang(){
+  document.documentElement.lang = lang;
+  document.title = t('titleTag');
+  document.querySelectorAll('[data-i18n]').forEach(el => { el.innerHTML = t(el.getAttribute('data-i18n')); });
+  document.querySelectorAll('[data-i18n-ph]').forEach(el => { el.placeholder = t(el.getAttribute('data-i18n-ph')); });
+  document.querySelectorAll('[data-i18n-title]').forEach(el => { el.title = t(el.getAttribute('data-i18n-title')); });
+  document.getElementById('langEn').classList.toggle('on', lang === 'en');
+  document.getElementById('langEs').classList.toggle('on', lang === 'es');
+  buildCats();
+  render();
+  if (cart.length) updateCart();
+  if (current && document.getElementById('sheet').classList.contains('open')) openDetail(current.id, true);
+}
+function setLang(l){ if (l === lang) return; lang = l; localStorage.setItem('srm_lang', l); applyLang(); }
+
 const FN = 'https://lewfysgyapmqlhkwxlwo.supabase.co/functions/v1/';
 const grid = document.getElementById('grid'), count = document.getElementById('count'),
       emptyEl = document.getElementById('empty'), catsEl = document.getElementById('cats'), q = document.getElementById('q');
@@ -317,21 +412,24 @@ let favs = new Set(JSON.parse(localStorage.getItem('srs_favs') || '[]'));
 let recent = JSON.parse(localStorage.getItem('srs_recent') || '[]');
 const isSold = p => p.status === 'sold' || SOLD.has(p.id);
 const CATS = ["Todos", ...new Set(PRODUCTS.map(p => p.cat))];
-CATS.forEach(c => { const b = document.createElement('button'); b.className = 'chip' + (c === cat ? ' on' : ''); b.textContent = c;
-  b.onclick = () => { cat = c; catsEl.querySelectorAll('.chip').forEach(x => x.classList.toggle('on', x.textContent === c)); render(); }; catsEl.appendChild(b); });
+function buildCats(){
+  catsEl.innerHTML = '';
+  CATS.forEach(c => { const b = document.createElement('button'); b.className = 'chip' + (c === cat ? ' on' : ''); b.textContent = c === 'Todos' ? t('allCat') : catName(c);
+    b.onclick = () => { cat = c; buildCats(); render(); }; catsEl.appendChild(b); });
+}
 function stars(p){ return p.rating ? '<div class="stars">★★★★★ <b>' + p.rating + '</b></div>' : ''; }
 function visible(){
   const term = q.value.trim().toLowerCase();
   let list = PRODUCTS.filter(p =>
     !p.hidden &&
     (cat === "Todos" || p.cat === cat) &&
-    (!term || (p.brand + ' ' + p.name).toLowerCase().includes(term)) &&
+    (!term || (p.brand + ' ' + p.name + ' ' + (p.nameEs || '')).toLowerCase().includes(term)) &&
     (!maxPrice || p.price <= maxPrice) &&
     (!hideSold || !isSold(p)) &&
     (!favOnly || favs.has(p.id)));
   if (sortBy === 'price-asc') list.sort((a, b) => a.price - b.price);
   if (sortBy === 'price-desc') list.sort((a, b) => b.price - a.price);
-  if (sortBy === 'name') list.sort((a, b) => a.name.localeCompare(b.name));
+  if (sortBy === 'name') list.sort((a, b) => pname(a).localeCompare(pname(b)));
   return list;
 }
 function render(){
@@ -341,28 +439,28 @@ function render(){
     const d = document.createElement('div'); d.className = 'card'; d.onclick = () => openDetail(p.id);
     d.innerHTML =
       '<div class="ph">' + (p.photos && p.photos[0] ? '<img src="' + p.photos[0] + '" alt="">' : '') +
-      (sold ? '<span class="badge sold">Vendido</span>' : (p.badge ? '<span class="badge' + (p.badge.startsWith('-') ? ' off' : '') + '">' + p.badge + '</span>' : '')) +
-      '<button class="heart' + (favs.has(p.id) ? ' on' : '') + '" title="Favorito">♥</button></div>' +
-      '<div class="bd"><div class="brand">' + p.brand + '</div><h4>' + p.name + '</h4>' + stars(p) +
+      (sold ? '<span class="badge sold">' + t('soldLbl') + '</span>' : (p.badge ? '<span class="badge' + (p.badge.startsWith('-') ? ' off' : '') + '">' + (p.badge === 'Prueba' ? t('badgeTest') : p.badge) + '</span>' : '')) +
+      '<button class="heart' + (favs.has(p.id) ? ' on' : '') + '" title="' + t('favAttr') + '">♥</button></div>' +
+      '<div class="bd"><div class="brand">' + p.brand + '</div><h4>' + pname(p) + '</h4>' + stars(p) +
       '<div class="pricerow"><span class="price">' + money(p.price) + '</span>' + (p.was ? '<span class="was">' + money(p.was) + '</span>' : '') + '</div>' +
-      (sold ? '<a class="buy off">Vendido</a>' : '<a class="buy">Ver producto</a><button class="buy navy quickadd">+ Carrito</button>') + '</div>';
+      (sold ? '<a class="buy off">' + t('soldLbl') + '</a>' : '<a class="buy">' + t('viewProduct') + '</a><button class="buy navy quickadd">' + t('addCartShort') + '</button>') + '</div>';
     d.querySelector('.heart').onclick = e => { e.stopPropagation(); toggleFav(p.id); };
     const qa = d.querySelector('.quickadd'); if (qa) qa.onclick = e => { e.stopPropagation(); addToCart(p.id); };
     grid.appendChild(d);
   }
-  count.textContent = list.length + (list.length === 1 ? ' producto' : ' productos');
+  count.textContent = list.length + (list.length === 1 ? t('productOne') : t('productsMany'));
   emptyEl.style.display = list.length ? 'none' : 'block';
-  if (!PRODUCTS.length) emptyEl.innerHTML = 'La tienda está recibiendo sus primeros productos.<br>Vuelve pronto — cada artículo es único.';
-  else if (!list.length) emptyEl.textContent = 'Sin resultados con esos filtros.';
+  if (!PRODUCTS.length) emptyEl.innerHTML = t('emptyDefault');
+  else if (!list.length) emptyEl.textContent = t('noResults');
   renderRecent();
 }
-function toggleFav(id){ favs.has(id) ? favs.delete(id) : favs.add(id); localStorage.setItem('srs_favs', JSON.stringify([...favs])); render(); }
+function toggleFav(id){ favs.has(id) ? favs.delete(id) : favs.add(id); localStorage.setItem('srs_favs', JSON.stringify([...favs])); render(); if (current && current.id === id && document.getElementById('sheet').classList.contains('open')) openDetail(id, true); }
 function renderRecent(){
   const wrap = document.getElementById('recentwrap'), box = document.getElementById('recent');
   const items = recent.map(id => PRODUCTS.find(p => p.id === id)).filter(Boolean).slice(0, 4);
   if (!items.length) { wrap.style.display = 'none'; return; }
   wrap.style.display = 'block';
-  box.innerHTML = items.map(p => '<div class="mini" onclick="openDetail(\'' + p.id + '\')"><img src="' + (p.photos[0] || '') + '"><div>' + p.brand + ' — ' + p.name + '<br><b>' + money(p.price) + '</b></div></div>').join('');
+  box.innerHTML = items.map(p => '<div class="mini" onclick="openDetail(\'' + p.id + '\')"><img src="' + (p.photos[0] || '') + '"><div>' + p.brand + ' — ' + pname(p) + '<br><b>' + money(p.price) + '</b></div></div>').join('');
 }
 /* ===== Detalle de producto ===== */
 let current = null;
@@ -373,25 +471,25 @@ function openDetail(id, keep){
   document.getElementById('detail').innerHTML =
     '<div class="gal"><div class="main"><img id="mainimg" src="' + (p.photos[0] || '') + '" alt="" onclick="zoom()" style="cursor:zoom-in"></div>' +
     '<div class="thumbs">' + p.photos.map((f, i) => '<img src="' + f + '" class="' + (i === 0 ? 'on' : '') + '" onclick="swap(this)">').join('') + '</div></div>' +
-    '<div class="info"><div class="brand">' + p.brand + '</div><h2>' + p.name + '</h2>' + stars(p) +
+    '<div class="info"><div class="brand">' + p.brand + '</div><h2>' + pname(p) + '</h2>' + stars(p) +
     '<div class="pricerow"><span class="price">' + money(p.price) + '</span>' + (p.was ? '<span class="was">' + money(p.was) + '</span>' : '') + '</div>' +
-    '<div class="desc">' + p.desc + '</div><div class="meta">' + (p.meta || '') + '</div>' +
+    '<div class="desc">' + pdesc(p) + '</div><div class="meta">' + (pmeta(p) || '') + '</div>' +
     '<div class="btnrow">' +
-    (sold ? '<button class="buy off">Vendido</button>'
-          : '<button class="buy navy" onclick="addToCart(\'' + p.id + '\')">🛒 Añadir al carrito</button>' +
-            (p.link ? '<button class="buy" onclick="window.location=\'' + p.link + '\'">Comprar ahora — pagar con tarjeta</button>' : '<button class="buy off">Disponible pronto</button>')) +
-    '<button class="buy share" onclick="shareProduct(\'' + p.id + '\')">🔗 Compartir este producto</button>' +
-    '<button class="buy share" onclick="toggleFav(\'' + p.id + '\')">' + (favs.has(p.id) ? '♥ En tus favoritos' : '♡ Añadir a favoritos') + '</button>' +
+    (sold ? '<button class="buy off">' + t('soldLbl') + '</button>'
+          : '<button class="buy navy" onclick="addToCart(\'' + p.id + '\')">' + t('addToCartBtn') + '</button>' +
+            (p.link ? '<button class="buy" onclick="window.location=\'' + p.link + '\'">' + t('buyNowBtn') + '</button>' : '<button class="buy off">' + t('availSoon') + '</button>')) +
+    '<button class="buy share" onclick="shareProduct(\'' + p.id + '\')">' + t('shareBtn') + '</button>' +
+    '<button class="buy share" onclick="toggleFav(\'' + p.id + '\')">' + (favs.has(p.id) ? t('inFavs') : t('addFav')) + '</button>' +
     '</div></div>' +
-    '<div class="comments"><h3>Comentarios y reseñas</h3><div id="clist"><div class="cempty">Cargando…</div></div>' +
-    '<div class="cform"><input id="cname" maxlength="40" placeholder="Tu nombre">' +
-    '<select id="crating"><option value="5">★★★★★ — Excelente</option><option value="4">★★★★ — Muy bueno</option><option value="3">★★★ — Bueno</option><option value="2">★★ — Regular</option><option value="1">★ — Malo</option></select>' +
-    '<textarea id="cbody" maxlength="600" placeholder="Escribe tu comentario sobre este producto…"></textarea>' +
-    '<button class="buy navy" onclick="postComment(\'' + p.id + '\')">Publicar comentario</button><div class="notice" id="cerr"></div></div></div>';
+    '<div class="comments"><h3>' + t('commentsH') + '</h3><div id="clist"><div class="cempty">' + t('loadingTxt') + '</div></div>' +
+    '<div class="cform"><input id="cname" maxlength="40" placeholder="' + t('yourNamePh') + '">' +
+    '<select id="crating"><option value="5">' + t('rate5') + '</option><option value="4">' + t('rate4') + '</option><option value="3">' + t('rate3') + '</option><option value="2">' + t('rate2') + '</option><option value="1">' + t('rate1') + '</option></select>' +
+    '<textarea id="cbody" maxlength="600" placeholder="' + t('commentPh') + '"></textarea>' +
+    '<button class="buy navy" onclick="postComment(\'' + p.id + '\')">' + t('postBtn') + '</button><div class="notice" id="cerr"></div></div></div>';
   loadComments(p.id);
   const rel = PRODUCTS.filter(x => x.id !== p.id && x.cat === p.cat && !x.hidden).slice(0, 3);
-  document.getElementById('rel').innerHTML = rel.length ? '<h3>También te puede interesar</h3><div class="relgrid">' +
-    rel.map(r => '<div class="mini" onclick="openDetail(\'' + r.id + '\')"><img src="' + (r.photos[0] || '') + '"><div>' + r.brand + ' — ' + r.name + '<br><b>' + money(r.price) + '</b></div></div>').join('') + '</div>' : '';
+  document.getElementById('rel').innerHTML = rel.length ? '<h3>' + t('relH') + '</h3><div class="relgrid">' +
+    rel.map(r => '<div class="mini" onclick="openDetail(\'' + r.id + '\')"><img src="' + (r.photos[0] || '') + '"><div>' + r.brand + ' — ' + pname(r) + '<br><b>' + money(r.price) + '</b></div></div>').join('') + '</div>' : '';
   document.getElementById('sheet').classList.add('open');
   document.getElementById('sheet').scrollTop = 0;
   history.replaceState(null, '', '#' + id);
@@ -401,15 +499,15 @@ function zoom(){ const m = document.getElementById('mainimg'); if (!m) return; d
 async function shareProduct(id){
   const url = location.origin + location.pathname + '#' + id;
   const p = PRODUCTS.find(x => x.id === id);
-  if (navigator.share) { try { await navigator.share({ title: 'Señor Rey Marketplace', text: p.brand + ' — ' + p.name + ' · ' + money(p.price), url }); } catch(e) {} }
-  else { try { await navigator.clipboard.writeText(url); toast('Link copiado ✓'); } catch(e) { toast(url); } }
+  if (navigator.share) { try { await navigator.share({ title: 'Señor Rey Marketplace', text: p.brand + ' — ' + pname(p) + ' · ' + money(p.price), url }); } catch(e) {} }
+  else { try { await navigator.clipboard.writeText(url); toast(t('linkCopied')); } catch(e) { toast(url); } }
 }
 function swap(el){ document.getElementById('mainimg').src = el.src; el.parentElement.querySelectorAll('img').forEach(i => i.classList.toggle('on', i === el)); }
-function closeDetail(){ document.getElementById('sheet').classList.remove('open'); history.replaceState(null, '', location.pathname); }
+function closeDetail(){ document.getElementById('sheet').classList.remove('open'); current = null; history.replaceState(null, '', location.pathname); }
 /* ===== Comentarios ===== */
 function esc(t){ return String(t).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c])); }
 function commentHTML(c){
-  const f = new Date(c.created_at).toLocaleDateString('es-US', { day:'numeric', month:'short', year:'numeric' });
+  const f = new Date(c.created_at).toLocaleDateString(lang === 'es' ? 'es-US' : 'en-US', { day:'numeric', month:'short', year:'numeric' });
   return '<div class="comment"><span class="who">' + esc(c.name) + '</span><span class="when">' + f + '</span>' +
     '<div class="stars">' + '★'.repeat(c.rating) + '☆'.repeat(5 - c.rating) + '</div><div class="txt">' + esc(c.body) + '</div></div>';
 }
@@ -418,13 +516,13 @@ async function loadComments(id){
   try {
     const r = await fetch(FN + 'store-comments?item=' + encodeURIComponent(id));
     const d = await r.json();
-    box.innerHTML = (d.comments && d.comments.length) ? d.comments.map(commentHTML).join('') : '<div class="cempty">Sé el primero en comentar este producto.</div>';
-  } catch(e) { box.innerHTML = '<div class="cempty">Los comentarios no cargaron en este momento.</div>'; }
+    box.innerHTML = (d.comments && d.comments.length) ? d.comments.map(commentHTML).join('') : '<div class="cempty">' + t('firstComment') + '</div>';
+  } catch(e) { box.innerHTML = '<div class="cempty">' + t('commentsFail') + '</div>'; }
 }
 async function postComment(id){
   const name = document.getElementById('cname').value.trim(), body = document.getElementById('cbody').value.trim(),
         rating = document.getElementById('crating').value, err = document.getElementById('cerr');
-  if (!name || !body) { err.style.display = 'block'; err.textContent = 'Escribe tu nombre y el comentario.'; return; }
+  if (!name || !body) { err.style.display = 'block'; err.textContent = t('nameBodyErr'); return; }
   try {
     const r = await fetch(FN + 'store-comments', { method:'POST', headers:{ 'Content-Type':'application/json' }, body: JSON.stringify({ item: id, name, rating: Number(rating), body }) });
     const d = await r.json();
@@ -433,37 +531,37 @@ async function postComment(id){
     if (box.querySelector('.cempty')) box.innerHTML = '';
     box.insertAdjacentHTML('afterbegin', commentHTML(d.comment));
     document.getElementById('cbody').value = '';
-    toast('Comentario publicado ✓');
-  } catch(e) { err.style.display = 'block'; err.textContent = 'No se pudo publicar. Inténtalo de nuevo.'; }
+    toast(t('postedToast'));
+  } catch(e) { err.style.display = 'block'; err.textContent = t('postFail'); }
 }
 /* ===== Carrito ===== */
 let delivery = 'shipping';
 function setDelivery(m){ delivery = m; updateCart(); }
 function dmethodHTML(){
-  return '<div class="dmethod"><div class="dm-t">¿Cómo lo recibes?</div>' +
-  '<label><input type="radio" name="dmethod" value="shipping"' + (delivery === 'shipping' ? ' checked' : '') + ' onchange="setDelivery(\'shipping\')"> 🚚 Envío</label>' +
-  '<label><input type="radio" name="dmethod" value="pickup"' + (delivery === 'pickup' ? ' checked' : '') + ' onchange="setDelivery(\'pickup\')"> 📍 Recoger</label>' +
-  '<div class="dm-note">' + (delivery === 'pickup' ? 'Recoges en persona en Miami. Coordinamos el punto por mensaje tras la compra.' : 'Envío asegurado con firma a todo EE. UU. El flete se ajusta al valor de tu orden.') + '</div></div>';
+  return '<div class="dmethod"><div class="dm-t">' + t('dmTitle') + '</div>' +
+  '<label><input type="radio" name="dmethod" value="shipping"' + (delivery === 'shipping' ? ' checked' : '') + ' onchange="setDelivery(\'shipping\')"> ' + t('dmShip') + '</label>' +
+  '<label><input type="radio" name="dmethod" value="pickup"' + (delivery === 'pickup' ? ' checked' : '') + ' onchange="setDelivery(\'pickup\')"> ' + t('dmPickup') + '</label>' +
+  '<div class="dm-note">' + (delivery === 'pickup' ? t('dmPickupNote') : t('dmShipNote')) + '</div></div>';
 }
-function toast(msg){ const t = document.getElementById('toast'); t.textContent = msg; t.classList.add('show'); setTimeout(() => t.classList.remove('show'), 1800); }
+function toast(msg){ const tEl = document.getElementById('toast'); tEl.textContent = msg; tEl.classList.add('show'); setTimeout(() => tEl.classList.remove('show'), 1800); }
 function addToCart(id){
-  const p = PRODUCTS.find(x => x.id === id); if (p && isSold(p)) { toast('Ese artículo ya se vendió'); return; }
+  const p = PRODUCTS.find(x => x.id === id); if (p && isSold(p)) { toast(t('soldToast')); return; }
   if (!cart.includes(id)) cart.push(id);
-  updateCart(); toast('Añadido al carrito ✓');
+  updateCart(); toast(t('addedToast'));
 }
 function removeFromCart(id){ cart = cart.filter(x => x !== id); updateCart(); }
 function cartTotal(){ return cart.reduce((s, id) => s + (PRODUCTS.find(p => p.id === id) || {price:0}).price, 0); }
-function shipFee(){ var t = cartTotal(); return t < 200 ? 12 : t < 1000 ? 25 : 39; }
+function shipFee(){ var tt = cartTotal(); return tt < 200 ? 12 : tt < 1000 ? 25 : 39; }
 function updateCart(){
   document.getElementById('cartn').textContent = cart.length;
   const box = document.getElementById('citems'), foot = document.getElementById('cfoot');
-  if (!cart.length) { box.innerHTML = '<div class="cempty">Tu carrito está vacío.<br>Toca un producto para verlo y añadirlo.</div>'; foot.innerHTML = ''; return; }
+  if (!cart.length) { box.innerHTML = '<div class="cempty">' + t('cartEmpty') + '</div>'; foot.innerHTML = ''; return; }
   box.innerHTML = cart.map(id => { const p = PRODUCTS.find(x => x.id === id); return '' +
-    '<div class="citem"><img src="' + (p.photos[0] || '') + '"><div class="nm">' + p.brand + ' — ' + p.name + '<div class="pr">' + money(p.price) + '</div></div>' +
-    '<button onclick="removeFromCart(\'' + id + '\')" title="Quitar">✕</button></div>'; }).join('');
-  foot.innerHTML = dmethodHTML() + (delivery === 'shipping' ? '<div class="row"><span>Envío asegurado</span><span>' + money(shipFee()) + '</span></div>' : '<div class="row"><span>Recoger</span><span>$0</span></div>') + '<div class="row total"><span>Total</span><span>' + money(cartTotal() + (delivery === 'shipping' ? shipFee() : 0)) + '</span></div>' +
-    '<small>Cada artículo es único. El pago se procesa seguro en Stripe.</small>' +
-    '<button class="buy" onclick="checkout()">Pagar ahora</button><div class="notice" id="cnotice"></div>';
+    '<div class="citem"><img src="' + (p.photos[0] || '') + '"><div class="nm">' + p.brand + ' — ' + pname(p) + '<div class="pr">' + money(p.price) + '</div></div>' +
+    '<button onclick="removeFromCart(\'' + id + '\')" title="' + t('removeAttr') + '">✕</button></div>'; }).join('');
+  foot.innerHTML = dmethodHTML() + (delivery === 'shipping' ? '<div class="row"><span>' + t('shipRowLbl') + '</span><span>' + money(shipFee()) + '</span></div>' : '<div class="row"><span>' + t('pickupRowLbl') + '</span><span>$0</span></div>') + '<div class="row total"><span>' + t('totalLbl') + '</span><span>' + money(cartTotal() + (delivery === 'shipping' ? shipFee() : 0)) + '</span></div>' +
+    '<small>' + t('cartNote') + '</small>' +
+    '<button class="buy" onclick="checkout()">' + t('payNowBtn') + '</button><div class="notice" id="cnotice"></div>';
 }
 async function checkout(){
   const n = document.getElementById('cnotice');
@@ -474,7 +572,7 @@ async function checkout(){
     if (d.error === 'sold_out') { await loadSold(); cart = cart.filter(id => !SOLD.has(id)); updateCart(); render(); throw new Error('sold'); }
     throw new Error(d.error || 'error');
   } catch(e) {
-    if (n) { n.style.display = 'block'; n.textContent = e.message === 'sold' ? 'Uno de los artículos ya se vendió y salió de tu carrito.' : 'No se pudo abrir el pago combinado. Cada artículo también se puede pagar individual con "Comprar ahora" en su página.'; }
+    if (n) { n.style.display = 'block'; n.textContent = e.message === 'sold' ? t('soldOutNotice') : t('checkoutFail'); }
   }
 }
 function openCart(){ updateCart(); document.getElementById('drawer').classList.add('open'); document.getElementById('backdrop').classList.add('open'); }
@@ -483,23 +581,23 @@ function closeCart(){ document.getElementById('drawer').classList.remove('open')
 function openOrder(){ document.getElementById('omodal').classList.add('open'); }
 function closeOrder(){ document.getElementById('omodal').classList.remove('open'); }
 function statusHTML(o){
-  const steps = o.method === 'pickup' ? ['Pagada', 'Lista para recoger', 'Entregada'] : ['Pagada', 'Enviada', 'Entregada'];
+  const steps = o.method === 'pickup' ? t('stepsPickup') : t('stepsShip');
   const idx = o.method === 'pickup' ? ({ paid:0, ready:1, picked_up:2 }[o.status] ?? 0) : ({ paid:0, shipped:1, delivered:2 }[o.status] ?? 0);
-  let h = '<div class="o-num">Orden <b>' + esc(o.order_number) + '</b> · ' + money(o.total_cents / 100) + '</div>';
+  let h = '<div class="o-num">' + t('orderWord') + ' <b>' + esc(o.order_number) + '</b> · ' + money(o.total_cents / 100) + '</div>';
   h += '<div class="o-items">' + (o.items || []).map(i => esc(i.name || i.id)).join('<br>') + '</div>';
-  h += '<div class="steps">' + steps.map((t, i) => '<div class="step' + (i <= idx ? ' on' : '') + '"><span>' + (i <= idx ? '●' : '○') + '</span><br>' + t + '</div>').join('') + '</div>';
-  if (o.tracking_number) h += '<div class="o-track">Rastreo: ' + (o.tracking_url ? '<a href="' + o.tracking_url + '" target="_blank" rel="noopener">' + esc(o.tracking_number) + '</a>' : esc(o.tracking_number)) + (o.carrier ? ' (' + esc(String(o.carrier).toUpperCase()) + ')' : '') + '</div>';
-  if (o.method === 'pickup' && o.status === 'paid') h += '<div class="o-note">Te contactaremos para coordinar la recogida.</div>';
+  h += '<div class="steps">' + steps.map((tx, i) => '<div class="step' + (i <= idx ? ' on' : '') + '"><span>' + (i <= idx ? '●' : '○') + '</span><br>' + tx + '</div>').join('') + '</div>';
+  if (o.tracking_number) h += '<div class="o-track">' + t('trackingLbl') + ': ' + (o.tracking_url ? '<a href="' + o.tracking_url + '" target="_blank" rel="noopener">' + esc(o.tracking_number) + '</a>' : esc(o.tracking_number)) + (o.carrier ? ' (' + esc(String(o.carrier).toUpperCase()) + ')' : '') + '</div>';
+  if (o.method === 'pickup' && o.status === 'paid') h += '<div class="o-note">' + t('pickupNoteStatus') + '</div>';
   return h;
 }
 async function lookupOrder(){
   const out = document.getElementById('oresult');
-  out.innerHTML = 'Buscando…';
+  out.innerHTML = t('searchingTxt');
   try {
     const r = await fetch(FN + 'store-orders', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ order: document.getElementById('onum').value, email: document.getElementById('oemail').value }) });
     if (!r.ok) throw 0;
     out.innerHTML = statusHTML(await r.json());
-  } catch(e) { out.innerHTML = '<div class="o-err">No encontramos esa orden con ese email. Revisa los datos e inténtalo de nuevo.</div>'; }
+  } catch(e) { out.innerHTML = '<div class="o-err">' + t('orderNotFound') + '</div>'; }
 }
 async function showConfirmation(ses){
   const box = document.getElementById('confirmbox');
@@ -508,10 +606,10 @@ async function showConfirmation(ses){
       const r = await fetch(FN + 'store-orders?session=' + encodeURIComponent(ses));
       if (r.ok) {
         const o = await r.json();
-        box.innerHTML = '<div class="cf-in"><div class="cf-t">✅ ¡Pago completado!</div>' +
-          '<div class="cf-n">Tu número de orden es <b>' + esc(o.order_number) + '</b></div>' +
-          '<div class="cf-s">' + (o.method === 'pickup' ? '📍 Recogida en persona — te contactaremos para coordinar.' : '📦 Envío — te avisaremos cuando salga, con tu número de rastreo.') + '</div>' +
-          '<div class="cf-s">Guarda tu número: con él y tu email puedes ver el estado tocando 📦 arriba a la derecha.</div></div>';
+        box.innerHTML = '<div class="cf-in"><div class="cf-t">' + t('confTitle') + '</div>' +
+          '<div class="cf-n">' + t('confOrderIs') + ' <b>' + esc(o.order_number) + '</b></div>' +
+          '<div class="cf-s">' + (o.method === 'pickup' ? t('confPickup') : t('confShip')) + '</div>' +
+          '<div class="cf-s">' + t('confSave') + '</div></div>';
         box.style.display = 'block';
         box.scrollIntoView({ behavior: 'smooth' });
         return;
@@ -519,7 +617,7 @@ async function showConfirmation(ses){
     } catch(e) {}
     await new Promise(res => setTimeout(res, 2500));
   }
-  toast('¡Pago completado! Gracias por tu compra ✓');
+  toast(t('thanksToast'));
 }
 /* ===== Estado de vendidos (servidor) + arranque ===== */
 async function loadSold(){
@@ -535,20 +633,20 @@ q.addEventListener('input', render);
 document.getElementById('qbtn').onclick = render;
 /* ===== Chat de ayuda (IA) ===== */
 let chatHist = [], chatOpened = false, chatBusy = false;
-function toggleChat(){ const p = document.getElementById('chatpanel'); const open = p.classList.toggle('open'); if (open && !chatOpened) { chatOpened = true; chatAdd('bot', '¡Hola! \u{1F44B} Soy el asistente de Señor Rey Marketplace. Pregúntame por envíos, recogida, el estado de tu orden o cualquier producto.'); document.getElementById('chatin').addEventListener('keydown', e => { if (e.key === 'Enter') chatSend(); }); } if (open) setTimeout(() => document.getElementById('chatin').focus(), 60); }
+function toggleChat(){ const p = document.getElementById('chatpanel'); const open = p.classList.toggle('open'); if (open && !chatOpened) { chatOpened = true; chatAdd('bot', t('chatGreet')); document.getElementById('chatin').addEventListener('keydown', e => { if (e.key === 'Enter') chatSend(); }); } if (open) setTimeout(() => document.getElementById('chatin').focus(), 60); }
 function chatAdd(who, text){ const box = document.getElementById('chatmsgs'); const d = document.createElement('div'); d.className = 'cbub ' + who; d.innerHTML = text.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/\*\*([^*]+)\*\*/g, '<b>$1</b>'); box.appendChild(d); box.scrollTop = box.scrollHeight; return d; }
-async function chatSend(){ if (chatBusy) return; const inp = document.getElementById('chatin'); const text = inp.value.trim(); if (!text) return; inp.value = ''; chatAdd('me', text); chatHist.push({ role: 'user', text }); chatBusy = true; const wait = chatAdd('bot', 'Escribiendo…'); try { const r = await fetch(FN + 'store-chat', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ messages: chatHist }) }); const d = await r.json(); if (!d.reply) throw 0; wait.remove(); chatAdd('bot', d.reply); chatHist.push({ role: 'model', text: d.reply }); } catch (e) { wait.remove(); chatAdd('bot', 'Perdona, ahora mismo no puedo responder. Escríbenos a ventas@senorrey.com y te ayudamos enseguida.'); } chatBusy = false; }
-(async () => { await loadSold(); render();
+async function chatSend(){ if (chatBusy) return; const inp = document.getElementById('chatin'); const text = inp.value.trim(); if (!text) return; inp.value = ''; chatAdd('me', text); chatHist.push({ role: 'user', text }); chatBusy = true; const wait = chatAdd('bot', t('chatTyping')); try { const r = await fetch(FN + 'store-chat', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ messages: chatHist, lang }) }); const d = await r.json(); if (!d.reply) throw 0; wait.remove(); chatAdd('bot', d.reply); chatHist.push({ role: 'model', text: d.reply }); } catch (e) { wait.remove(); chatAdd('bot', t('chatFail')); } chatBusy = false; }
+(async () => { applyLang(); await loadSold(); render();
   const qs = new URLSearchParams(location.search);
-  if (qs.get('pago') === 'ok') { cart = []; updateCart(); if (qs.get('sesion')) showConfirmation(qs.get('sesion')); else toast('¡Pago completado! Gracias por tu compra ✓'); setTimeout(async () => { await loadSold(); render(); }, 3000); }
+  if (qs.get('pago') === 'ok') { cart = []; updateCart(); if (qs.get('sesion')) showConfirmation(qs.get('sesion')); else toast(t('thanksToast')); setTimeout(async () => { await loadSold(); render(); }, 3000); }
   const h = location.hash.replace('#', ''); if (h && PRODUCTS.some(p => p.id === h)) openDetail(h);
 })();
 </script>
-<button class="chatbtn" id="chatbtn" onclick="toggleChat()">💬 Ayuda</button>
+<button class="chatbtn" id="chatbtn" onclick="toggleChat()" data-i18n="chatBtn">💬 Help</button>
 <div class="chatpanel" id="chatpanel">
-  <div class="chathead"><span>💬 Ayuda — Señor Rey Marketplace</span><button onclick="toggleChat()" aria-label="Cerrar">✕</button></div>
+  <div class="chathead"><span data-i18n="chatTitle">💬 Help — Señor Rey Marketplace</span><button onclick="toggleChat()" aria-label="Close">✕</button></div>
   <div class="chatmsgs" id="chatmsgs"></div>
-  <div class="chatrow"><input id="chatin" placeholder="Escribe tu pregunta…" maxlength="600"><button onclick="chatSend()">Enviar</button></div>
+  <div class="chatrow"><input id="chatin" data-i18n-ph="chatPh" placeholder="Type your question…" maxlength="600"><button onclick="chatSend()" data-i18n="chatSend">Send</button></div>
 </div>
 <!-- Medidor de visitas propio (sin cookies) -->
 <script>

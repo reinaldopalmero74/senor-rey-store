@@ -1,17 +1,21 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Política de Privacidad — Señor Rey Marketplace</title>
+<title>Privacy Policy — Señor Rey Marketplace</title>
 <style>
   :root{ --navy:#16283C; --gold:#C9A227; --gold2:#E3C766; --cream:#FAF6EE; --ink:#22303C; --mut:#5A6B78; --line:#E5DCC6; }
   *{ margin:0; padding:0; box-sizing:border-box; }
   body{ font-family:-apple-system,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif; background:var(--cream); color:var(--ink); }
-  .shopbar{ background:var(--navy); color:var(--cream); padding:14px 18px; display:flex; align-items:center; justify-content:space-between; }
+  .shopbar{ background:var(--navy); color:var(--cream); padding:14px 18px; display:flex; align-items:center; justify-content:space-between; gap:12px; flex-wrap:wrap; }
   .logo{ font-size:19px; letter-spacing:2px; font-weight:700; }
   .logo span{ color:var(--gold); }
   .shopbar a{ color:var(--gold2); text-decoration:none; font-size:14px; }
+  .barright{ display:flex; align-items:center; gap:14px; }
+  .langsw{ display:flex; border:1px solid #3D546E; border-radius:16px; overflow:hidden; font-size:12px; }
+  .langsw button{ background:transparent; border:0; color:#C9D4DE; padding:5px 10px; cursor:pointer; font-weight:700; }
+  .langsw button.on{ background:var(--gold); color:var(--navy); }
   .doc{ max-width:820px; margin:0 auto; padding:30px 18px 46px; }
   h1{ color:var(--navy); font-size:26px; margin-bottom:6px; }
   .fecha{ color:var(--mut); font-size:13px; margin-bottom:24px; }
@@ -23,8 +27,49 @@
 </style>
 </head>
 <body>
-<div class="shopbar"><div class="logo">SEÑOR <span>REY</span> MARKETPLACE</div><a href="index.html">← Volver a la tienda</a></div>
-<div class="doc">
+<div class="shopbar"><div class="logo">SEÑOR <span>REY</span> MARKETPLACE</div><div class="barright"><span class="langsw"><button id="langEn" onclick="setLang('en')">EN</button><button id="langEs" onclick="setLang('es')">ES</button></span><a href="index.html" id="backlink">← Back to the store</a></div></div>
+
+<div class="doc" id="doc-en">
+  <h1>Privacy Policy</h1>
+  <div class="fecha">Effective November 15, 2026</div>
+
+  <h2>1. What data we collect</h2>
+  <ul>
+    <li><b>When you buy:</b> your name, your email address, and the shipping address you enter at checkout.</li>
+    <li><b>Your order:</b> the items purchased, the total, the delivery method, and the order status.</li>
+    <li><b>When you comment:</b> the name, rating, and text you post in a product's comments.</li>
+    <li><b>Visits:</b> we anonymously count which pages are visited and which site referred you to the store, with no cookies and without identifying you.</li>
+    <li><b>In your browser:</b> your favorites and recently viewed products are stored only on your own device (local storage); they never reach our servers.</li>
+  </ul>
+
+  <h2>2. How we use your data</h2>
+  <p>To process and deliver your order; to send you the confirmation, tracking or pickup emails and, after delivery, the invitation to leave a review; to display the comments you post; and to answer the messages you write to us. <b>We do not send advertising without your permission, and we never sell your data to anyone.</b></p>
+
+  <h2>3. Who we share the bare minimum with</h2>
+  <ul>
+    <li><b>Stripe</b> — processes your payment securely.</li>
+    <li><b>Supabase</b> — stores the orders and comments.</li>
+    <li><b>GitHub Pages</b> — hosts this site.</li>
+    <li><b>The shipping carrier</b> (USPS, UPS, or FedEx) — receives your name and address only to deliver your order.</li>
+  </ul>
+
+  <h2>4. Your card</h2>
+  <p>Your card details are processed by <b>Stripe</b> directly. They never pass through this store and are never stored in our systems.</p>
+
+  <h2>5. How long we keep data</h2>
+  <p>Order data is kept for as long as needed for accounting and legal obligations. Comments stay published while the product is in the store, unless you ask us to remove yours.</p>
+
+  <h2>6. Your rights</h2>
+  <p>You can ask us to access, correct, or delete your personal data by writing to <b>ventas@senorrey.com</b>. We respond within a reasonable time.</p>
+
+  <h2>7. Minors</h2>
+  <p>This store is not directed at anyone under 18, and we do not knowingly collect data from minors.</p>
+
+  <h2>8. Changes and contact</h2>
+  <p>If this policy changes, we will publish the new version on this page with its date. For any privacy question: <b>ventas@senorrey.com</b>.</p>
+</div>
+
+<div class="doc" id="doc-es" style="display:none">
   <h1>Política de Privacidad</h1>
   <div class="fecha">Vigente desde el 15 de noviembre de 2026</div>
 
@@ -63,7 +108,25 @@
   <h2>8. Cambios y contacto</h2>
   <p>Si esta política cambia, publicaremos la nueva versión en esta página con su fecha. Para cualquier pregunta sobre privacidad: <b>ventas@senorrey.com</b>.</p>
 </div>
-<footer>SEÑOR REY MARKETPLACE · Miami, Florida · <a href="terminos.html">Términos y condiciones</a> · <a href="index.html">Tienda</a></footer>
+<footer>SEÑOR REY MARKETPLACE · Miami, Florida · <a href="terminos.html" id="footterms">Terms &amp; conditions</a> · <a href="index.html" id="footstore">Store</a></footer>
+<script>
+var TX = { en: { title: "Privacy Policy — Señor Rey Marketplace", back: "← Back to the store", terms: "Terms & conditions", store: "Store" },
+           es: { title: "Política de Privacidad — Señor Rey Marketplace", back: "← Volver a la tienda", terms: "Términos y condiciones", store: "Tienda" } };
+var lang = localStorage.getItem('srm_lang') === 'es' ? 'es' : 'en';
+function applyLang(){
+  document.documentElement.lang = lang;
+  document.title = TX[lang].title;
+  document.getElementById('doc-en').style.display = lang === 'en' ? 'block' : 'none';
+  document.getElementById('doc-es').style.display = lang === 'es' ? 'block' : 'none';
+  document.getElementById('backlink').textContent = TX[lang].back;
+  document.getElementById('footterms').textContent = TX[lang].terms;
+  document.getElementById('footstore').textContent = TX[lang].store;
+  document.getElementById('langEn').classList.toggle('on', lang === 'en');
+  document.getElementById('langEs').classList.toggle('on', lang === 'es');
+}
+function setLang(l){ lang = l; localStorage.setItem('srm_lang', l); applyLang(); }
+applyLang();
+</script>
 <!-- Medidor de visitas propio (sin cookies) -->
 <script>
 (function(){var F='https://lewfysgyapmqlhkwxlwo.supabase.co/functions/v1/store-hit';function hit(){try{fetch(F,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({page:location.pathname+location.hash,ref:document.referrer||'',ua:navigator.userAgent.slice(0,300)}),keepalive:true}).catch(function(){});}catch(e){}}hit();var h=location.hash;setInterval(function(){if(location.hash!==h){h=location.hash;hit();}},800);})();
