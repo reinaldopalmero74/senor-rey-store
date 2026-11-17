@@ -33,6 +33,7 @@
     <li><b>Al comprar:</b> tu nombre, tu correo electrónico y la dirección de envío que introduces en el pago.</li>
     <li><b>Tu orden:</b> los artículos comprados, el total, el método de entrega y el estado de la orden.</li>
     <li><b>Al comentar:</b> el nombre, la puntuación y el texto que publicas en los comentarios de un producto.</li>
+    <li><b>Visitas:</b> contamos de forma anónima qué páginas se visitan y desde qué sitio se llega a la tienda, sin cookies y sin identificarte.</li>
     <li><b>En tu navegador:</b> tus favoritos y los productos vistos recientemente se guardan solo en tu propio dispositivo (almacenamiento local); no llegan a nuestros servidores.</li>
   </ul>
 
@@ -63,5 +64,9 @@
   <p>Si esta política cambia, publicaremos la nueva versión en esta página con su fecha. Para cualquier pregunta sobre privacidad: <b>ventas@senorrey.com</b>.</p>
 </div>
 <footer>SEÑOR REY MARKETPLACE · Miami, Florida · <a href="terminos.html">Términos y condiciones</a> · <a href="index.html">Tienda</a></footer>
+<!-- Medidor de visitas propio (sin cookies) -->
+<script>
+(function(){var F='https://lewfysgyapmqlhkwxlwo.supabase.co/functions/v1/store-hit';function hit(){try{fetch(F,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({page:location.pathname+location.hash,ref:document.referrer||'',ua:navigator.userAgent.slice(0,300)}),keepalive:true}).catch(function(){});}catch(e){}}hit();var h=location.hash;setInterval(function(){if(location.hash!==h){h=location.hash;hit();}},800);})();
+</script>
 </body>
 </html>

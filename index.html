@@ -550,5 +550,9 @@ async function chatSend(){ if (chatBusy) return; const inp = document.getElement
   <div class="chatmsgs" id="chatmsgs"></div>
   <div class="chatrow"><input id="chatin" placeholder="Escribe tu pregunta…" maxlength="600"><button onclick="chatSend()">Enviar</button></div>
 </div>
+<!-- Medidor de visitas propio (sin cookies) -->
+<script>
+(function(){var F='https://lewfysgyapmqlhkwxlwo.supabase.co/functions/v1/store-hit';function hit(){try{fetch(F,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({page:location.pathname+location.hash,ref:document.referrer||'',ua:navigator.userAgent.slice(0,300)}),keepalive:true}).catch(function(){});}catch(e){}}hit();var h=location.hash;setInterval(function(){if(location.hash!==h){h=location.hash;hit();}},800);})();
+</script>
 </body>
 </html>
