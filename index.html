@@ -209,6 +209,14 @@
 </style>
 </head>
 <body>
+<!-- Modo mantenimiento: se activa poniendo MAINTENANCE = true en el script principal -->
+<div id="maint" style="display:none;position:fixed;inset:0;z-index:999;background:var(--navy);color:var(--cream);align-items:center;justify-content:center;text-align:center;padding:24px">
+  <div>
+    <div style="font-family:Georgia,serif;font-size:24px;letter-spacing:2px;margin-bottom:14px">SEÑOR <span style="color:var(--gold)">REY</span> MARKETPLACE</div>
+    <div style="font-size:17px;line-height:1.6">🛠️ We're doing a quick maintenance — we'll be back in a few minutes.<br>Estamos haciendo un mantenimiento rápido — volvemos en unos minutos.</div>
+    <div style="margin-top:14px;font-size:14px;color:#B9C4CE">ventas@senorrey.com</div>
+  </div>
+</div>
 <div class="topbar" data-i18n="topbar">Insured shipping across the U.S. · Secure card payments</div>
 <div class="shopbar">
   <div class="logo" onclick="window.scrollTo({top:0,behavior:'smooth'})">SEÑOR <span>REY</span> MARKETPLACE</div>
@@ -636,7 +644,8 @@ let chatHist = [], chatOpened = false, chatBusy = false;
 function toggleChat(){ const p = document.getElementById('chatpanel'); const open = p.classList.toggle('open'); if (open && !chatOpened) { chatOpened = true; chatAdd('bot', t('chatGreet')); document.getElementById('chatin').addEventListener('keydown', e => { if (e.key === 'Enter') chatSend(); }); } if (open) setTimeout(() => document.getElementById('chatin').focus(), 60); }
 function chatAdd(who, text){ const box = document.getElementById('chatmsgs'); const d = document.createElement('div'); d.className = 'cbub ' + who; d.innerHTML = text.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/\*\*([^*]+)\*\*/g, '<b>$1</b>'); box.appendChild(d); box.scrollTop = box.scrollHeight; return d; }
 async function chatSend(){ if (chatBusy) return; const inp = document.getElementById('chatin'); const text = inp.value.trim(); if (!text) return; inp.value = ''; chatAdd('me', text); chatHist.push({ role: 'user', text }); chatBusy = true; const wait = chatAdd('bot', t('chatTyping')); try { const r = await fetch(FN + 'store-chat', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ messages: chatHist, lang }) }); const d = await r.json(); if (!d.reply) throw 0; wait.remove(); chatAdd('bot', d.reply); chatHist.push({ role: 'model', text: d.reply }); } catch (e) { wait.remove(); chatAdd('bot', t('chatFail')); } chatBusy = false; }
-(async () => { applyLang(); await loadSold(); render();
+const MAINTENANCE = false;
+(async () => { if (MAINTENANCE) { document.getElementById('maint').style.display = 'flex'; return; } applyLang(); await loadSold(); render();
   const qs = new URLSearchParams(location.search);
   if (qs.get('pago') === 'ok') { cart = []; updateCart(); if (qs.get('sesion')) showConfirmation(qs.get('sesion')); else toast(t('thanksToast')); setTimeout(async () => { await loadSold(); render(); }, 3000); }
   const h = location.hash.replace('#', ''); if (h && PRODUCTS.some(p => p.id === h)) openDetail(h);
