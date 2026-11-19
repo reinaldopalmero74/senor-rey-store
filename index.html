@@ -47,6 +47,10 @@
   .bd h4{ font-size:15.5px; font-weight:600; line-height:1.3; }
   .stars{ color:var(--gold); font-size:13px; }
   .stars b{ color:var(--mut); font-weight:400; font-size:12px; }
+  .stwrap{ position:relative; display:inline-block; }
+  .stbg{ color:#ddd5c2; }
+  .stfill{ color:var(--gold); position:absolute; left:0; top:0; overflow:hidden; white-space:nowrap; }
+  .stv{ color:var(--mut); font-size:12px; }
   .pricerow{ margin-top:auto; padding-top:6px; display:flex; align-items:baseline; gap:8px; }
   .price{ font-size:19px; font-weight:800; color:var(--navy); }
   .was{ font-size:13.5px; color:#9AA7B1; text-decoration:line-through; }
@@ -338,7 +342,7 @@ const PRODUCTS = [
     photos:["assets/kenzo-1.jpg"], link:"", status:"sold" },
   { id:"afnan-9pm", brand:"Afnan", cat:"Perfumes",
     name:"9 PM Eau de Parfum Spray 3.4 oz — for men", nameEs:"9 PM Eau de Parfum Spray 3.4 oz — para hombre",
-    price:45, was:75, badge:"", rating:"",
+    price:45, was:75, badge:"", rating:"4.35", votes:17358,
     desc:"The warm, spicy and seductive fragrance of 9 PM is a gripping fresh fragrance for men and women, launched in 2020 — famous as one of the best night-out scents for its price.\n\nFragrance notes — Top: Apple, Cinnamon, Wild Lavender and Bergamot. Heart: Orange Blossom and Lily of the Valley. Base: Vanilla, Tonka Bean, Amber and Patchouli.\n\nEau de Parfum spray, 3.4 fl oz (100 ml). Brand new and sealed in its box.",
     descEs:"La fragancia cálida, especiada y seductora de 9 PM es una fragancia fresca y atrapante para hombre y mujer, lanzada en 2020 — famosa como uno de los mejores perfumes para salir de noche por su precio.\n\nNotas — Salida: manzana, canela, lavanda silvestre y bergamota. Corazón: flor de azahar y lirio de los valles. Fondo: vainilla, haba tonka, ámbar y pachulí.\n\nEau de Parfum en spray, 3.4 fl oz (100 ml). Nuevo y sellado en su caja.",
     meta:"Condition: New, sealed · Size: 3.4 fl oz (100 ml) · Eau de Parfum · In stock: 12",
@@ -350,7 +354,7 @@ const PRODUCTS = [
     link:"", status:"live" },
   { id:"afnan-supremacy", brand:"Afnan", cat:"Perfumes",
     name:"Supremacy In Heaven Eau de Parfum Spray 3.4 oz — for men", nameEs:"Supremacy In Heaven Eau de Parfum Spray 3.4 oz — para hombre",
-    price:39, was:70, badge:"", rating:"",
+    price:39, was:70, badge:"", rating:"3.95", votes:1811,
     desc:"The powdery, musky and aromatic scent of Supremacy in Heaven is an irresistible fragrance for men, introduced in 2018 by the design house of Afnan.\n\nFragrance notes — Top: Bergamot and Mandarin. Heart: Black Currant and Green Tea. Base: Musk, Sandalwood and Woodsy Notes.\n\nEau de Parfum spray, 3.4 fl oz (100 ml). Brand new and sealed in its box.",
     descEs:"El aroma empolvado, almizclado y aromático de Supremacy in Heaven es una fragancia irresistible para hombres, lanzada en 2018 por la casa Afnan.\n\nNotas — Salida: bergamota y mandarina. Corazón: grosella negra y té verde. Fondo: almizcle, sándalo y notas amaderadas.\n\nEau de Parfum en spray, 3.4 fl oz (100 ml). Nuevo y sellado en su caja.",
     meta:"Condition: New, sealed · Size: 3.4 fl oz (100 ml) · Eau de Parfum · In stock: 2",
@@ -362,7 +366,7 @@ const PRODUCTS = [
     link:"", status:"live" },
   { id:"dg-k", brand:"Dolce & Gabbana", cat:"Perfumes",
     name:"K Eau de Parfum Spray 3.3 oz — for men", nameEs:"K Eau de Parfum Spray 3.3 oz — para hombre",
-    price:85, was:139, badge:"", rating:"",
+    price:85, was:139, badge:"", rating:"3.99", votes:3705,
     desc:"K by Dolce & Gabbana is a captivating fragrance for men, launched in 2019 — the scent of a man who chooses his own path.\n\nFragrance notes — Top: Blood Orange, Sicilian Lemon, Citruses and Juniper Berries. Heart: Pimento, Clary Sage, Geranium and Lavender. Base: Cedar, Patchouli and Vetiver.\n\nEau de Parfum spray, 3.3 fl oz (100 ml). Made in France. Brand new and sealed in its box.",
     descEs:"K by Dolce & Gabbana es una fragancia cautivadora para hombres, lanzada en 2019 — el aroma del hombre que elige su propio camino.\n\nNotas — Salida: naranja sanguina, limón siciliano, cítricos y bayas de enebro. Corazón: pimienta, salvia, geranio y lavanda. Fondo: cedro, pachulí y vetiver.\n\nEau de Parfum en spray, 3.3 fl oz (100 ml). Hecho en Francia. Nuevo y sellado en su caja.",
     meta:"Condition: New, sealed · Size: 3.3 fl oz (100 ml) · Eau de Parfum · In stock: 2",
@@ -386,7 +390,7 @@ const PRODUCTS = [
     link:"", status:"live" },
   { id:"amber-oud-gold", brand:"Al Haramain", cat:"Perfumes",
     name:"Amber Oud Gold Edition Eau de Parfum Spray 2.0 oz — unisex", nameEs:"Amber Oud Gold Edition Eau de Parfum Spray 2.0 oz — unisex",
-    price:45, was:60, badge:"", rating:"",
+    price:45, was:60, badge:"", rating:"4.30", votes:5818,
     desc:"Amber Oud Gold Edition by Al Haramain is a luxurious unisex fragrance launched in 2018 — rich, sweet and long-lasting, a Middle Eastern classic.\n\nFragrance notes — Top: Bergamot and Green Notes. Heart: Melon, Pineapple, Sweet Notes and Amber. Base: Vanilla, Musk and Woody Notes.\n\nEau de Parfum spray, 2.0 fl oz (60 ml). Brand new and sealed in its box.",
     descEs:"Amber Oud Gold Edition de Al Haramain es una fragancia unisex de lujo lanzada en 2018 — rica, dulce y muy duradera, un clásico de Medio Oriente.\n\nNotas — Salida: bergamota y notas verdes. Corazón: melón, piña, notas dulces y ámbar. Fondo: vainilla, almizcle y notas amaderadas.\n\nEau de Parfum en spray, 2.0 fl oz (60 ml). Nuevo y sellado en su caja.",
     meta:"Condition: New, sealed · Size: 2.0 fl oz (60 ml) · Eau de Parfum · In stock: 2",
@@ -398,7 +402,7 @@ const PRODUCTS = [
     link:"", status:"live" },
   { id:"lattafa-khamrah", brand:"Lattafa", cat:"Perfumes",
     name:"Khamrah Eau de Parfum Spray 3.4 oz — unisex", nameEs:"Khamrah Eau de Parfum Spray 3.4 oz — unisex",
-    price:42, was:50, badge:"", rating:"",
+    price:42, was:50, badge:"", rating:"4.20", votes:31925,
     desc:"The luxurious and oriental fragrance of Khamrah is a warm and aromatic scent for women and men from the design house of Lattafa Perfumes, launched in 2022 — sweet, spicy and long-lasting.\n\nFragrance notes — Top: Cinnamon, Nutmeg and Bergamot. Heart: Dates, Praline, Tuberose and Mahonial. Base: Vanilla, Tonka Bean, Amberwood, Myrrh, Benzoin and Akigalawood.\n\nEau de Parfum spray, 3.4 fl oz (100 ml). Brand new and sealed in its box.",
     descEs:"La fragancia lujosa y oriental Khamrah es un aroma cálido y aromático para mujer y hombre de la casa Lattafa Perfumes, lanzada en 2022 — dulce, especiada y muy duradera.\n\nNotas — Salida: canela, nuez moscada y bergamota. Corazón: dátiles, praliné, nardo y mahonial. Fondo: vainilla, haba tonka, amberwood, mirra, benjuí y akigalawood.\n\nEau de Parfum en spray, 3.4 fl oz (100 ml). Nuevo y sellado en su caja.",
     meta:"Condition: New, sealed · Size: 3.4 fl oz (100 ml) · Eau de Parfum · In stock: 1",
@@ -422,7 +426,7 @@ const PRODUCTS = [
     link:"", status:"live" },
   { id:"club-de-nuit-intense", brand:"Armaf", cat:"Perfumes",
     name:"Club de Nuit Intense Man Eau de Toilette Spray 3.6 oz — for men", nameEs:"Club de Nuit Intense Man Eau de Toilette Spray 3.6 oz — para hombre",
-    price:35, was:65, badge:"", rating:"",
+    price:35, was:65, badge:"", rating:"4.08", votes:27223,
     desc:"The woody spicy fragrance of Club de Nuit Intense Man is a powerful scent for men, launched by the design house of Armaf in 2015 — famous for its smoky pineapple-and-birch character and long-lasting projection.\n\nFragrance notes — Top: Pineapple, Bergamot, Lemon, Apple and Black Currant. Heart: Jasmine, Rose and Birch. Base: Vanilla, Patchouli, Ambergris and Musk.\n\nEau de Toilette spray, 3.6 fl oz (105 ml). Brand new and sealed in its box.",
     descEs:"La fragancia amaderada y especiada de Club de Nuit Intense Man es un aroma poderoso para hombres, lanzado por la casa Armaf en 2015 — famoso por su carácter ahumado de piña y abedul y su proyección duradera.\n\nNotas — Salida: piña, bergamota, limón, manzana y grosella negra. Corazón: jazmín, rosa y abedul. Fondo: vainilla, pachulí, ámbar gris y almizcle.\n\nEau de Toilette en spray, 3.6 fl oz (105 ml). Nuevo y sellado en su caja.",
     meta:"Condition: New, sealed · Size: 3.6 fl oz (105 ml) · Eau de Toilette · In stock: 12",
@@ -434,7 +438,7 @@ const PRODUCTS = [
     link:"", status:"live" },
   {
     id:"lattafa-asad", brand:"Lattafa", cat:"Perfumes", name:"Asad Eau de Parfum", nameEs:"Asad Eau de Parfum",
-    price:32, was:50, badge:"", rating:"",
+    price:32, was:50, badge:"", rating:"4.02", votes:14930,
     desc:"Asad by Lattafa Perfumes is a bold amber-spicy eau de parfum for men, launched in 2021 and famous as one of the longest-lasting Arabic fragrances in its class. It opens with black pepper, tobacco and pineapple, turns dark and roasted with coffee, patchouli and iris, and settles into a warm base of vanilla, amber, dry woods, benzoin and labdanum.\n\nFRAGRANCE NOTES\nTop Notes: Black Pepper, Tobacco, Pineapple\nHeart Notes: Coffee, Patchouli, Iris\nBase Notes: Vanilla, Amber, Dry Woods, Benzoin, Labdanum\n\n\u2022 Eau de Parfum Spray, 3.4 oz (100 ml)\n\u2022 Made in U.A.E.\n\u2022 Brand new, sealed in its original box",
     descEs:"Asad de Lattafa Perfumes es un eau de parfum \u00e1mbar-especiado e intenso para hombre, lanzado en 2021 y famoso como una de las fragancias \u00e1rabes de mayor duraci\u00f3n en su clase. Abre con pimienta negra, tabaco y pi\u00f1a, se vuelve oscuro y tostado con caf\u00e9, pachul\u00ed e iris, y termina en una base c\u00e1lida de vainilla, \u00e1mbar, maderas secas, benju\u00ed y l\u00e1dano.\n\nNOTAS DE LA FRAGANCIA\nNotas de salida: Pimienta Negra, Tabaco, Pi\u00f1a\nNotas de coraz\u00f3n: Caf\u00e9, Pachul\u00ed, Iris\nNotas de fondo: Vainilla, \u00c1mbar, Maderas Secas, Benju\u00ed, L\u00e1dano\n\n\u2022 Eau de Parfum en spray, 3.4 oz (100 ml)\n\u2022 Hecho en Emiratos \u00c1rabes Unidos\n\u2022 Nuevo, sellado en su caja original",
     meta:"Eau de Parfum \u00b7 3.4 oz (100 ml) \u00b7 For Men \u00b7 Made in U.A.E. \u00b7 In stock: 11",
@@ -447,7 +451,7 @@ const PRODUCTS = [
   },
   {
     id:"maahir-legacy", brand:"Lattafa", cat:"Perfumes", name:"Maahir Legacy Eau de Parfum", nameEs:"Maahir Legacy Eau de Parfum",
-    price:32, was:50, badge:"", rating:"",
+    price:32, was:50, badge:"", rating:"4.08", votes:4411,
     desc:"Maahir Legacy by Lattafa Perfumes is a fresh, aromatic eau de parfum for men presented in the line's signature silver bottle crowned with a sculpted horse head. Sparkling lime, mint, grapefruit, lavender and pineapple open into a spicy heart of black pepper, juniper berry, rosemary, geranium and frankincense, over a clean base of ambroxan, vetiver, oakmoss, tonka bean and cashmeran.\n\nFRAGRANCE NOTES\nTop Notes: Lime, Mint, Grapefruit, Lavender, Pineapple\nHeart Notes: Black Pepper, Juniper Berry, Rosemary, Geranium, Frankincense\nBase Notes: Ambroxan, Vetiver, Oakmoss, Tonka Bean, Cashmeran\n\n\u2022 Eau de Parfum Spray, 3.4 oz (100 ml)\n\u2022 Made in U.A.E.\n\u2022 Brand new, sealed in its original box",
     descEs:"Maahir Legacy de Lattafa Perfumes es un eau de parfum fresco y arom\u00e1tico para hombre, presentado en la botella plateada insignia de la l\u00ednea con su tapa de cabeza de caballo. Lima chispeante, menta, toronja, lavanda y pi\u00f1a abren hacia un coraz\u00f3n especiado de pimienta negra, bayas de enebro, romero, geranio e incienso, sobre una base limpia de ambroxan, vetiver, musgo de roble, haba tonka y cashmeran.\n\nNOTAS DE LA FRAGANCIA\nNotas de salida: Lima, Menta, Toronja, Lavanda, Pi\u00f1a\nNotas de coraz\u00f3n: Pimienta Negra, Bayas de Enebro, Romero, Geranio, Incienso\nNotas de fondo: Ambroxan, Vetiver, Musgo de Roble, Haba Tonka, Cashmeran\n\n\u2022 Eau de Parfum en spray, 3.4 oz (100 ml)\n\u2022 Hecho en Emiratos \u00c1rabes Unidos\n\u2022 Nuevo, sellado en su caja original",
     meta:"Eau de Parfum \u00b7 3.4 oz (100 ml) \u00b7 For Men \u00b7 Made in U.A.E. \u00b7 In stock: 5",
@@ -643,7 +647,7 @@ function buildCats(){
   CATS.forEach(c => { const b = document.createElement('button'); b.className = 'chip' + (c === cat ? ' on' : ''); b.textContent = c === 'Todos' ? t('allCat') : catName(c);
     b.onclick = () => { cat = c; buildCats(); render(); }; catsEl.appendChild(b); });
 }
-function stars(p){ return p.rating ? '<div class="stars">★★★★★ <b>' + p.rating + '</b></div>' : ''; }
+function stars(p, full){ if (!p.rating) return ''; const pct = Math.round(parseFloat(p.rating) / 5 * 100); let v = ''; if (full && p.votes) v = '<span class="stv"> · ' + Number(p.votes).toLocaleString(lang === 'es' ? 'es-US' : 'en-US') + (lang === 'es' ? ' votos en Fragrantica' : ' votes on Fragrantica') + '</span>'; return '<div class="stars"><span class="stwrap"><span class="stbg">★★★★★</span><span class="stfill" style="width:' + pct + '%">★★★★★</span></span> <b>' + p.rating + '</b>' + v + '</div>'; }
 function visible(){
   const term = q.value.trim().toLowerCase();
   let list = PRODUCTS.filter(p =>
@@ -721,7 +725,7 @@ function openDetail(id, keep){
   const sold = isSold(p), coming = isComing(p);
   document.getElementById('detail').innerHTML =
     galHTML(p) +
-    '<div class="info"><div class="brand">' + p.brand + '</div><h2>' + pname(p) + '</h2>' + stars(p) +
+    '<div class="info"><div class="brand">' + p.brand + '</div><h2>' + pname(p) + '</h2>' + stars(p, 1) +
     '<div class="pricerow"><span class="price">' + money(p.price) + '</span>' + (p.was ? '<span class="was">' + money(p.was) + '</span>' : '') + '</div>' +
     '<div class="desc">' + pdesc(p) + '</div>' + notesHTML(p) + '<div class="meta">' + (pmeta(p) || '') + '</div>' +
     '<div class="btnrow">' +
