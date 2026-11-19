@@ -202,6 +202,10 @@
   .lbrow.me{ background:var(--gold); color:var(--navy); font-weight:700; }
   .lbpos{ font-weight:800; margin-right:10px; min-width:26px; }
   .lbitems{ margin-left:auto; font-weight:700; }
+  .prules{ margin:12px 0; border:1px solid var(--line); border-radius:10px; padding:10px 12px; background:#fff; text-align:left; }
+  .prules summary{ cursor:pointer; font-weight:700; }
+  .prules ul{ margin:8px 0 2px; padding-left:18px; }
+  .prules li{ margin:4px 0; font-size:13.5px; line-height:1.45; }
   #acctBtn.on{ background:var(--gold); color:var(--navy); border-radius:50%; width:27px; height:27px; display:inline-flex; align-items:center; justify-content:center; font-weight:800; font-size:14px; }
   .steps{ display:flex; gap:6px; margin:10px 0; }
   .step{ flex:1; text-align:center; font-size:12px; color:#8a97a5; border-top:3px solid #dde3ea; padding-top:6px; }
@@ -964,7 +968,7 @@ function renderAuth(box){
     '<div class="aerr" id="aErr"></div>' +
     '<button class="buy" style="width:100%" onclick="acctSubmit()">' + (acctMode === 'up' ? t('btnUp') : t('btnIn')) + '</button>' +
     (acctMode === 'in' ? '<p style="margin:10px 0 0"><button class="alink" onclick="acctForgot()">' + t('forgot') + '</button></p>' : '') +
-    '<div class="promo"><div class="pt">' + t('promoCard') + '</div></div>';
+    '<div class="promo"><div class="pt">' + t('promoCard') + '</div></div>' + promoRulesHTML();
 }
 async function acctSubmit(){
   const email = document.getElementById('aEmail').value.trim();
@@ -997,12 +1001,36 @@ function renderPanel(box){
     '<div class="auser">' + t('helloW') + (name ? ', <b>' + esc(name) + '</b>' : '') + '</div>' +
     '<div class="aemail">' + esc(acctUser.email) + '</div>' +
     '<div id="promoBox"></div>' +
-    '<div id="lbBox"></div>' +
+    '<div id="lbBox"></div>' + promoRulesHTML() +
     '<h3 style="margin:16px 0 6px">📦 ' + t('myOrders') + '</h3>' +
     '<div id="myOrders"><div class="cempty">' + t('loadingTxt') + '</div></div>' +
     '<button class="buy share" style="width:100%;margin-top:16px" onclick="acctOut()">' + t('signOut') + '</button>';
   loadMyOrders();
   loadLeaderboard();
+}
+function promoRulesHTML(){
+  const R = lang === 'es' ? [
+    'El primer cliente registrado cuyas compras sumen 10 artículos gana un artículo sorpresa de la tienda.',
+    'Cuenta cada artículo de las órdenes pagadas y completadas. Las órdenes canceladas o reembolsadas no cuentan.',
+    'Los artículos se cuentan con el correo usado al pagar: debe ser el mismo correo de tu cuenta.',
+    'Solo hay un ganador por edición: el primero en llegar a 10, según la fecha y hora de su orden.',
+    'El premio es un artículo sorpresa elegido por Señor Rey Marketplace. No tiene valor en efectivo, no es transferible ni canjeable por otros productos.',
+    'Avisaremos al ganador por correo electrónico. Debe responder dentro de 7 días; si no responde, el premio pasa al siguiente cliente en la tabla de posiciones.',
+    'La entrega del premio es por recogida local con cita en un punto público de Miami, o por envío dentro de Estados Unidos.',
+    'Una cuenta por persona. Las cuentas u órdenes con fraude o abuso serán descalificadas.',
+    'Señor Rey Marketplace puede modificar estas reglas o dar por terminada la promoción en cualquier momento.'
+  ] : [
+    'The first registered customer whose purchases total 10 items wins a surprise gift item from the store.',
+    'Every item in a paid, completed order counts. Cancelled or refunded orders do not count.',
+    'Items are counted under the email used at checkout: it must be the same email as your account.',
+    'There is only one winner per edition: the first to reach 10, by the date and time of the order.',
+    'The prize is a surprise gift item chosen by Señor Rey Marketplace. It has no cash value, is non-transferable and cannot be exchanged for other products.',
+    'The winner is notified by email and must reply within 7 days; if there is no reply, the prize goes to the next customer in the standings.',
+    'The prize is delivered by local pickup by appointment at a public meeting point in Miami, or shipped within the United States.',
+    'One account per person. Accounts or orders involving fraud or abuse will be disqualified.',
+    'Señor Rey Marketplace may modify these rules or end the promotion at any time.'
+  ];
+  return '<details class="prules"><summary>📜 ' + (lang === 'es' ? 'Reglas del concurso' : 'Contest rules') + '</summary><ul>' + R.map(r => '<li>' + r + '</li>').join('') + '</ul></details>';
 }
 async function loadLeaderboard(){
   const lb = document.getElementById('lbBox'); if (!lb) return;
