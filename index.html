@@ -398,7 +398,7 @@ const PRODUCTS = [
     link:"", status:"live" },
   { id:"nautica-blue", brand:"Nautica", cat:"Perfumes",
     name:"Blue Eau de Toilette Spray 3.4 oz — for men", nameEs:"Blue Eau de Toilette Spray 3.4 oz — para hombre",
-    price:22, was:55, badge:"", rating:"",
+    price:22, was:55, badge:"", rating:"4.6", votes:24874, rsrc:"Amazon",
     desc:"Show off your multi-faceted personality with Nautica Blue, launched in 2005 — a fresh, clean aquatic scent for every day.\n\nFragrance notes — Top: Peach, Pineapple and Bergamot. Heart: Water Lily and Jasmine. Base: Cedar, Sandalwood and Musk.\n\nEau de Toilette spray, 3.4 fl oz (100 ml). Brand new and sealed in its box.",
     descEs:"Muestra tu personalidad con Nautica Blue, lanzada en 2005 — una fragancia fresca, limpia y acuática para todos los días.\n\nNotas — Salida: melocotón, piña y bergamota. Corazón: nenúfar y jazmín. Fondo: cedro, sándalo y almizcle.\n\nEau de Toilette en spray, 3.4 fl oz (100 ml). Nuevo y sellado en su caja.",
     meta:"Condition: New, sealed · Size: 3.4 fl oz (100 ml) · Eau de Toilette · In stock: 6",
@@ -434,7 +434,7 @@ const PRODUCTS = [
     link:"", status:"live" },
   { id:"hareem-al-sultan", brand:"Khadlaj", cat:"Perfumes",
     name:"Hareem Al Sultan Gold Concentrated Perfume Oil 1.18 oz — for women", nameEs:"Hareem Al Sultan Gold Aceite de Perfume Concentrado 1.18 oz — para mujer",
-    price:29, was:35, badge:"", rating:"",
+    price:29, was:35, badge:"", rating:"4.6", votes:4249, rsrc:"TikTok Shop",
     desc:"Hareem Al Sultan Gold by Khadlaj is a concentrated perfume oil for women — alcohol-free, and a few drops last all day. This viral favorite is pure luxury in an ornate golden bottle.\n\nFragrance notes — Top: Bergamot, Jasmine and Peony. Heart: Pineapple, Plum and Peach. Base: Musk, Sandalwood and Patchouli.\n\nConcentrated perfume oil, 1.18 fl oz (35 ml). Made in U.A.E. Brand new and sealed in its box.",
     descEs:"Hareem Al Sultan Gold de Khadlaj es un aceite de perfume concentrado para mujeres — sin alcohol, y unas gotas duran todo el día. Este favorito viral es lujo puro en una botella dorada ornamentada.\n\nNotas — Salida: bergamota, jazmín y peonía. Corazón: piña, ciruela y melocotón. Fondo: almizcle, sándalo y pachulí.\n\nAceite de perfume concentrado, 1.18 fl oz (35 ml). Hecho en E.A.U. Nuevo y sellado en su caja.",
     meta:"Condition: New, sealed · Size: 1.18 fl oz (35 ml) · Perfume Oil · In stock: 2",
@@ -484,7 +484,7 @@ const PRODUCTS = [
   },
   {
     id:"maahir-black", brand:"Lattafa", cat:"Perfumes", name:"Maahir Black Edition Eau de Parfum", nameEs:"Maahir Black Edition Eau de Parfum",
-    price:32, was:50, badge:"", rating:"",
+    price:32, was:50, badge:"", rating:"4.2", votes:541, rsrc:"noon",
     desc:"Maahir Black Edition by Lattafa Perfumes is the dark, smoky member of the Maahir line, in a black bottle crowned with a black horse head. Bergamot, rosemary and violet lead into a deep heart of kyara incense, orris, myrrh, amber, labdanum and vanilla, finishing on oud, smoke, leather, sandalwood, patchouli and cedar. Intense, mysterious and long-lasting.\n\nFRAGRANCE NOTES\nTop Notes: Bergamot, Rosemary, Violet\nHeart Notes: Kyara Incense, Orris, Myrrh, Amber, Labdanum, Vanilla\nBase Notes: Agarwood (Oud), Smoke, Leather, Sandalwood, Patchouli, Cedar\n\n\u2022 Eau de Parfum Spray, 3.4 oz (100 ml)\n\u2022 Made in U.A.E.\n\u2022 Brand new, sealed in its original box",
     descEs:"Maahir Black Edition de Lattafa Perfumes es el miembro oscuro y ahumado de la l\u00ednea Maahir, en una botella negra coronada con una cabeza de caballo negra. Bergamota, romero y violeta dan paso a un coraz\u00f3n profundo de incienso kyara, orris, mirra, \u00e1mbar, l\u00e1dano y vainilla, con un final de oud, humo, cuero, s\u00e1ndalo, pachul\u00ed y cedro. Intenso, misterioso y de larga duraci\u00f3n.\n\nNOTAS DE LA FRAGANCIA\nNotas de salida: Bergamota, Romero, Violeta\nNotas de coraz\u00f3n: Incienso Kyara, Orris, Mirra, \u00c1mbar, L\u00e1dano, Vainilla\nNotas de fondo: Agarwood (Oud), Humo, Cuero, S\u00e1ndalo, Pachul\u00ed, Cedro\n\n\u2022 Eau de Parfum en spray, 3.4 oz (100 ml)\n\u2022 Hecho en Emiratos \u00c1rabes Unidos\n\u2022 Nuevo, sellado en su caja original",
     meta:"Eau de Parfum \u00b7 3.4 oz (100 ml) \u00b7 For Men \u00b7 Made in U.A.E. \u00b7 In stock: 2",
@@ -667,7 +667,7 @@ function buildCats(){
   CATS.forEach(c => { const b = document.createElement('button'); b.className = 'chip' + (c === cat ? ' on' : ''); b.textContent = c === 'Todos' ? t('allCat') : catName(c);
     b.onclick = () => { cat = c; buildCats(); render(); }; catsEl.appendChild(b); });
 }
-function stars(p, full){ if (!p.rating) return ''; const pct = Math.round(parseFloat(p.rating) / 5 * 100); let v = ''; if (full && p.votes) v = '<span class="stv"> · ' + Number(p.votes).toLocaleString(lang === 'es' ? 'es-US' : 'en-US') + (lang === 'es' ? ' votos en Fragrantica' : ' votes on Fragrantica') + '</span>'; return '<div class="stars"><span class="stwrap"><span class="stbg">★★★★★</span><span class="stfill" style="width:' + pct + '%">★★★★★</span></span> <b>' + p.rating + '</b>' + v + '</div>'; }
+function stars(p, full){ if (!p.rating) return ''; const pct = Math.round(parseFloat(p.rating) / 5 * 100); let v = ''; if (full && p.votes) v = '<span class="stv"> · ' + Number(p.votes).toLocaleString(lang === 'es' ? 'es-US' : 'en-US') + (lang === 'es' ? ' votos en ' : ' votes on ') + (p.rsrc || 'Fragrantica') + '</span>'; return '<div class="stars"><span class="stwrap"><span class="stbg">★★★★★</span><span class="stfill" style="width:' + pct + '%">★★★★★</span></span> <b>' + p.rating + '</b>' + v + '</div>'; }
 function visible(){
   const term = q.value.trim().toLowerCase();
   let list = PRODUCTS.filter(p =>
