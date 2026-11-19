@@ -206,6 +206,14 @@
     .step{ font-size:11px; }
     .drawer{ width:100vw; }
   }
+
+.notes{margin:20px 0 6px}
+.notes h3{font-size:14px;letter-spacing:.14em;text-transform:uppercase;color:#b8860b;margin:0 0 12px}
+.nrow{display:flex;gap:12px;align-items:flex-start;margin-bottom:10px}
+.nlbl{flex:0 0 88px;font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:#8a8378;padding-top:11px}
+.nchips{display:flex;flex-wrap:wrap;gap:8px}
+.nchip{display:inline-flex;align-items:center;gap:7px;background:#fff;border:1px solid #e3ddcf;border-radius:999px;padding:4px 13px 4px 4px;font-size:13px;color:#16283C}
+.nchip img{width:30px;height:30px;border-radius:50%;object-fit:cover;display:block}
 </style>
 </head>
 <body>
@@ -334,7 +342,10 @@ const PRODUCTS = [
     descEs:"La fragancia cálida, especiada y seductora de 9 PM es una fragancia fresca y atrapante para hombre y mujer, lanzada en 2020 — famosa como uno de los mejores perfumes para salir de noche por su precio.\n\nNotas — Salida: manzana, canela, lavanda silvestre y bergamota. Corazón: flor de azahar y lirio de los valles. Fondo: vainilla, haba tonka, ámbar y pachulí.\n\nEau de Parfum en spray, 3.4 fl oz (100 ml). Nuevo y sellado en su caja.",
     meta:"Condition: New, sealed · Size: 3.4 fl oz (100 ml) · Eau de Parfum · In stock: 12",
     metaEs:"Condición: Nuevo, sellado · Tamaño: 3.4 fl oz (100 ml) · Eau de Parfum · Disponibles: 12",
-    photos:["assets/afnan-9pm-1.jpg"],
+    notesT:[["apple","Apple","Manzana"],["cinnamon","Cinnamon","Canela"],["lavender","Lavender","Lavanda"],["bergamot","Bergamot","Bergamota"]],
+    notesH:[["orange-blossom","Orange Blossom","Azahar"],["lily-of-the-valley","Lily of the Valley","Lirio del Valle"]],
+    notesB:[["vanilla","Vanilla","Vainilla"],["tonka","Tonka Bean","Haba Tonka"],["amber","Amber","\u00c1mbar"],["patchouli","Patchouli","Pachul\u00ed"]],
+    photos:["assets/afnan-9pm-1.jpg","assets/afnan-9pm-2.jpg"],
     link:"", status:"live" },
   { id:"afnan-supremacy", brand:"Afnan", cat:"Perfumes",
     name:"Supremacy In Heaven Eau de Parfum Spray 3.4 oz — for men", nameEs:"Supremacy In Heaven Eau de Parfum Spray 3.4 oz — para hombre",
@@ -343,7 +354,10 @@ const PRODUCTS = [
     descEs:"El aroma empolvado, almizclado y aromático de Supremacy in Heaven es una fragancia irresistible para hombres, lanzada en 2018 por la casa Afnan.\n\nNotas — Salida: bergamota y mandarina. Corazón: grosella negra y té verde. Fondo: almizcle, sándalo y notas amaderadas.\n\nEau de Parfum en spray, 3.4 fl oz (100 ml). Nuevo y sellado en su caja.",
     meta:"Condition: New, sealed · Size: 3.4 fl oz (100 ml) · Eau de Parfum · In stock: 2",
     metaEs:"Condición: Nuevo, sellado · Tamaño: 3.4 fl oz (100 ml) · Eau de Parfum · Disponibles: 2",
-    photos:["assets/afnan-supremacy-1.jpg","assets/afnan-supremacy-2.jpg"],
+    notesT:[["bergamot","Bergamot","Bergamota"],["mandarin","Mandarin","Mandarina"]],
+    notesH:[["black-currant","Black Currant","Grosella Negra"],["green-tea","Green Tea","T\u00e9 Verde"]],
+    notesB:[["musk","Musk","Almizcle"],["sandalwood","Sandalwood","S\u00e1ndalo"],["dry-woods","Woodsy Notes","Notas Amaderadas"]],
+    photos:["assets/afnan-supremacy-1.jpg","assets/afnan-supremacy-2.jpg","assets/afnan-supremacy-3.jpg"],
     link:"", status:"live" },
   { id:"dg-k", brand:"Dolce & Gabbana", cat:"Perfumes",
     name:"K Eau de Parfum Spray 3.3 oz — for men", nameEs:"K Eau de Parfum Spray 3.3 oz — para hombre",
@@ -352,7 +366,10 @@ const PRODUCTS = [
     descEs:"K by Dolce & Gabbana es una fragancia cautivadora para hombres, lanzada en 2019 — el aroma del hombre que elige su propio camino.\n\nNotas — Salida: naranja sanguina, limón siciliano, cítricos y bayas de enebro. Corazón: pimienta, salvia, geranio y lavanda. Fondo: cedro, pachulí y vetiver.\n\nEau de Parfum en spray, 3.3 fl oz (100 ml). Hecho en Francia. Nuevo y sellado en su caja.",
     meta:"Condition: New, sealed · Size: 3.3 fl oz (100 ml) · Eau de Parfum · In stock: 2",
     metaEs:"Condición: Nuevo, sellado · Tamaño: 3.3 fl oz (100 ml) · Eau de Parfum · Disponibles: 2",
-    photos:["assets/dg-k-1.jpg","assets/dg-k-2.jpg"],
+    notesT:[["blood-orange","Blood Orange","Naranja Sanguina"],["lemon","Lemon","Lim\u00f3n"],["juniper","Juniper Berries","Bayas de Enebro"]],
+    notesH:[["pimento","Pimento","Pimiento"],["clary-sage","Clary Sage","Salvia"],["geranium","Geranium","Geranio"],["lavender","Lavender","Lavanda"]],
+    notesB:[["cedar","Cedar","Cedro"],["patchouli","Patchouli","Pachul\u00ed"],["vetiver","Vetiver","Vetiver"]],
+    photos:["assets/dg-k-1.jpg","assets/dg-k-2.jpg","assets/dg-k-3.jpg"],
     link:"", status:"live" },
   { id:"nautica-blue", brand:"Nautica", cat:"Perfumes",
     name:"Blue Eau de Toilette Spray 3.4 oz — for men", nameEs:"Blue Eau de Toilette Spray 3.4 oz — para hombre",
@@ -361,7 +378,10 @@ const PRODUCTS = [
     descEs:"Muestra tu personalidad con Nautica Blue, lanzada en 2005 — una fragancia fresca, limpia y acuática para todos los días.\n\nNotas — Salida: melocotón, piña y bergamota. Corazón: nenúfar y jazmín. Fondo: cedro, sándalo y almizcle.\n\nEau de Toilette en spray, 3.4 fl oz (100 ml). Nuevo y sellado en su caja.",
     meta:"Condition: New, sealed · Size: 3.4 fl oz (100 ml) · Eau de Toilette · In stock: 6",
     metaEs:"Condición: Nuevo, sellado · Tamaño: 3.4 fl oz (100 ml) · Eau de Toilette · Disponibles: 6",
-    photos:["assets/nautica-blue-1.jpg"],
+    notesT:[["peach","Peach","Melocot\u00f3n"],["pineapple","Pineapple","Pi\u00f1a"],["bergamot","Bergamot","Bergamota"]],
+    notesH:[["water-lily","Water Lily","Nen\u00fafar"],["jasmine","Jasmine","Jazm\u00edn"]],
+    notesB:[["cedar","Cedar","Cedro"],["sandalwood","Sandalwood","S\u00e1ndalo"],["musk","Musk","Almizcle"]],
+    photos:["assets/nautica-blue-1.jpg","assets/nautica-blue-2.jpg"],
     link:"", status:"live" },
   { id:"amber-oud-gold", brand:"Al Haramain", cat:"Perfumes",
     name:"Amber Oud Gold Edition Eau de Parfum Spray 2.0 oz — unisex", nameEs:"Amber Oud Gold Edition Eau de Parfum Spray 2.0 oz — unisex",
@@ -370,7 +390,10 @@ const PRODUCTS = [
     descEs:"Amber Oud Gold Edition de Al Haramain es una fragancia unisex de lujo lanzada en 2018 — rica, dulce y muy duradera, un clásico de Medio Oriente.\n\nNotas — Salida: bergamota y notas verdes. Corazón: melón, piña, notas dulces y ámbar. Fondo: vainilla, almizcle y notas amaderadas.\n\nEau de Parfum en spray, 2.0 fl oz (60 ml). Nuevo y sellado en su caja.",
     meta:"Condition: New, sealed · Size: 2.0 fl oz (60 ml) · Eau de Parfum · In stock: 2",
     metaEs:"Condición: Nuevo, sellado · Tamaño: 2.0 fl oz (60 ml) · Eau de Parfum · Disponibles: 2",
-    photos:["assets/amber-oud-gold-1.jpg"],
+    notesT:[["bergamot","Bergamot","Bergamota"]],
+    notesH:[["melon","Melon","Mel\u00f3n"],["pineapple","Pineapple","Pi\u00f1a"],["amber","Amber","\u00c1mbar"]],
+    notesB:[["vanilla","Vanilla","Vainilla"],["musk","Musk","Almizcle"],["dry-woods","Woody Notes","Notas Amaderadas"]],
+    photos:["assets/amber-oud-gold-1.jpg","assets/amber-oud-gold-2.jpg"],
     link:"", status:"live" },
   { id:"lattafa-khamrah", brand:"Lattafa", cat:"Perfumes",
     name:"Khamrah Eau de Parfum Spray 3.4 oz — unisex", nameEs:"Khamrah Eau de Parfum Spray 3.4 oz — unisex",
@@ -379,7 +402,10 @@ const PRODUCTS = [
     descEs:"La fragancia lujosa y oriental Khamrah es un aroma cálido y aromático para mujer y hombre de la casa Lattafa Perfumes, lanzada en 2022 — dulce, especiada y muy duradera.\n\nNotas — Salida: canela, nuez moscada y bergamota. Corazón: dátiles, praliné, nardo y mahonial. Fondo: vainilla, haba tonka, amberwood, mirra, benjuí y akigalawood.\n\nEau de Parfum en spray, 3.4 fl oz (100 ml). Nuevo y sellado en su caja.",
     meta:"Condition: New, sealed · Size: 3.4 fl oz (100 ml) · Eau de Parfum · In stock: 1",
     metaEs:"Condición: Nuevo, sellado · Tamaño: 3.4 fl oz (100 ml) · Eau de Parfum · Disponibles: 1",
-    photos:["assets/lattafa-khamrah-1.jpg"],
+    notesT:[["cinnamon","Cinnamon","Canela"],["nutmeg","Nutmeg","Nuez Moscada"],["bergamot","Bergamot","Bergamota"]],
+    notesH:[["dates","Dates","D\u00e1tiles"],["praline","Praline","Pralin\u00e9"],["tuberose","Tuberose","Nardo"]],
+    notesB:[["vanilla","Vanilla","Vainilla"],["tonka","Tonka Bean","Haba Tonka"],["benzoin","Benzoin","Benju\u00ed"],["myrrh","Myrrh","Mirra"],["dry-woods","Amberwood","Madera de \u00c1mbar"]],
+    photos:["assets/lattafa-khamrah-1.jpg","assets/lattafa-khamrah-2.jpg"],
     link:"", status:"live" },
   { id:"hareem-al-sultan", brand:"Khadlaj", cat:"Perfumes",
     name:"Hareem Al Sultan Gold Concentrated Perfume Oil 1.18 oz — for women", nameEs:"Hareem Al Sultan Gold Aceite de Perfume Concentrado 1.18 oz — para mujer",
@@ -388,6 +414,9 @@ const PRODUCTS = [
     descEs:"Hareem Al Sultan Gold de Khadlaj es un aceite de perfume concentrado para mujeres — sin alcohol, y unas gotas duran todo el día. Este favorito viral es lujo puro en una botella dorada ornamentada.\n\nNotas — Salida: bergamota, jazmín y peonía. Corazón: piña, ciruela y melocotón. Fondo: almizcle, sándalo y pachulí.\n\nAceite de perfume concentrado, 1.18 fl oz (35 ml). Hecho en E.A.U. Nuevo y sellado en su caja.",
     meta:"Condition: New, sealed · Size: 1.18 fl oz (35 ml) · Perfume Oil · In stock: 2",
     metaEs:"Condición: Nuevo, sellado · Tamaño: 1.18 fl oz (35 ml) · Aceite de perfume · Disponibles: 2",
+    notesT:[["bergamot","Bergamot","Bergamota"],["jasmine","Jasmine","Jazm\u00edn"],["peony","Peony","Peon\u00eda"]],
+    notesH:[["pineapple","Pineapple","Pi\u00f1a"],["plum","Plum","Ciruela"],["peach","Peach","Melocot\u00f3n"]],
+    notesB:[["musk","Musk","Almizcle"],["sandalwood","Sandalwood","S\u00e1ndalo"],["patchouli","Patchouli","Pachul\u00ed"]],
     photos:["assets/hareem-al-sultan-1.jpg"],
     link:"", status:"live" },
   { id:"club-de-nuit-intense", brand:"Armaf", cat:"Perfumes",
@@ -397,8 +426,50 @@ const PRODUCTS = [
     descEs:"La fragancia amaderada y especiada de Club de Nuit Intense Man es un aroma poderoso para hombres, lanzado por la casa Armaf en 2015 — famoso por su carácter ahumado de piña y abedul y su proyección duradera.\n\nNotas — Salida: piña, bergamota, limón, manzana y grosella negra. Corazón: jazmín, rosa y abedul. Fondo: vainilla, pachulí, ámbar gris y almizcle.\n\nEau de Toilette en spray, 3.6 fl oz (105 ml). Nuevo y sellado en su caja.",
     meta:"Condition: New, sealed · Size: 3.6 fl oz (105 ml) · Eau de Toilette · In stock: 12",
     metaEs:"Condición: Nuevo, sellado · Tamaño: 3.6 fl oz (105 ml) · Eau de Toilette · Disponibles: 12",
+    notesT:[["pineapple","Pineapple","Pi\u00f1a"],["bergamot","Bergamot","Bergamota"],["lemon","Lemon","Lim\u00f3n"],["apple","Apple","Manzana"],["black-currant","Black Currant","Grosella Negra"]],
+    notesH:[["jasmine","Jasmine","Jazm\u00edn"],["rose","Rose","Rosa"],["birch","Birch","Abedul"]],
+    notesB:[["vanilla","Vanilla","Vainilla"],["patchouli","Patchouli","Pachul\u00ed"],["amber","Amber","\u00c1mbar"],["musk","Musk","Almizcle"]],
     photos:["assets/club-de-nuit-intense-1.jpg"],
     link:"", status:"live" },
+  {
+    id:"lattafa-asad", brand:"Lattafa", cat:"Perfumes", name:"Asad Eau de Parfum", nameEs:"Asad Eau de Parfum",
+    price:32, was:50, badge:"", rating:"",
+    desc:"Asad by Lattafa Perfumes is a bold amber-spicy eau de parfum for men, launched in 2021 and famous as one of the longest-lasting Arabic fragrances in its class. It opens with black pepper, tobacco and pineapple, turns dark and roasted with coffee, patchouli and iris, and settles into a warm base of vanilla, amber, dry woods, benzoin and labdanum.\n\nFRAGRANCE NOTES\nTop Notes: Black Pepper, Tobacco, Pineapple\nHeart Notes: Coffee, Patchouli, Iris\nBase Notes: Vanilla, Amber, Dry Woods, Benzoin, Labdanum\n\n\u2022 Eau de Parfum Spray, 3.4 oz (100 ml)\n\u2022 Made in U.A.E.\n\u2022 Brand new, sealed in its original box",
+    descEs:"Asad de Lattafa Perfumes es un eau de parfum \u00e1mbar-especiado e intenso para hombre, lanzado en 2021 y famoso como una de las fragancias \u00e1rabes de mayor duraci\u00f3n en su clase. Abre con pimienta negra, tabaco y pi\u00f1a, se vuelve oscuro y tostado con caf\u00e9, pachul\u00ed e iris, y termina en una base c\u00e1lida de vainilla, \u00e1mbar, maderas secas, benju\u00ed y l\u00e1dano.\n\nNOTAS DE LA FRAGANCIA\nNotas de salida: Pimienta Negra, Tabaco, Pi\u00f1a\nNotas de coraz\u00f3n: Caf\u00e9, Pachul\u00ed, Iris\nNotas de fondo: Vainilla, \u00c1mbar, Maderas Secas, Benju\u00ed, L\u00e1dano\n\n\u2022 Eau de Parfum en spray, 3.4 oz (100 ml)\n\u2022 Hecho en Emiratos \u00c1rabes Unidos\n\u2022 Nuevo, sellado en su caja original",
+    meta:"Eau de Parfum \u00b7 3.4 oz (100 ml) \u00b7 For Men \u00b7 Made in U.A.E. \u00b7 In stock: 11",
+    metaEs:"Eau de Parfum \u00b7 3.4 oz (100 ml) \u00b7 Para hombre \u00b7 Hecho en E.A.U. \u00b7 Disponibles: 11",
+    notesT:[["black-pepper","Black Pepper","Pimienta Negra"],["tobacco","Tobacco","Tabaco"],["pineapple","Pineapple","Pi\u00f1a"]],
+    notesH:[["coffee","Coffee","Caf\u00e9"],["patchouli","Patchouli","Pachul\u00ed"],["iris","Iris","Iris"]],
+    notesB:[["vanilla","Vanilla","Vainilla"],["amber","Amber","\u00c1mbar"],["dry-woods","Dry Woods","Maderas Secas"],["benzoin","Benzoin","Benju\u00ed"],["labdanum","Labdanum","L\u00e1dano"]],
+    photos:["assets/lattafa-asad-1.jpg","assets/lattafa-asad-2.jpg"],
+    link:"", status:"live"
+  },
+  {
+    id:"maahir-legacy", brand:"Lattafa", cat:"Perfumes", name:"Maahir Legacy Eau de Parfum", nameEs:"Maahir Legacy Eau de Parfum",
+    price:32, was:50, badge:"", rating:"",
+    desc:"Maahir Legacy by Lattafa Perfumes is a fresh, aromatic eau de parfum for men presented in the line's signature silver bottle crowned with a sculpted horse head. Sparkling lime, mint, grapefruit, lavender and pineapple open into a spicy heart of black pepper, juniper berry, rosemary, geranium and frankincense, over a clean base of ambroxan, vetiver, oakmoss, tonka bean and cashmeran.\n\nFRAGRANCE NOTES\nTop Notes: Lime, Mint, Grapefruit, Lavender, Pineapple\nHeart Notes: Black Pepper, Juniper Berry, Rosemary, Geranium, Frankincense\nBase Notes: Ambroxan, Vetiver, Oakmoss, Tonka Bean, Cashmeran\n\n\u2022 Eau de Parfum Spray, 3.4 oz (100 ml)\n\u2022 Made in U.A.E.\n\u2022 Brand new, sealed in its original box",
+    descEs:"Maahir Legacy de Lattafa Perfumes es un eau de parfum fresco y arom\u00e1tico para hombre, presentado en la botella plateada insignia de la l\u00ednea con su tapa de cabeza de caballo. Lima chispeante, menta, toronja, lavanda y pi\u00f1a abren hacia un coraz\u00f3n especiado de pimienta negra, bayas de enebro, romero, geranio e incienso, sobre una base limpia de ambroxan, vetiver, musgo de roble, haba tonka y cashmeran.\n\nNOTAS DE LA FRAGANCIA\nNotas de salida: Lima, Menta, Toronja, Lavanda, Pi\u00f1a\nNotas de coraz\u00f3n: Pimienta Negra, Bayas de Enebro, Romero, Geranio, Incienso\nNotas de fondo: Ambroxan, Vetiver, Musgo de Roble, Haba Tonka, Cashmeran\n\n\u2022 Eau de Parfum en spray, 3.4 oz (100 ml)\n\u2022 Hecho en Emiratos \u00c1rabes Unidos\n\u2022 Nuevo, sellado en su caja original",
+    meta:"Eau de Parfum \u00b7 3.4 oz (100 ml) \u00b7 For Men \u00b7 Made in U.A.E. \u00b7 In stock: 5",
+    metaEs:"Eau de Parfum \u00b7 3.4 oz (100 ml) \u00b7 Para hombre \u00b7 Hecho en E.A.U. \u00b7 Disponibles: 5",
+    notesT:[["lime","Lime","Lima"],["mint","Mint","Menta"],["grapefruit","Grapefruit","Toronja"],["lavender","Lavender","Lavanda"],["pineapple","Pineapple","Pi\u00f1a"]],
+    notesH:[["black-pepper","Black Pepper","Pimienta Negra"],["juniper","Juniper Berry","Bayas de Enebro"],["rosemary","Rosemary","Romero"],["geranium","Geranium","Geranio"],["frankincense","Frankincense","Incienso"]],
+    notesB:[["ambroxan","Ambroxan","Ambroxan"],["vetiver","Vetiver","Vetiver"],["oakmoss","Oakmoss","Musgo de Roble"],["tonka","Tonka Bean","Haba Tonka"],["cashmeran","Cashmeran","Cashmeran"]],
+    photos:["assets/maahir-legacy-1.jpg","assets/maahir-legacy-2.jpg"],
+    link:"", status:"live"
+  },
+  {
+    id:"maahir-black", brand:"Lattafa", cat:"Perfumes", name:"Maahir Black Edition Eau de Parfum", nameEs:"Maahir Black Edition Eau de Parfum",
+    price:32, was:50, badge:"", rating:"",
+    desc:"Maahir Black Edition by Lattafa Perfumes is the dark, smoky member of the Maahir line, in a black bottle crowned with a black horse head. Bergamot, rosemary and violet lead into a deep heart of kyara incense, orris, myrrh, amber, labdanum and vanilla, finishing on oud, smoke, leather, sandalwood, patchouli and cedar. Intense, mysterious and long-lasting.\n\nFRAGRANCE NOTES\nTop Notes: Bergamot, Rosemary, Violet\nHeart Notes: Kyara Incense, Orris, Myrrh, Amber, Labdanum, Vanilla\nBase Notes: Agarwood (Oud), Smoke, Leather, Sandalwood, Patchouli, Cedar\n\n\u2022 Eau de Parfum Spray, 3.4 oz (100 ml)\n\u2022 Made in U.A.E.\n\u2022 Brand new, sealed in its original box",
+    descEs:"Maahir Black Edition de Lattafa Perfumes es el miembro oscuro y ahumado de la l\u00ednea Maahir, en una botella negra coronada con una cabeza de caballo negra. Bergamota, romero y violeta dan paso a un coraz\u00f3n profundo de incienso kyara, orris, mirra, \u00e1mbar, l\u00e1dano y vainilla, con un final de oud, humo, cuero, s\u00e1ndalo, pachul\u00ed y cedro. Intenso, misterioso y de larga duraci\u00f3n.\n\nNOTAS DE LA FRAGANCIA\nNotas de salida: Bergamota, Romero, Violeta\nNotas de coraz\u00f3n: Incienso Kyara, Orris, Mirra, \u00c1mbar, L\u00e1dano, Vainilla\nNotas de fondo: Agarwood (Oud), Humo, Cuero, S\u00e1ndalo, Pachul\u00ed, Cedro\n\n\u2022 Eau de Parfum en spray, 3.4 oz (100 ml)\n\u2022 Hecho en Emiratos \u00c1rabes Unidos\n\u2022 Nuevo, sellado en su caja original",
+    meta:"Eau de Parfum \u00b7 3.4 oz (100 ml) \u00b7 For Men \u00b7 Made in U.A.E. \u00b7 In stock: 2",
+    metaEs:"Eau de Parfum \u00b7 3.4 oz (100 ml) \u00b7 Para hombre \u00b7 Hecho en E.A.U. \u00b7 Disponibles: 2",
+    notesT:[["bergamot","Bergamot","Bergamota"],["rosemary","Rosemary","Romero"],["violet","Violet","Violeta"]],
+    notesH:[["incense","Kyara Incense","Incienso Kyara"],["orris","Orris","Orris"],["myrrh","Myrrh","Mirra"],["amber","Amber","\u00c1mbar"],["labdanum","Labdanum","L\u00e1dano"],["vanilla","Vanilla","Vainilla"]],
+    notesB:[["oud","Agarwood (Oud)","Agarwood (Oud)"],["smoke","Smoke","Humo"],["leather","Leather","Cuero"],["sandalwood","Sandalwood","S\u00e1ndalo"],["patchouli","Patchouli","Pachul\u00ed"],["cedar","Cedar","Cedro"]],
+    photos:["assets/maahir-black-1.jpg","assets/maahir-black-2.jpg"],
+    link:"", status:"live"
+  },
   { id:"aretes-bebe-14k", brand:"Madi K", cat:"Joyería",
     name:"Baby Ball Earrings 3mm — 14K yellow gold, safety screwback", nameEs:"Aretes de bebé bolita 3mm — oro amarillo 14K, rosca de seguridad",
     price:77, was:117, badge:"", rating:"",
@@ -618,6 +689,20 @@ function renderRecent(){
 }
 /* ===== Detalle de producto ===== */
 let current = null;
+
+function notesHTML(p){
+  if(!p.notesT) return '';
+  function row(lbl, arr){
+    if(!arr || !arr.length) return '';
+    return '<div class="nrow"><div class="nlbl">' + lbl + '</div><div class="nchips">' + arr.map(function(n){
+      return '<span class="nchip"><img src="assets/notes/' + n[0] + '.jpg" alt="" loading="lazy" onerror="this.style.display=\'none\'">' + (lang === 'es' ? n[2] : n[1]) + '</span>';
+    }).join('') + '</div></div>';
+  }
+  return '<div class="notes"><h3>' + (lang === 'es' ? 'Notas de la fragancia' : 'Fragrance Notes') + '</h3>' +
+    row(lang === 'es' ? 'Salida' : 'Top Notes', p.notesT) +
+    row(lang === 'es' ? 'Coraz\u00f3n' : 'Heart Notes', p.notesH) +
+    row(lang === 'es' ? 'Fondo' : 'Base Notes', p.notesB) + '</div>';
+}
 function openDetail(id, keep){
   const p = PRODUCTS.find(x => x.id === id); if (!p) return; current = p;
   if (!keep) { recent = [id, ...recent.filter(x => x !== id)].slice(0, 6); localStorage.setItem('srs_recent', JSON.stringify(recent)); }
@@ -627,7 +712,7 @@ function openDetail(id, keep){
     '<div class="thumbs">' + p.photos.map((f, i) => '<img src="' + f + '" class="' + (i === 0 ? 'on' : '') + '" onclick="swap(this)">').join('') + '</div></div>' +
     '<div class="info"><div class="brand">' + p.brand + '</div><h2>' + pname(p) + '</h2>' + stars(p) +
     '<div class="pricerow"><span class="price">' + money(p.price) + '</span>' + (p.was ? '<span class="was">' + money(p.was) + '</span>' : '') + '</div>' +
-    '<div class="desc">' + pdesc(p) + '</div><div class="meta">' + (pmeta(p) || '') + '</div>' +
+    '<div class="desc">' + pdesc(p) + '</div>' + notesHTML(p) + '<div class="meta">' + (pmeta(p) || '') + '</div>' +
     '<div class="btnrow">' +
     (sold ? '<button class="buy off">' + t('soldLbl') + '</button>'
           : coming ? '<button class="buy off">' + t('comingLbl') + '</button>'
