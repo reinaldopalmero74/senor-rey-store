@@ -350,8 +350,11 @@
   .hero::before{ content:none; animation:none; }
   .hero::after{ z-index:1; }
   .hero h2,.hero p,.hero a{ z-index:2; }
-  .hero{ min-height:380px; display:flex; flex-direction:column; align-items:center; justify-content:flex-end; }
-  .heroslides{ position:absolute; inset:0; z-index:0; }
+  .hero{ min-height:0; display:block; padding:0; }
+  .hero::after{ display:none; }
+  .heroslides{ position:relative; inset:auto; height:340px; }
+  .herotext{ text-align:center; padding:20px 18px 26px; }
+  .herotext h2{ margin:0 0 14px; }
   .hslide{ position:absolute; inset:0; opacity:0; animation:hfade 45s ease-in-out infinite; }
   .hslide::before{ content:''; position:absolute; inset:0; background-image:var(--bg); background-position:center; background-size:cover; filter:blur(16px) brightness(.5); transform:scale(1.25); }
   .hslide::after{ content:''; position:absolute; inset:0; background-image:var(--bg); background-position:center; background-size:contain; background-repeat:no-repeat; }
@@ -359,7 +362,7 @@
   #heroCta{ cursor:pointer; background:var(--gold); color:var(--navy); border:0; border-radius:3px; letter-spacing:1.5px; box-shadow:0 6px 18px rgba(0,0,0,.35); transition:opacity .18s ease, transform .18s ease; }
   #heroCta.swap{ opacity:0; transform:translateY(4px); }
   #heroCta.off{ background:#16283C; color:var(--gold2); border:1.5px dashed var(--gold); box-shadow:none; pointer-events:none; }
-  @media (max-width:560px){ .hero{ min-height:330px; } }
+  @media (max-width:560px){ .heroslides{ height:280px; } }
   @media (prefers-reduced-motion: reduce){ .hslide{ animation:none; } .hslide:first-child{ opacity:1; } }
 </style>
 </head>
@@ -381,9 +384,11 @@
 <nav class="cats" id="cats"></nav>
 <section class="hero">
   <div class="heroslides"><div class="hslide" style="--bg:url('assets/maahir-black-1.jpg')"></div><div class="hslide" style="--bg:url('assets/afnan-9pm-hero.jpg');animation-delay:5s"></div><div class="hslide" style="--bg:url('assets/se186-1.jpg');animation-delay:10s"></div><div class="hslide" style="--bg:url('assets/lattafa-khamrah-hero.jpg');animation-delay:15s"></div><div class="hslide" style="--bg:url('assets/caridad-1.jpg');animation-delay:20s"></div><div class="hslide" style="--bg:url('assets/lattafa-asad-hero.jpg');animation-delay:25s"></div><div class="hslide" style="--bg:url('assets/rope-1.jpg');animation-delay:30s"></div><div class="hslide" style="--bg:url('assets/club-de-nuit-intense-hero.jpg');animation-delay:35s"></div><div class="hslide" style="--bg:url('assets/x6mmg-1.jpg');animation-delay:40s"></div></div>
+  <div class="herotext">
   <h2 data-i18n="heroH">Unique pieces. <em>Direct prices.</em></h2>
   <p data-i18n="heroP">A little of everything, sold by its owner — no middlemen, no marketplace fees. Every item is one of a kind: when it sells, it's gone.</p>
   <a id="heroCta">Shop products</a>
+  </div>
 </section>
 <div class="wrap" style="padding-top:20px"><h3 class="sechead" data-i18n="shopByCat">Shop by category</h3><div class="tiles" id="tiles"></div></div>
 <div class="wrap" id="confirmbox" style="display:none"></div>
