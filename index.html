@@ -7,7 +7,7 @@
 <style>
   :root{ --navy:#16283C; --navy2:#1D3247; --gold:#C9A227; --gold2:#E3C766; --cream:#FAF6EE; --paper:#F3ECDD; --ink:#22303C; --mut:#5A6B78; --red:#8A2B2B; --line:#E5DCC6; }
   *{ margin:0; padding:0; box-sizing:border-box; }
-  body{ font-family:-apple-system,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif; background:var(--cream); color:var(--ink); }
+  body{ font-family:-apple-system,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif; background:#FFFFFF; color:var(--ink); }
   .topbar{ background:var(--gold); color:var(--navy); text-align:center; font-size:12px; font-weight:700; letter-spacing:1.5px; padding:7px 10px; text-transform:uppercase; }
   .shopbar{ position:sticky; top:0; z-index:30; background:var(--navy); color:var(--cream); display:flex; align-items:center; gap:14px; padding:12px 18px; box-shadow:0 2px 10px rgba(0,0,0,.25); }
   .logo{ font-family:Georgia,serif; font-size:22px; letter-spacing:2px; white-space:nowrap; cursor:pointer; }
@@ -21,14 +21,19 @@
   .langsw button{ background:transparent; border:0; color:#C9D4DE; padding:5px 10px; cursor:pointer; font-weight:700; }
   .langsw button.on{ background:var(--gold); color:var(--navy); }
   .cartn{ position:absolute; top:-7px; right:-10px; background:var(--gold); color:var(--navy); font-size:10px; font-weight:800; border-radius:50%; width:17px; height:17px; display:flex; align-items:center; justify-content:center; }
-  .cats{ background:var(--navy2); display:flex; gap:8px; padding:10px 18px; overflow-x:auto; }
-  .chip{ border:1px solid #3D546E; background:transparent; color:#C9D4DE; padding:7px 16px; border-radius:20px; font-size:13px; cursor:pointer; white-space:nowrap; }
+  .cats{ background:#FFF9EC; border-bottom:1px solid var(--line); display:flex; gap:8px; padding:10px 18px; overflow-x:auto; }
+  .chip{ border:1px solid #D9C99A; background:#fff; color:var(--navy); padding:7px 16px; border-radius:20px; font-size:13px; cursor:pointer; white-space:nowrap; }
   .chip.on{ background:var(--gold); border-color:var(--gold); color:var(--navy); font-weight:700; }
-  .hero{ background:linear-gradient(120deg,var(--navy) 55%,#274b6d); color:var(--cream); text-align:center; padding:40px 18px 34px; }
+  .hero{ background:linear-gradient(120deg,#FFF3D6,#FDE9EC); color:var(--navy); text-align:center; padding:40px 18px 34px; }
   .hero h2{ font-family:Georgia,serif; font-weight:normal; font-size:32px; line-height:1.25; }
-  .hero h2 em{ color:var(--gold2); font-style:normal; }
-  .hero p{ color:#B9C4CE; margin:10px auto 18px; max-width:520px; font-size:15px; line-height:1.55; }
+  .hero h2 em{ color:#B8912A; font-style:normal; }
+  .hero p{ color:#54626E; margin:10px auto 18px; max-width:520px; font-size:15px; line-height:1.55; }
   .hero a{ background:var(--gold); color:var(--navy); font-weight:800; text-decoration:none; padding:12px 26px; border-radius:26px; display:inline-block; }
+  .tiles{ display:grid; grid-template-columns:repeat(3,1fr); gap:12px; }
+  .tile{ position:relative; border-radius:12px; overflow:hidden; height:110px; cursor:pointer; border:1px solid var(--line); }
+  .tile img{ width:100%; height:100%; object-fit:cover; display:block; }
+  .tile span{ position:absolute; left:0; right:0; bottom:0; background:rgba(22,40,60,.72); color:var(--gold2); font-size:14px; font-weight:800; padding:7px 12px; }
+  @media (max-width:560px){ .tile{ height:66px; } .tile span{ font-size:11px; padding:5px 8px; } }
   .wrap{ max-width:1120px; margin:0 auto; padding:24px 18px 6px; }
   .secrow{ display:flex; justify-content:space-between; align-items:baseline; margin-bottom:14px; }
   .secrow h3{ font-family:Georgia,serif; font-weight:normal; font-size:23px; }
@@ -267,6 +272,7 @@
   <p data-i18n="heroP">A little of everything, sold by its owner — no middlemen, no marketplace fees. Every item is one of a kind: when it sells, it's gone.</p>
   <a href="#productos" data-i18n="heroBtn">Shop products</a>
 </section>
+<div class="wrap" style="padding-top:16px"><div class="tiles" id="tiles"></div></div>
 <div class="wrap" id="confirmbox" style="display:none"></div>
 <div class="wrap" id="productos">
   <div class="secrow"><h3 data-i18n="featured">Featured products</h3><span id="count"></span></div>
@@ -363,7 +369,7 @@ const PRODUCTS = [
     meta:"Condition: New, unworn · Includes: original Tiffany box · Shipping: insured, signature required",
     metaEs:"Condición: Nuevo, sin usar · Incluye: caja original Tiffany · Envío: asegurado, con firma",
     photos:["assets/ejemplo-aretes.jpg","assets/aretes-2.jpg","assets/aretes-3.jpg","assets/aretes-4.jpg","assets/aretes-5.jpg","assets/aretes-6.jpg","assets/aretes-7.jpg"],
-    link:"https://buy.stripe.com/test_aFa28j261arEeq036pgMw00", status:"test" },
+    link:"", status:"sold" },
   { id:"anillo-lock-tiffany", brand:"Tiffany & Co.", cat:"Joyería",
     name:"Lock Ring — rose gold with pavé diamonds, size 6", nameEs:"Lock Ring — oro rosa con diamantes pavé, talla 6",
     price:2400, was:6400, badge:"", rating:"",
@@ -687,7 +693,11 @@ function buildCats(){
   catsEl.innerHTML = '';
   CATS.forEach(c => { const b = document.createElement('button'); b.className = 'chip' + (c === cat ? ' on' : ''); b.textContent = c === 'Todos' ? t('allCat') : catName(c);
     b.onclick = () => { cat = c; buildCats(); render(); }; catsEl.appendChild(b); });
+  buildTiles();
 }
+const TILEIMG = { 'Perfumes':'assets/afnan-9pm-hero.jpg', 'Joyería':'assets/se186-1.jpg', 'Bolsos':'assets/kenzo-1.jpg' };
+function goCat(c){ cat = c; buildCats(); render(); document.getElementById('productos').scrollIntoView({behavior:'smooth'}); }
+function buildTiles(){ const el = document.getElementById('tiles'); if (!el) return; el.innerHTML = ''; CATS.slice(1).forEach(c => { if (!TILEIMG[c]) return; const d = document.createElement('div'); d.className = 'tile'; d.innerHTML = '<img src="' + TILEIMG[c] + '" alt="" loading="lazy"><span>' + catName(c) + '</span>'; d.onclick = () => goCat(c); el.appendChild(d); }); }
 function stars(p, full){ if (!p.rating) return ''; const pct = Math.round(parseFloat(p.rating) / 5 * 100); let v = ''; if (full && p.votes) v = '<span class="stv"> · ' + Number(p.votes).toLocaleString(lang === 'es' ? 'es-US' : 'en-US') + (lang === 'es' ? ' votos en ' : ' votes on ') + (p.rsrc || 'Fragrantica') + '</span>'; return '<div class="stars"><span class="stwrap"><span class="stbg">★★★★★</span><span class="stfill" style="width:' + pct + '%">★★★★★</span></span> <b>' + p.rating + '</b>' + v + '</div>'; }
 function visible(){
   const term = q.value.trim().toLowerCase();
