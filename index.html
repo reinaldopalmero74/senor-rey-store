@@ -357,8 +357,9 @@
   .hslide::after{ content:''; position:absolute; inset:0; background-image:var(--bg); background-position:center; background-size:contain; background-repeat:no-repeat; }
   .hslide:first-child{ animation-delay:-1s; }
   @keyframes hfade{ 0%{ opacity:0; transform:scale(1.02); } 2%{ opacity:1; } 9%{ opacity:1; } 11.5%{ opacity:0; transform:scale(1.06); } 100%{ opacity:0; transform:scale(1.06); } }
-  #heroCta{ cursor:pointer; transition:opacity .3s ease; }
-  #heroCta.off{ opacity:.8; border-style:dashed; pointer-events:none; }
+  #heroCta{ cursor:pointer; background:var(--gold); color:var(--navy); border:0; border-radius:3px; letter-spacing:1.5px; box-shadow:0 6px 18px rgba(0,0,0,.35); transition:opacity .18s ease, transform .18s ease; }
+  #heroCta.swap{ opacity:0; transform:translateY(4px); }
+  #heroCta.off{ background:#16283C; color:var(--gold2); border:1.5px dashed var(--gold); box-shadow:none; pointer-events:none; }
   @media (max-width:560px){ .hero{ min-height:330px; } }
   @media (prefers-reduced-motion: reduce){ .hslide{ animation:none; } .hslide:first-child{ opacity:1; } }
 </style>
@@ -822,24 +823,27 @@ const HEROSLIDES = [
   { id:'club-de-nuit-intense', en:'Armaf Club de Nuit Intense', es:'Armaf Club de Nuit Intense' },
   { id:'studs-bola-14k-6mm', en:'14K Ball Studs · 6 mm', es:'Studs Bola 14K · 6 mm' }
 ];
-let _heroKey = '';
+let _heroKey = '', _heroTok = 0;
 function heroTick(){
-  const slides = document.querySelectorAll('.hslide'); if (!slides.length) return;
-  let best = 0, bo = -1;
-  slides.forEach((s, i) => { const o = parseFloat(getComputedStyle(s).opacity || '0'); if (o > bo) { bo = o; best = i; } });
-  const h = HEROSLIDES[best]; if (!h) return;
-  const key = best + '|' + lang; if (key === _heroKey) return; _heroKey = key;
   const cta = document.getElementById('heroCta'); if (!cta) return;
-  const p = PRODUCTS.find(x => x.id === h.id);
-  const lbl = lang === 'es' ? h.es : h.en;
-  cta.style.opacity = '0';
-  setTimeout(() => {
+  const s1 = document.querySelector('.hslide'); if (!s1) return;
+  let idx = 0;
+  const anims = s1.getAnimations ? s1.getAnimations() : [];
+  if (anims.length && anims[0].currentTime != null) { const c = anims[0].currentTime / 1000; idx = Math.floor(((c + 44) % 45) / 5) % 9; }
+  else { idx = Math.floor(Date.now() / 5000) % 9; }
+  const h = HEROSLIDES[idx]; if (!h) return;
+  const key = idx + '|' + lang; if (key === _heroKey) return; _heroKey = key;
+  const tok = ++_heroTok;
+  cta.classList.add('swap');
+  setTimeout(() => { if (tok !== _heroTok) return;
+    const p = PRODUCTS.find(x => x.id === h.id);
+    const lbl = lang === 'es' ? h.es : h.en;
     if (p && isComing(p)) { cta.textContent = t('comingLbl') + ' · ' + lbl; cta.classList.add('off'); cta.onclick = null; }
     else if (p) { cta.textContent = (lang === 'es' ? 'Comprar · ' : 'Buy · ') + lbl + ' — ' + money(p.price); cta.classList.remove('off'); cta.onclick = () => openDetail(p.id); }
-    cta.style.opacity = '';
-  }, 180);
+    cta.classList.remove('swap');
+  }, 190);
 }
-setInterval(heroTick, 600);
+setInterval(heroTick, 250); heroTick();
 const _io = ('IntersectionObserver' in window) ? new IntersectionObserver(es => { es.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); _io.unobserve(e.target); } }); }, { threshold: .08 }) : null;
 function revealScan(){ if (!_io) return; document.querySelectorAll('.card:not(.rv), .tile:not(.rv), .trust > div:not(.rv)').forEach(el => { el.classList.add('rv'); _io.observe(el); }); }
 function stars(p, full){ if (!p.rating) return ''; const pct = Math.round(parseFloat(p.rating) / 5 * 100); let v = ''; if (full && p.votes) v = '<span class="stv"> · ' + Number(p.votes).toLocaleString(lang === 'es' ? 'es-US' : 'en-US') + (lang === 'es' ? ' votos en ' : ' votes on ') + (p.rsrc || 'Fragrantica') + '</span>'; return '<div class="stars"><span class="stwrap"><span class="stbg">★★★★★</span><span class="stfill" style="width:' + pct + '%">★★★★★</span></span> <b>' + p.rating + '</b>' + v + '</div>'; }
