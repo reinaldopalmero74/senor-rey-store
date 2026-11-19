@@ -206,6 +206,7 @@
   .prules summary{ cursor:pointer; font-weight:700; }
   .prules ul{ margin:8px 0 2px; padding-left:18px; }
   .prules li{ margin:4px 0; font-size:13.5px; line-height:1.45; }
+  .gbtn{ display:block; width:100%; margin-top:10px; padding:13px; border:1.5px solid var(--navy); background:#fff; color:var(--navy); border-radius:10px; font-weight:700; cursor:pointer; font-size:15px; }
   #acctBtn.on{ background:var(--gold); color:var(--navy); border-radius:50%; width:27px; height:27px; display:inline-flex; align-items:center; justify-content:center; font-weight:800; font-size:14px; }
   .steps{ display:flex; gap:6px; margin:10px 0; }
   .step{ flex:1; text-align:center; font-size:12px; color:#8a97a5; border-top:3px solid #dde3ea; padding-top:6px; }
@@ -330,6 +331,15 @@
     <input id="oemail" type="email" data-i18n-ph="orderEmailPh" placeholder="Your purchase email">
     <button class="buy" onclick="lookupOrder()" data-i18n="orderBtn">Check status</button>
     <div class="oresult" id="oresult"></div>
+  </div>
+</div>
+<div class="omodal" id="gmodal" onclick="if(event.target===this)this.classList.remove('open')">
+  <div class="ocard">
+    <button class="ox" onclick="document.getElementById('gmodal').classList.remove('open')">✕</button>
+    <h3 id="gTitle"></h3>
+    <p id="gText" style="font-size:14.5px; line-height:1.5; color:#42506b;"></p>
+    <button class="buy" style="width:100%" id="gBtnAcct" onclick="guestChoice('account')"></button>
+    <button class="gbtn" id="gBtnGuest" onclick="guestChoice('guest')"></button>
   </div>
 </div>
 <div class="omodal" id="amodal" onclick="if(event.target===this)closeAccount()">
@@ -852,6 +862,25 @@ function updateCart(){
     '<button class="buy" onclick="checkout()">' + t('payNowBtn') + '</button><div class="notice" id="cnotice"></div>';
 }
 async function checkout(){
+  let logged = false;
+  try { if (typeof sb !== 'undefined' && sb) { const { data } = await sb.auth.getSession(); logged = !!(data && data.session && data.session.user); } } catch(e) {}
+  if (logged) { checkoutPay(); return; }
+  paintGuest();
+  document.getElementById('gmodal').classList.add('open');
+}
+function paintGuest(){
+  document.getElementById('gTitle').textContent = lang === 'es' ? '¿Cómo quieres pagar?' : 'How would you like to check out?';
+  document.getElementById('gText').textContent = lang === 'es' ? 'Con una cuenta, tus compras cuentan para la promo del artículo sorpresa y puedes seguir tus pedidos. Como invitado, pagas igual de rápido, sin registrarte.' : 'With an account, your purchases count toward the surprise-gift promo and you can track your orders. As a guest, you check out just as fast — no sign-up needed.';
+  document.getElementById('gBtnAcct').textContent = lang === 'es' ? 'Crear cuenta / Iniciar sesión' : 'Create account / Sign in';
+  document.getElementById('gBtnGuest').textContent = lang === 'es' ? 'Pagar como invitado' : 'Continue as guest';
+}
+function guestChoice(kind){
+  document.getElementById('gmodal').classList.remove('open');
+  if (kind === 'guest') { checkoutPay(); return; }
+  window._pendingCheckout = true;
+  openAccount();
+}
+async function checkoutPay(){
   const n = document.getElementById('cnotice');
   try {
     const r = await fetch(FN + 'store-checkout', { method:'POST', headers:{ 'Content-Type':'application/json' }, body: JSON.stringify({ items: cart, method: delivery }) });
@@ -1102,6 +1131,7 @@ if (sb) {
     if (ev === 'PASSWORD_RECOVERY') { acctRecovery(); return; }
     const m = document.getElementById('amodal');
     if (m && m.classList.contains('open')) { if (acctUser) closeAccount(); else renderAcct(); }
+    if (ev === 'SIGNED_IN' && window._pendingCheckout) { window._pendingCheckout = false; setTimeout(() => { try { checkoutPay(); } catch(e) {} }, 450); }
   });
 }
 </script>
