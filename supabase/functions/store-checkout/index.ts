@@ -168,9 +168,9 @@ Deno.serve(async (req) => {
     form.set("shipping_options[0][shipping_rate_data][fixed_amount][currency]", "usd");
     form.set("shipping_options[0][shipping_rate_data][display_name]", feeCents >= 3900 ? "Envío asegurado con firma" : feeCents >= 2500 ? "Envío con firma" : "Envío estándar");
     form.set("shipping_options[0][shipping_rate_data][delivery_estimate][minimum][unit]", "business_day");
-    form.set("shipping_options[0][shipping_rate_data][delivery_estimate][minimum][value]", "2");
+    form.set("shipping_options[0][shipping_rate_data][delivery_estimate][minimum][value]", "3");
     form.set("shipping_options[0][shipping_rate_data][delivery_estimate][maximum][unit]", "business_day");
-    form.set("shipping_options[0][shipping_rate_data][delivery_estimate][maximum][value]", "5");
+    form.set("shipping_options[0][shipping_rate_data][delivery_estimate][maximum][value]", "7");
   }
   form.set("metadata[items]", ids.join(","));
   form.set("metadata[method]", method);
