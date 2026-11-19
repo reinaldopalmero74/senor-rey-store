@@ -327,6 +327,15 @@ const PRODUCTS = [
     meta:"Condition: New, unused · Includes: detachable shoulder strap · Shipping: insured, signature required",
     metaEs:"Condición: Nuevo, sin usar · Incluye: correa de hombro desmontable · Envío: asegurado, con firma",
     photos:["assets/kenzo-1.jpg"], link:"", status:"sold" },
+  { id:"afnan-9pm", brand:"Afnan", cat:"Perfumes",
+    name:"9 PM Eau de Parfum Spray 3.4 oz — for men", nameEs:"9 PM Eau de Parfum Spray 3.4 oz — para hombre",
+    price:45, was:75, badge:"", rating:"",
+    desc:"The warm, spicy and seductive fragrance of 9 PM is a gripping fresh fragrance for men and women, launched in 2020 — famous as one of the best night-out scents for its price.\n\nFragrance notes — Top: Apple, Cinnamon, Wild Lavender and Bergamot. Heart: Orange Blossom and Lily of the Valley. Base: Vanilla, Tonka Bean, Amber and Patchouli.\n\nEau de Parfum spray, 3.4 fl oz (100 ml). Brand new and sealed in its box.",
+    descEs:"La fragancia cálida, especiada y seductora de 9 PM es una fragancia fresca y atrapante para hombre y mujer, lanzada en 2020 — famosa como uno de los mejores perfumes para salir de noche por su precio.\n\nNotas — Salida: manzana, canela, lavanda silvestre y bergamota. Corazón: flor de azahar y lirio de los valles. Fondo: vainilla, haba tonka, ámbar y pachulí.\n\nEau de Parfum en spray, 3.4 fl oz (100 ml). Nuevo y sellado en su caja.",
+    meta:"Condition: New, sealed · Size: 3.4 fl oz (100 ml) · Eau de Parfum · In stock: 12",
+    metaEs:"Condición: Nuevo, sellado · Tamaño: 3.4 fl oz (100 ml) · Eau de Parfum · Disponibles: 12",
+    photos:["assets/afnan-9pm-1.jpg"],
+    link:"", status:"live" },
   { id:"aretes-bebe-14k", brand:"Madi K", cat:"Joyería",
     name:"Baby Ball Earrings 3mm — 14K yellow gold, safety screwback", nameEs:"Aretes de bebé bolita 3mm — oro amarillo 14K, rosca de seguridad",
     price:77, was:117, badge:"", rating:"",
@@ -460,7 +469,7 @@ es: { titleTag:"Señor Rey Marketplace — Venta directa", topbar:"Envío asegur
   confTitle:"✅ ¡Pago completado!", confOrderIs:"Tu número de orden es", confPickup:"📍 Recogida en persona — te contactaremos para coordinar.", confShip:"📦 Envío — te avisaremos cuando salga, con tu número de rastreo.", confSave:"Guarda tu número: con él y tu email puedes ver el estado tocando 📦 arriba a la derecha.", thanksToast:"¡Pago completado! Gracias por tu compra ✓", linkCopied:"Link copiado ✓",
   chatBtn:"💬 Ayuda", chatTitle:"💬 Ayuda — Señor Rey Marketplace", chatPh:"Escribe tu pregunta…", chatSend:"Enviar", chatGreet:"¡Hola! \u{1F44B} Soy el asistente de Señor Rey Marketplace. Pregúntame por envíos, recogida, el estado de tu orden o cualquier producto.", chatTyping:"Escribiendo…", chatFail:"Perdona, ahora mismo no puedo responder. Escríbenos a ventas@senorrey.com y te ayudamos enseguida." }
 };
-const CATL = { "Joyería": { en: "Jewelry", es: "Joyería" }, "Bolsos": { en: "Bags", es: "Bolsos" } };
+const CATL = { "Joyería": { en: "Jewelry", es: "Joyería" }, "Bolsos": { en: "Bags", es: "Bolsos" }, "Perfumes": { en: "Perfumes", es: "Perfumes" } };
 let lang = localStorage.getItem('srm_lang') === 'es' ? 'es' : 'en';
 const t = k => (STR[lang] && STR[lang][k]) || STR.en[k] || k;
 const pname = p => lang === 'es' ? (p.nameEs || p.name) : p.name;
