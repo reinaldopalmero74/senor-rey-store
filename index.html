@@ -183,6 +183,19 @@
   .ocard input{ width:100%; box-sizing:border-box; padding:10px 12px; margin-bottom:10px; border:1px solid #ccd4de; border-radius:8px; font-size:15px; }
   .ocard .ox{ position:absolute; top:10px; right:12px; background:none; border:0; font-size:18px; cursor:pointer; }
   .oresult{ margin-top:14px; } .o-num{ font-size:16px; } .o-items{ color:#44505c; margin:4px 0 10px; font-size:14px; }
+  .atabs{ display:flex; gap:8px; margin-bottom:14px; }
+  .atabs button{ flex:1; padding:9px; border-radius:8px; border:1px solid #ccd4de; background:#f4f6f8; cursor:pointer; font-weight:600; font-size:14.5px; }
+  .atabs button.on{ background:var(--navy); color:var(--cream); border-color:var(--navy); }
+  .aerr{ color:var(--red); font-size:13.5px; min-height:18px; margin:2px 0 8px; }
+  .alink{ color:var(--navy); font-size:13.5px; cursor:pointer; text-decoration:underline; background:none; border:0; padding:0; }
+  .auser{ font-size:16px; margin-bottom:2px; }
+  .aemail{ color:#5A6B78; font-size:13.5px; margin-bottom:6px; }
+  .promo{ background:var(--paper); border:1px solid var(--line); border-radius:10px; padding:12px 14px; margin:14px 0; font-size:14.5px; }
+  .promo .pt{ font-weight:700; margin-bottom:4px; }
+  .promo .pbar{ background:#e7dfc9; border-radius:6px; height:12px; overflow:hidden; margin:8px 0 2px; }
+  .promo .pfill{ background:var(--gold); height:100%; }
+  .aord{ border-top:1px solid var(--line); padding-top:12px; margin-top:12px; }
+  #acctBtn.on{ background:var(--gold); color:var(--navy); border-radius:50%; width:27px; height:27px; display:inline-flex; align-items:center; justify-content:center; font-weight:800; font-size:14px; }
   .steps{ display:flex; gap:6px; margin:10px 0; }
   .step{ flex:1; text-align:center; font-size:12px; color:#8a97a5; border-top:3px solid #dde3ea; padding-top:6px; }
   .step.on{ color:#127a3e; border-color:#127a3e; font-weight:700; }
@@ -234,7 +247,7 @@
 <div class="shopbar">
   <div class="logo" onclick="window.scrollTo({top:0,behavior:'smooth'})">SEÑOR <span>REY</span> MARKETPLACE</div>
   <div class="search"><input id="q" type="search" data-i18n-ph="searchPh" placeholder="Search the store…"><button id="qbtn" aria-label="Search">🔍</button></div>
-  <div class="icons"><span class="langsw"><button id="langEn" onclick="setLang('en')">EN</button><button id="langEs" onclick="setLang('es')">ES</button></span><a data-i18n-title="orderStatusTitle" title="Order status" onclick="openOrder()">📦</a><a data-i18n-title="cartTitleAttr" title="Cart" onclick="openCart()">🛒<span class="cartn" id="cartn">0</span></a></div>
+  <div class="icons"><span class="langsw"><button id="langEn" onclick="setLang('en')">EN</button><button id="langEs" onclick="setLang('es')">ES</button></span><a id="acctBtn" data-i18n-title="acctTitleAttr" title="My account" onclick="openAccount()">👤</a><a data-i18n-title="orderStatusTitle" title="Order status" onclick="openOrder()">📦</a><a data-i18n-title="cartTitleAttr" title="Cart" onclick="openCart()">🛒<span class="cartn" id="cartn">0</span></a></div>
 </div>
 <nav class="cats" id="cats"></nav>
 <section class="hero">
@@ -306,6 +319,13 @@
     <input id="oemail" type="email" data-i18n-ph="orderEmailPh" placeholder="Your purchase email">
     <button class="buy" onclick="lookupOrder()" data-i18n="orderBtn">Check status</button>
     <div class="oresult" id="oresult"></div>
+  </div>
+</div>
+<div class="omodal" id="amodal" onclick="if(event.target===this)closeAccount()">
+  <div class="ocard">
+    <button class="ox" onclick="closeAccount()">✕</button>
+    <h3>👤 <span data-i18n="acctTitle">My account</span></h3>
+    <div id="acctBody"></div>
   </div>
 </div>
 <div class="lightbox" id="lightbox" onclick="this.classList.remove('open')"><img id="lightimg" alt=""></div>
@@ -578,7 +598,7 @@ en: { titleTag:"Señor Rey Marketplace — Direct Sales", topbar:"Insured shippi
   removeAttr:"Remove", orderWord:"Order", trackingLbl:"Tracking", pickupNoteStatus:"We'll contact you to coordinate the pickup.", searchingTxt:"Searching…", orderNotFound:"We couldn't find that order with that email. Check the details and try again.",
   stepsShip:["Paid","Shipped","Delivered"], stepsPickup:["Paid","Ready for pickup","Picked up"],
   confTitle:"✅ Payment complete!", confOrderIs:"Your order number is", confPickup:"📍 Local pickup — we'll contact you to coordinate.", confShip:"📦 Shipping — we'll let you know when it ships, with your tracking number.", confSave:"Save your number: with it and your email you can check the status with the 📦 button at the top right.", thanksToast:"Payment complete! Thanks for your purchase ✓", linkCopied:"Link copied ✓",
-  chatBtn:"💬 Help", chatTitle:"💬 Help — Señor Rey Marketplace", chatPh:"Type your question…", chatSend:"Send", chatGreet:"Hi! \u{1F44B} I'm the Señor Rey Marketplace assistant. Ask me about shipping, pickup, your order status, or any product.", chatTyping:"Typing…", chatFail:"Sorry, I can't answer right now. Write to us at ventas@senorrey.com and we'll help you right away." },
+  chatBtn:"💬 Help", chatTitle:"💬 Help — Señor Rey Marketplace", chatPh:"Type your question…", chatSend:"Send", chatGreet:"Hi! \u{1F44B} I'm the Señor Rey Marketplace assistant. Ask me about shipping, pickup, your order status, or any product.", chatTyping:"Typing…", chatFail:"Sorry, I can't answer right now. Write to us at ventas@senorrey.com and we'll help you right away.", acctTitleAttr:"My account", acctTitle:"My account", tabIn:"Sign in", tabUp:"Create account", fName:"Your name", fEmail:"Email", fPass:"Password", btnIn:"Sign in", btnUp:"Create account", forgot:"Forgot your password?", myOrders:"My orders", noOrders:"You have no orders yet with this email.", signOut:"Sign out", promoCard:"🎁 Create your account and join the promo: the first customer to buy 10 items wins a surprise gift from the store.", ordersFail:"Your orders couldn't load right now.", resetSent:"We emailed you a link to reset your password.", newPassT:"Set a new password", btnSavePass:"Save password", passSaved:"Password updated ✓", helloW:"Hi" },
 es: { titleTag:"Señor Rey Marketplace — Venta directa", topbar:"Envío asegurado a todo EE. UU. · Pago seguro con tarjeta", searchPh:"Buscar en la tienda…", orderStatusTitle:"Estado de mi orden", cartTitleAttr:"Carrito", viewGrid:"Vista en cuadrícula", viewList:"Vista en lista",
   heroH:"Piezas únicas. <em>Precios directos.</em>", heroP:"De todo un poco, vendido por su dueño y sin intermediarios ni fees de marketplace. Cada artículo es único: cuando se vende, desaparece.", heroBtn:"Ver productos",
   featured:"Productos destacados", recent:"Vistos recientemente", sortLbl:"Ordenar", sortFeatured:"Destacados", sortPriceAsc:"Precio: menor a mayor", sortPriceDesc:"Precio: mayor a menor", sortName:"Nombre A–Z", maxpLbl:"Precio máx.", maxpNone:"Sin límite", hideSold:"Ocultar vendidos", favOnly:"Favoritos",
@@ -606,7 +626,7 @@ es: { titleTag:"Señor Rey Marketplace — Venta directa", topbar:"Envío asegur
   removeAttr:"Quitar", orderWord:"Orden", trackingLbl:"Rastreo", pickupNoteStatus:"Te contactaremos para coordinar la recogida.", searchingTxt:"Buscando…", orderNotFound:"No encontramos esa orden con ese email. Revisa los datos e inténtalo de nuevo.",
   stepsShip:["Pagada","Enviada","Entregada"], stepsPickup:["Pagada","Lista para recoger","Entregada"],
   confTitle:"✅ ¡Pago completado!", confOrderIs:"Tu número de orden es", confPickup:"📍 Recogida en persona — te contactaremos para coordinar.", confShip:"📦 Envío — te avisaremos cuando salga, con tu número de rastreo.", confSave:"Guarda tu número: con él y tu email puedes ver el estado tocando 📦 arriba a la derecha.", thanksToast:"¡Pago completado! Gracias por tu compra ✓", linkCopied:"Link copiado ✓",
-  chatBtn:"💬 Ayuda", chatTitle:"💬 Ayuda — Señor Rey Marketplace", chatPh:"Escribe tu pregunta…", chatSend:"Enviar", chatGreet:"¡Hola! \u{1F44B} Soy el asistente de Señor Rey Marketplace. Pregúntame por envíos, recogida, el estado de tu orden o cualquier producto.", chatTyping:"Escribiendo…", chatFail:"Perdona, ahora mismo no puedo responder. Escríbenos a ventas@senorrey.com y te ayudamos enseguida." }
+  chatBtn:"💬 Ayuda", chatTitle:"💬 Ayuda — Señor Rey Marketplace", chatPh:"Escribe tu pregunta…", chatSend:"Enviar", chatGreet:"¡Hola! \u{1F44B} Soy el asistente de Señor Rey Marketplace. Pregúntame por envíos, recogida, el estado de tu orden o cualquier producto.", chatTyping:"Escribiendo…", chatFail:"Perdona, ahora mismo no puedo responder. Escríbenos a ventas@senorrey.com y te ayudamos enseguida.", acctTitleAttr:"Mi cuenta", acctTitle:"Mi cuenta", tabIn:"Iniciar sesión", tabUp:"Crear cuenta", fName:"Tu nombre", fEmail:"Correo electrónico", fPass:"Contraseña", btnIn:"Entrar", btnUp:"Crear cuenta", forgot:"¿Olvidaste tu contraseña?", myOrders:"Mis pedidos", noOrders:"Todavía no tienes pedidos con este correo.", signOut:"Cerrar sesión", promoCard:"🎁 Crea tu cuenta y participa en la promo: el primer cliente que compre 10 artículos gana un artículo sorpresa de la tienda.", ordersFail:"Tus pedidos no pudieron cargar ahora mismo.", resetSent:"Te enviamos un correo con el enlace para restablecer tu contraseña.", newPassT:"Escribe tu nueva contraseña", btnSavePass:"Guardar contraseña", passSaved:"Contraseña actualizada ✓", helloW:"Hola" }
 };
 const CATL = { "Joyería": { en: "Jewelry", es: "Joyería" }, "Bolsos": { en: "Bags", es: "Bolsos" }, "Perfumes": { en: "Perfumes", es: "Perfumes" } };
 let lang = localStorage.getItem('srm_lang') === 'es' ? 'es' : 'en';
@@ -909,6 +929,122 @@ const MAINTENANCE = false;
 <!-- Medidor de visitas propio (sin cookies) -->
 <script>
 (function(){var F='https://lewfysgyapmqlhkwxlwo.supabase.co/functions/v1/store-hit';function hit(){try{fetch(F,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({page:location.pathname+location.hash,ref:document.referrer||'',ua:navigator.userAgent.slice(0,300)}),keepalive:true}).catch(function(){});}catch(e){}}hit();var h=location.hash;setInterval(function(){if(location.hash!==h){h=location.hash;hit();}},800);})();
+</script>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
+<script>
+// ===== Cuentas de cliente (Supabase Auth) =====
+const SB_URL = 'https://lewfysgyapmqlhkwxlwo.supabase.co';
+const SB_ANON = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imxld2Z5c2d5YXBtcWxoa3d4bHdvIiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTA0NzQzMzYsImV4cCI6MjEwNjA1MDMzNn0.d2njlbuA9iJqdGjy6_ZTE_VwX8_C7ZULOjTaj_NhckY';
+let sb = null, acctUser = null, acctMode = 'in';
+try { if (window.supabase) sb = supabase.createClient(SB_URL, SB_ANON); } catch(e) {}
+function acctT(es, en){ return lang === 'es' ? es : en; }
+function openAccount(){ document.getElementById('amodal').classList.add('open'); renderAcct(); }
+function closeAccount(){ document.getElementById('amodal').classList.remove('open'); }
+function setAcctMode(m){ acctMode = m; renderAcct(); }
+function renderAcct(){
+  const box = document.getElementById('acctBody'); if (!box) return;
+  if (!sb) { box.innerHTML = '<p>' + acctT('Las cuentas no están disponibles ahora mismo.', 'Accounts are unavailable right now.') + '</p>'; return; }
+  if (acctUser) renderPanel(box); else renderAuth(box);
+}
+function renderAuth(box){
+  box.innerHTML =
+    '<div class="atabs"><button class="' + (acctMode === 'in' ? 'on' : '') + '" onclick="setAcctMode(\'in\')">' + t('tabIn') + '</button>' +
+    '<button class="' + (acctMode === 'up' ? 'on' : '') + '" onclick="setAcctMode(\'up\')">' + t('tabUp') + '</button></div>' +
+    (acctMode === 'up' ? '<input id="aName" placeholder="' + t('fName') + '" autocomplete="name">' : '') +
+    '<input id="aEmail" type="email" placeholder="' + t('fEmail') + '" autocomplete="email">' +
+    '<input id="aPass" type="password" placeholder="' + t('fPass') + '" autocomplete="' + (acctMode === 'up' ? 'new-password' : 'current-password') + '">' +
+    '<div class="aerr" id="aErr"></div>' +
+    '<button class="buy" style="width:100%" onclick="acctSubmit()">' + (acctMode === 'up' ? t('btnUp') : t('btnIn')) + '</button>' +
+    (acctMode === 'in' ? '<p style="margin:10px 0 0"><button class="alink" onclick="acctForgot()">' + t('forgot') + '</button></p>' : '') +
+    '<div class="promo"><div class="pt">' + t('promoCard') + '</div></div>';
+}
+async function acctSubmit(){
+  const email = document.getElementById('aEmail').value.trim();
+  const pass = document.getElementById('aPass').value;
+  const err = document.getElementById('aErr');
+  err.textContent = ''; err.style.color = '';
+  try {
+    if (acctMode === 'up') {
+      const name = document.getElementById('aName').value.trim();
+      const { data, error } = await sb.auth.signUp({ email, password: pass, options: { data: { name } } });
+      if (error) throw error;
+      if (!data.session) { err.style.color = 'green'; err.textContent = acctT('Cuenta creada. Revisa tu correo para confirmarla y luego inicia sesión.', 'Account created. Check your email to confirm it, then sign in.'); }
+    } else {
+      const { error } = await sb.auth.signInWithPassword({ email, password: pass });
+      if (error) throw error;
+    }
+  } catch(e) { err.textContent = (e && e.message) ? e.message : 'Error'; }
+}
+async function acctForgot(){
+  const email = document.getElementById('aEmail').value.trim();
+  const err = document.getElementById('aErr');
+  if (!email) { err.textContent = t('fEmail'); return; }
+  const { error } = await sb.auth.resetPasswordForEmail(email, { redirectTo: 'https://senorrey.com/' });
+  err.style.color = error ? '' : 'green';
+  err.textContent = error ? error.message : t('resetSent');
+}
+function renderPanel(box){
+  const name = (acctUser.user_metadata && acctUser.user_metadata.name) || '';
+  box.innerHTML =
+    '<div class="auser">' + t('helloW') + (name ? ', <b>' + esc(name) + '</b>' : '') + '</div>' +
+    '<div class="aemail">' + esc(acctUser.email) + '</div>' +
+    '<div id="promoBox"></div>' +
+    '<h3 style="margin:16px 0 6px">📦 ' + t('myOrders') + '</h3>' +
+    '<div id="myOrders"><div class="cempty">' + t('loadingTxt') + '</div></div>' +
+    '<button class="buy share" style="width:100%;margin-top:16px" onclick="acctOut()">' + t('signOut') + '</button>';
+  loadMyOrders();
+}
+async function loadMyOrders(){
+  const box = document.getElementById('myOrders'); if (!box) return;
+  try {
+    const { data } = await sb.auth.getSession();
+    const tok = data && data.session && data.session.access_token;
+    if (!tok) throw 0;
+    const r = await fetch(SB_URL + '/functions/v1/store-my-orders', { headers: { 'Authorization': 'Bearer ' + tok, 'apikey': SB_ANON } });
+    if (!r.ok) throw 0;
+    const d = await r.json();
+    const orders = d.orders || [];
+    let items = 0;
+    orders.forEach(o => { items += (o.items || []).length; });
+    const pb = document.getElementById('promoBox');
+    if (pb) {
+      const pct = Math.min(100, items * 10);
+      pb.innerHTML = '<div class="promo"><div class="pt">🎁 ' + acctT('Promo del artículo sorpresa', 'Surprise-gift promo') + '</div>' +
+        '<div>' + (items >= 10 ? acctT('🎉 ¡Ya llegaste a 10 artículos!', '🎉 You reached 10 items!') : acctT('Llevas ' + items + ' de 10 artículos comprados. El primero que llegue a 10 gana un artículo sorpresa.', 'You have bought ' + items + ' of 10 items. The first customer to reach 10 wins a surprise gift.')) + '</div>' +
+        '<div class="pbar"><div class="pfill" style="width:' + pct + '%"></div></div></div>';
+    }
+    box.innerHTML = orders.length ? orders.map(o => '<div class="aord">' + statusHTML(o) + '</div>').join('') : '<div class="cempty">' + t('noOrders') + '</div>';
+  } catch(e) { box.innerHTML = '<div class="cempty">' + t('ordersFail') + '</div>'; }
+}
+async function acctOut(){ await sb.auth.signOut(); }
+function acctRecovery(){
+  document.getElementById('amodal').classList.add('open');
+  const box = document.getElementById('acctBody');
+  box.innerHTML = '<p>' + t('newPassT') + '</p><input id="aNewPass" type="password" placeholder="' + t('fPass') + '" autocomplete="new-password"><div class="aerr" id="aErr"></div><button class="buy" style="width:100%" onclick="acctSavePass()">' + t('btnSavePass') + '</button>';
+}
+async function acctSavePass(){
+  const pass = document.getElementById('aNewPass').value;
+  const err = document.getElementById('aErr');
+  const { error } = await sb.auth.updateUser({ password: pass });
+  if (error) { err.textContent = error.message; return; }
+  toast(t('passSaved')); closeAccount();
+}
+function paintAcctBtn(){
+  const b = document.getElementById('acctBtn'); if (!b) return;
+  if (acctUser) { const n = (acctUser.user_metadata && acctUser.user_metadata.name) || acctUser.email || ''; b.textContent = (n[0] || '👤').toUpperCase(); b.classList.add('on'); }
+  else { b.textContent = '👤'; b.classList.remove('on'); }
+}
+if (sb) {
+  sb.auth.getSession().then(({ data }) => { acctUser = data && data.session ? data.session.user : null; paintAcctBtn(); });
+  sb.auth.onAuthStateChange((ev, session) => {
+    acctUser = session ? session.user : null;
+    paintAcctBtn();
+    if (ev === 'PASSWORD_RECOVERY') { acctRecovery(); return; }
+    const m = document.getElementById('amodal');
+    if (m && m.classList.contains('open')) { if (acctUser) closeAccount(); else renderAcct(); }
+  });
+}
 </script>
 </body>
 </html>
