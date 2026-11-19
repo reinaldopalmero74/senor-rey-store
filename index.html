@@ -133,6 +133,7 @@
   @media (max-width:760px){ .detail{ grid-template-columns:1fr; } }
   .gal .main{ aspect-ratio:1/1; background:var(--paper); border-radius:12px; overflow:hidden; border:1px solid var(--line); }
   .gal .main img{ width:100%; height:100%; object-fit:cover; display:block; }
+  .gal .main video{ width:100%; height:100%; object-fit:cover; display:block; }
   .thumbs{ display:flex; gap:8px; margin-top:10px; flex-wrap:wrap; }
   .thumbs img{ width:64px; height:64px; object-fit:cover; border-radius:8px; border:2px solid transparent; cursor:pointer; }
   .thumbs img.on{ border-color:var(--gold); }
@@ -467,6 +468,7 @@ const PRODUCTS = [
     notesT:[["bergamot","Bergamot","Bergamota"],["rosemary","Rosemary","Romero"],["violet","Violet","Violeta"]],
     notesH:[["incense","Kyara Incense","Incienso Kyara"],["orris","Orris","Orris"],["myrrh","Myrrh","Mirra"],["amber","Amber","\u00c1mbar"],["labdanum","Labdanum","L\u00e1dano"],["vanilla","Vanilla","Vainilla"]],
     notesB:[["oud","Agarwood (Oud)","Agarwood (Oud)"],["smoke","Smoke","Humo"],["leather","Leather","Cuero"],["sandalwood","Sandalwood","S\u00e1ndalo"],["patchouli","Patchouli","Pachul\u00ed"],["cedar","Cedar","Cedro"]],
+    anim:"assets/maahir-black-anim.mp4",
     photos:["assets/maahir-black-1.jpg","assets/maahir-black-2.jpg"],
     link:"", status:"live"
   },
@@ -703,13 +705,23 @@ function notesHTML(p){
     row(lang === 'es' ? 'Coraz\u00f3n' : 'Heart Notes', p.notesH) +
     row(lang === 'es' ? 'Fondo' : 'Base Notes', p.notesB) + '</div>';
 }
+
+function galHTML(p){
+  const hasV = !!p.anim;
+  const main = hasV
+    ? '<video id="mainvid" src="' + p.anim + '" poster="' + (p.photos[0] || '') + '" autoplay muted loop playsinline></video><img id="mainimg" src="' + (p.photos[0] || '') + '" alt="" onclick="zoom()" style="cursor:zoom-in;display:none">'
+    : '<img id="mainimg" src="' + (p.photos[0] || '') + '" alt="" onclick="zoom()" style="cursor:zoom-in">';
+  let thumbs = '';
+  if (hasV) thumbs += '<img src="' + (p.photos[0] || '') + '" class="on" onclick="swapVid(this)">';
+  thumbs += p.photos.map((f, i) => '<img src="' + f + '" class="' + (!hasV && i === 0 ? 'on' : '') + '" onclick="swap(this)">').join('');
+  return '<div class="gal"><div class="main">' + main + '</div><div class="thumbs">' + thumbs + '</div></div>';
+}
 function openDetail(id, keep){
   const p = PRODUCTS.find(x => x.id === id); if (!p) return; current = p;
   if (!keep) { recent = [id, ...recent.filter(x => x !== id)].slice(0, 6); localStorage.setItem('srs_recent', JSON.stringify(recent)); }
   const sold = isSold(p), coming = isComing(p);
   document.getElementById('detail').innerHTML =
-    '<div class="gal"><div class="main"><img id="mainimg" src="' + (p.photos[0] || '') + '" alt="" onclick="zoom()" style="cursor:zoom-in"></div>' +
-    '<div class="thumbs">' + p.photos.map((f, i) => '<img src="' + f + '" class="' + (i === 0 ? 'on' : '') + '" onclick="swap(this)">').join('') + '</div></div>' +
+    galHTML(p) +
     '<div class="info"><div class="brand">' + p.brand + '</div><h2>' + pname(p) + '</h2>' + stars(p) +
     '<div class="pricerow"><span class="price">' + money(p.price) + '</span>' + (p.was ? '<span class="was">' + money(p.was) + '</span>' : '') + '</div>' +
     '<div class="desc">' + pdesc(p) + '</div>' + notesHTML(p) + '<div class="meta">' + (pmeta(p) || '') + '</div>' +
@@ -735,14 +747,15 @@ function openDetail(id, keep){
   history.replaceState(null, '', '#' + id);
   renderRecent();
 }
-function zoom(){ const m = document.getElementById('mainimg'); if (!m) return; document.getElementById('lightimg').src = m.src; document.getElementById('lightbox').classList.add('open'); }
+function zoom(){ const m = document.getElementById('mainimg'); if (!m || m.style.display === 'none') return; document.getElementById('lightimg').src = m.src; document.getElementById('lightbox').classList.add('open'); }
 async function shareProduct(id){
   const url = location.origin + location.pathname + '#' + id;
   const p = PRODUCTS.find(x => x.id === id);
   if (navigator.share) { try { await navigator.share({ title: 'Señor Rey Marketplace', text: p.brand + ' — ' + pname(p) + ' · ' + money(p.price), url }); } catch(e) {} }
   else { try { await navigator.clipboard.writeText(url); toast(t('linkCopied')); } catch(e) { toast(url); } }
 }
-function swap(el){ document.getElementById('mainimg').src = el.src; el.parentElement.querySelectorAll('img').forEach(i => i.classList.toggle('on', i === el)); }
+function swap(el){ const v = document.getElementById('mainvid'); if (v) { v.style.display = 'none'; v.pause(); } const m = document.getElementById('mainimg'); m.style.display = ''; m.src = el.src; el.parentElement.querySelectorAll('img').forEach(i => i.classList.toggle('on', i === el)); }
+function swapVid(el){ const v = document.getElementById('mainvid'); const m = document.getElementById('mainimg'); if (m) m.style.display = 'none'; if (v) { v.style.display = ''; v.currentTime = 0; v.play(); } el.parentElement.querySelectorAll('img').forEach(i => i.classList.toggle('on', i === el)); }
 function closeDetail(){ document.getElementById('sheet').classList.remove('open'); current = null; history.replaceState(null, '', location.pathname); }
 /* ===== Comentarios ===== */
 function esc(t){ return String(t).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c])); }
