@@ -249,6 +249,50 @@
 .nchips{display:flex;flex-wrap:wrap;gap:8px}
 .nchip{display:inline-flex;align-items:center;gap:7px;background:#fff;border:1px solid #e3ddcf;border-radius:999px;padding:4px 13px 4px 4px;font-size:13px;color:#16283C}
 .nchip img{width:30px;height:30px;border-radius:50%;object-fit:cover;display:block}
+/* ===== Estilo Tiffany (Señor Rey) + animaciones ===== */
+  .shopbar{ background:#fff; color:var(--navy); box-shadow:none; border-bottom:1px solid var(--line); }
+  .logo{ font-family:Georgia,serif; letter-spacing:2px; font-weight:normal; }
+  .logo span{ color:#B8912A; }
+  .icons a{ color:var(--navy); }
+  .langsw button{ color:#5A6B78; }
+  .search{ border:1px solid var(--line); }
+  .cats{ background:#fff; border-bottom:1px solid var(--line); }
+  .chip{ border:0; background:transparent; color:var(--navy); border-radius:0; letter-spacing:1.5px; text-transform:uppercase; font-size:12px; padding:7px 10px; }
+  .chip.on{ background:transparent; color:var(--navy); font-weight:800; box-shadow:inset 0 -2px 0 var(--gold); }
+  .hero{ position:relative; overflow:hidden; background:#16283C; color:#fff; padding:64px 18px 56px; }
+  .hero::before{ content:''; position:absolute; inset:0; background:url('assets/maahir-black-1.jpg') center/cover; animation:kb 24s ease-in-out infinite alternate; }
+  .hero::after{ content:''; position:absolute; inset:0; background:linear-gradient(rgba(16,30,48,.20),rgba(16,30,48,.48)); }
+  .hero h2,.hero p,.hero a{ position:relative; z-index:1; }
+  .hero h2{ color:#fff; font-size:36px; }
+  .hero h2 em{ color:var(--gold2); }
+  .hero p{ color:#E8EDF1; }
+  .hero a{ background:#fff; color:var(--navy); border-radius:2px; letter-spacing:2px; text-transform:uppercase; font-size:12.5px; padding:13px 30px; }
+  @keyframes kb{ from{ transform:scale(1); } to{ transform:scale(1.09); } }
+  .sechead{ font-family:Georgia,serif; font-weight:normal; font-size:23px; color:var(--navy); text-align:center; margin-bottom:14px; }
+  .grid{ gap:30px 20px; }
+  .card{ border:0; border-radius:0; box-shadow:none; background:#fff; }
+  .card:hover{ transform:none; box-shadow:none; }
+  .card:hover .ph img{ transform:scale(1.04); }
+  .ph{ background:#FBFAF7; }
+  .ph img{ transition:transform .8s ease; }
+  .bd{ text-align:center; align-items:center; padding:14px 10px 6px; }
+  .brand{ font-family:Georgia,serif; font-size:15px; letter-spacing:.5px; color:var(--navy); font-weight:normal; text-transform:none; }
+  .bd h4{ font-size:13.5px; font-weight:400; color:#44505C; }
+  .pricerow{ justify-content:center; margin-top:2px; }
+  .price{ font-size:15px; font-weight:400; color:var(--ink); }
+  .was{ font-size:13px; }
+  .buy{ border-radius:2px; letter-spacing:1px; }
+  .tile{ border:0; border-radius:0; height:auto; overflow:visible; background:none; }
+  .tile img{ height:auto; aspect-ratio:1/1; }
+  .tile span{ position:static; background:none; color:var(--navy); display:block; text-align:center; font-size:12px; letter-spacing:2px; text-transform:uppercase; font-weight:700; padding:9px 4px 0; }
+  .tile span::after{ content:''; display:block; width:34px; height:2px; background:var(--gold); margin:6px auto 0; }
+  .trust div{ border:0; border-radius:0; text-align:center; padding:10px 14px; }
+  .trust b{ font-family:Georgia,serif; font-weight:normal; font-size:16.5px; color:var(--navy); }
+  .faq h3{ font-family:Georgia,serif; font-weight:normal; font-size:23px; text-align:center; }
+  .rv{ opacity:0; transform:translateY(16px); transition:opacity .7s ease,transform .7s ease; }
+  .rv.in{ opacity:1; transform:none; }
+  @media (max-width:560px){ .hero{ padding:42px 16px 38px; } .hero h2{ font-size:26px; } }
+  @media (prefers-reduced-motion: reduce){ .hero::before{ animation:none; } .rv{ opacity:1; transform:none; transition:none; } .ph img{ transition:none; } }
 </style>
 </head>
 <body>
@@ -272,7 +316,7 @@
   <p data-i18n="heroP">A little of everything, sold by its owner — no middlemen, no marketplace fees. Every item is one of a kind: when it sells, it's gone.</p>
   <a href="#productos" data-i18n="heroBtn">Shop products</a>
 </section>
-<div class="wrap" style="padding-top:16px"><div class="tiles" id="tiles"></div></div>
+<div class="wrap" style="padding-top:20px"><h3 class="sechead" data-i18n="shopByCat">Shop by category</h3><div class="tiles" id="tiles"></div></div>
 <div class="wrap" id="confirmbox" style="display:none"></div>
 <div class="wrap" id="productos">
   <div class="secrow"><h3 data-i18n="featured">Featured products</h3><span id="count"></span></div>
@@ -288,10 +332,10 @@
 </div>
 <div class="wrap" id="recentwrap" style="display:none"><div class="secrow"><h3 data-i18n="recent">Recently viewed</h3></div><div class="relgrid" id="recent"></div></div>
 <div class="trust">
-  <div>🔒 <b data-i18n="trust1t">100% secure payment</b><span data-i18n="trust1">Your card is processed by Stripe — it never passes through this page.</span></div>
-  <div>📦 <b data-i18n="trust2t">Secure shipping</b><span data-i18n="trust2">Discreet packaging. Orders of $200+ ship with signature; orders of $1,000+ are fully insured.</span></div>
-  <div>✅ <b data-i18n="trust3t">Verified authenticity</b><span data-i18n="trust3">Every item is inspected before it is listed.</span></div>
-  <div>🤝 <b data-i18n="trust4t">Direct deal</b><span data-i18n="trust4">No middlemen: you buy straight from the seller.</span></div>
+  <div><b data-i18n="trust1t">100% secure payment</b><span data-i18n="trust1">Your card is processed by Stripe — it never passes through this page.</span></div>
+  <div><b data-i18n="trust2t">Secure shipping</b><span data-i18n="trust2">Discreet packaging. Orders of $200+ ship with signature; orders of $1,000+ are fully insured.</span></div>
+  <div><b data-i18n="trust3t">Verified authenticity</b><span data-i18n="trust3">Every item is inspected before it is listed.</span></div>
+  <div><b data-i18n="trust4t">Direct deal</b><span data-i18n="trust4">No middlemen: you buy straight from the seller.</span></div>
 </div>
 <div class="faq" id="faq">
   <h3 data-i18n="faqH">Frequently asked questions</h3>
@@ -600,7 +644,7 @@ const PRODUCTS = [
 const STR = {
 en: { titleTag:"Señor Rey Marketplace — Direct Sales", topbar:"Shipping across the U.S. · Secure card payments", searchPh:"Search the store…", orderStatusTitle:"Order status", cartTitleAttr:"Cart", viewGrid:"Grid view", viewList:"List view",
   heroH:"Unique pieces. <em>Direct prices.</em>", heroP:"A little of everything, sold by its owner — no middlemen, no marketplace fees. Every item is one of a kind: when it sells, it's gone.", heroBtn:"Shop products",
-  featured:"Featured products", recent:"Recently viewed", sortLbl:"Sort", sortFeatured:"Featured", sortPriceAsc:"Price: low to high", sortPriceDesc:"Price: high to low", sortName:"Name A–Z", maxpLbl:"Max price", maxpNone:"No limit", hideSold:"Hide sold", favOnly:"Favorites",
+  featured:"Featured products", shopByCat:"Shop by category", recent:"Recently viewed", sortLbl:"Sort", sortFeatured:"Featured", sortPriceAsc:"Price: low to high", sortPriceDesc:"Price: high to low", sortName:"Name A–Z", maxpLbl:"Max price", maxpNone:"No limit", hideSold:"Hide sold", favOnly:"Favorites",
   trust1t:"100% secure payment", trust1:"Your card is processed by Stripe — it never passes through this page.", trust2t:"Secure shipping", trust2:"Discreet packaging. Orders of $200+ ship with signature; orders of $1,000+ are fully insured.", trust3t:"Verified authenticity", trust3:"Every item is inspected before it is listed.", trust4t:"Direct deal", trust4:"No middlemen: you buy straight from the seller.",
   faqH:"Frequently asked questions",
   faq1q:"How do I buy?", faq1a:"Add your items to the cart and tap <b>Pay</b>: checkout happens on Stripe's secure page with your card. When you finish, you'll receive a confirmation email with your <b>order number</b>.",
@@ -628,7 +672,7 @@ en: { titleTag:"Señor Rey Marketplace — Direct Sales", topbar:"Shipping acros
   chatBtn:"💬 Help", chatTitle:"💬 Help — Señor Rey Marketplace", chatPh:"Type your question…", chatSend:"Send", chatGreet:"Hi! \u{1F44B} I'm the Señor Rey Marketplace assistant. Ask me about shipping, pickup, your order status, or any product.", chatTyping:"Typing…", chatFail:"Sorry, I can't answer right now. Write to us at ventas@senorrey.com and we'll help you right away.", acctTitleAttr:"My account", acctTitle:"My account", tabIn:"Sign in", tabUp:"Create account", fName:"Your name", fEmail:"Email", fPass:"Password", btnIn:"Sign in", btnUp:"Create account", forgot:"Forgot your password?", myOrders:"My orders", noOrders:"You have no orders yet with this email.", signOut:"Sign out", promoCard:"🎁 Create your account and join the promo: the first customer to buy 10 items wins a surprise gift from the store.", ordersFail:"Your orders couldn't load right now.", resetSent:"We emailed you a link to reset your password.", newPassT:"Set a new password", btnSavePass:"Save password", passSaved:"Password updated ✓", helloW:"Hi" },
 es: { titleTag:"Señor Rey Marketplace — Venta directa", topbar:"Envío a todo EE. UU. · Pago seguro con tarjeta", searchPh:"Buscar en la tienda…", orderStatusTitle:"Estado de mi orden", cartTitleAttr:"Carrito", viewGrid:"Vista en cuadrícula", viewList:"Vista en lista",
   heroH:"Piezas únicas. <em>Precios directos.</em>", heroP:"De todo un poco, vendido por su dueño y sin intermediarios ni fees de marketplace. Cada artículo es único: cuando se vende, desaparece.", heroBtn:"Ver productos",
-  featured:"Productos destacados", recent:"Vistos recientemente", sortLbl:"Ordenar", sortFeatured:"Destacados", sortPriceAsc:"Precio: menor a mayor", sortPriceDesc:"Precio: mayor a menor", sortName:"Nombre A–Z", maxpLbl:"Precio máx.", maxpNone:"Sin límite", hideSold:"Ocultar vendidos", favOnly:"Favoritos",
+  featured:"Productos destacados", shopByCat:"Comprar por categoría", recent:"Vistos recientemente", sortLbl:"Ordenar", sortFeatured:"Destacados", sortPriceAsc:"Precio: menor a mayor", sortPriceDesc:"Precio: mayor a menor", sortName:"Nombre A–Z", maxpLbl:"Precio máx.", maxpNone:"Sin límite", hideSold:"Ocultar vendidos", favOnly:"Favoritos",
   trust1t:"Pago 100% seguro", trust1:"Tu tarjeta se procesa en Stripe — nunca pasa por esta página.", trust2t:"Envío seguro", trust2:"Empaque discreto. Las órdenes de $200+ viajan con firma; las de $1,000+ con seguro por el valor total.", trust3t:"Autenticidad verificada", trust3:"Cada artículo se revisa antes de publicarse.", trust4t:"Trato directo", trust4:"Sin intermediarios: compras directo al vendedor.",
   faqH:"Preguntas frecuentes",
   faq1q:"¿Cómo compro?", faq1a:"Agrega tus artículos al carrito y toca <b>Pagar</b>: el cobro se hace en la página segura de Stripe con tu tarjeta. Al terminar, recibes un correo de confirmación con tu <b>número de orden</b>.",
@@ -697,7 +741,9 @@ function buildCats(){
 }
 const TILEIMG = { 'Perfumes':'assets/afnan-9pm-hero.jpg', 'Joyería':'assets/se186-1.jpg', 'Bolsos':'assets/kenzo-1.jpg' };
 function goCat(c){ cat = c; buildCats(); render(); document.getElementById('productos').scrollIntoView({behavior:'smooth'}); }
-function buildTiles(){ const el = document.getElementById('tiles'); if (!el) return; el.innerHTML = ''; CATS.slice(1).forEach(c => { if (!TILEIMG[c]) return; const d = document.createElement('div'); d.className = 'tile'; d.innerHTML = '<img src="' + TILEIMG[c] + '" alt="" loading="lazy"><span>' + catName(c) + '</span>'; d.onclick = () => goCat(c); el.appendChild(d); }); }
+function buildTiles(){ const el = document.getElementById('tiles'); if (!el) return; el.innerHTML = ''; CATS.slice(1).forEach(c => { if (!TILEIMG[c]) return; const d = document.createElement('div'); d.className = 'tile'; d.innerHTML = '<img src="' + TILEIMG[c] + '" alt="" loading="lazy"><span>' + catName(c) + '</span>'; d.onclick = () => goCat(c); el.appendChild(d); }); revealScan(); }
+const _io = ('IntersectionObserver' in window) ? new IntersectionObserver(es => { es.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); _io.unobserve(e.target); } }); }, { threshold: .08 }) : null;
+function revealScan(){ if (!_io) return; document.querySelectorAll('.card:not(.rv), .tile:not(.rv), .trust > div:not(.rv)').forEach(el => { el.classList.add('rv'); _io.observe(el); }); }
 function stars(p, full){ if (!p.rating) return ''; const pct = Math.round(parseFloat(p.rating) / 5 * 100); let v = ''; if (full && p.votes) v = '<span class="stv"> · ' + Number(p.votes).toLocaleString(lang === 'es' ? 'es-US' : 'en-US') + (lang === 'es' ? ' votos en ' : ' votes on ') + (p.rsrc || 'Fragrantica') + '</span>'; return '<div class="stars"><span class="stwrap"><span class="stbg">★★★★★</span><span class="stfill" style="width:' + pct + '%">★★★★★</span></span> <b>' + p.rating + '</b>' + v + '</div>'; }
 function visible(){
   const term = q.value.trim().toLowerCase();
@@ -733,7 +779,7 @@ function render(){
   emptyEl.style.display = list.length ? 'none' : 'block';
   if (!PRODUCTS.length) emptyEl.innerHTML = t('emptyDefault');
   else if (!list.length) emptyEl.textContent = t('noResults');
-  renderRecent();
+  renderRecent(); revealScan();
 }
 function toggleFav(id){ favs.has(id) ? favs.delete(id) : favs.add(id); localStorage.setItem('srs_favs', JSON.stringify([...favs])); render(); if (current && current.id === id && document.getElementById('sheet').classList.contains('open')) openDetail(id, true); }
 function renderRecent(){
