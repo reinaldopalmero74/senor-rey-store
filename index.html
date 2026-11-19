@@ -345,6 +345,16 @@
   .share{ background:#131F30; border-color:#2A3D55; color:#E8EDF1; }
   .ocard,.drawer,.chatpanel{ color:var(--ink); }
   @media (max-width:560px){ .logo{ font-size:20px; } .icons{ position:static; } }
+
+  /* ===== Hero con imágenes rotando (slideshow de productos) ===== */
+  .hero::before{ content:none; animation:none; }
+  .hero::after{ z-index:1; }
+  .hero h2,.hero p,.hero a{ z-index:2; }
+  .heroslides{ position:absolute; inset:0; z-index:0; }
+  .hslide{ position:absolute; inset:0; background-position:center; background-size:cover; opacity:0; animation:hfade 30s ease-in-out infinite; }
+  .hslide:first-child{ animation-delay:-1s; }
+  @keyframes hfade{ 0%{ opacity:0; transform:scale(1.03); } 3%{ opacity:1; } 17%{ opacity:1; } 20%{ opacity:0; transform:scale(1.09); } 100%{ opacity:0; transform:scale(1.09); } }
+  @media (prefers-reduced-motion: reduce){ .hslide{ animation:none; } .hslide:first-child{ opacity:1; } }
 </style>
 </head>
 <body>
@@ -364,6 +374,7 @@
 </div>
 <nav class="cats" id="cats"></nav>
 <section class="hero">
+  <div class="heroslides"><div class="hslide" style="background-image:url('assets/maahir-black-1.jpg')"></div><div class="hslide" style="background-image:url('assets/afnan-9pm-hero.jpg');animation-delay:6s"></div><div class="hslide" style="background-image:url('assets/lattafa-khamrah-hero.jpg');animation-delay:12s"></div><div class="hslide" style="background-image:url('assets/lattafa-asad-hero.jpg');animation-delay:18s"></div><div class="hslide" style="background-image:url('assets/club-de-nuit-intense-hero.jpg');animation-delay:24s"></div></div>
   <h2 data-i18n="heroH">Unique pieces. <em>Direct prices.</em></h2>
   <p data-i18n="heroP">A little of everything, sold by its owner — no middlemen, no marketplace fees. Every item is one of a kind: when it sells, it's gone.</p>
   <a href="#productos" data-i18n="heroBtn">Shop products</a>
