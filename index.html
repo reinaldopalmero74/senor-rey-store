@@ -363,6 +363,20 @@
   #heroCta.swap{ opacity:0; transform:translateY(4px); }
   #heroCta.off{ background:#16283C; color:var(--gold2); border:1.5px dashed var(--gold); box-shadow:none; pointer-events:none; }
   @media (max-width:560px){ .heroslides{ height:280px; } }
+
+  /* ===== Versión desktop: aprovechar la pantalla grande ===== */
+  @media (min-width:900px){
+    .logo{ font-size:27px; }
+    .heroslides{ height:460px; }
+    .herotext{ padding:26px 18px 32px; }
+    .herotext h2{ font-size:34px; }
+    .sechead{ font-size:24px; }
+    .secrow h3{ font-size:24px; }
+    .tiles{ gap:22px; }
+    .tile img{ aspect-ratio:16/10; }
+    .grid{ grid-template-columns:repeat(auto-fill,minmax(215px,1fr)); gap:34px 24px; }
+    .trust{ grid-template-columns:repeat(4,1fr); }
+  }
   @media (prefers-reduced-motion: reduce){ .hslide{ animation:none; } .hslide:first-child{ opacity:1; } }
 </style>
 </head>
