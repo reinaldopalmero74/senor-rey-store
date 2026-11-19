@@ -333,9 +333,9 @@
     <div class="oresult" id="oresult"></div>
   </div>
 </div>
-<div class="omodal" id="gmodal" onclick="if(event.target===this)this.classList.remove('open')">
+<div class="omodal" id="gmodal" onclick="if(event.target===this)closeGuest()">
   <div class="ocard">
-    <button class="ox" onclick="document.getElementById('gmodal').classList.remove('open')">✕</button>
+    <button class="ox" onclick="closeGuest()">✕</button>
     <h3 id="gTitle"></h3>
     <p id="gText" style="font-size:14.5px; line-height:1.5; color:#42506b;"></p>
     <button class="buy" style="width:100%" id="gBtnAcct" onclick="guestChoice('account')"></button>
@@ -773,7 +773,7 @@ function openDetail(id, keep){
     (sold ? '<button class="buy off">' + t('soldLbl') + '</button>'
           : coming ? '<button class="buy off">' + t('comingLbl') + '</button>'
           : '<button class="buy navy" onclick="addToCart(\'' + p.id + '\')">' + t('addToCartBtn') + '</button>' +
-            (p.link ? '<button class="buy" onclick="window.location=\'' + p.link + '\'">' + t('buyNowBtn') + '</button>' : '<button class="buy off">' + t('availSoon') + '</button>')) +
+            (p.link ? '<button class="buy" onclick="window.location=\'' + p.link + '\'">' + t('buyNowBtn') + '</button>' : '<button class="buy" onclick="buyNow(\'' + p.id + '\')">' + t('buyNowBtn') + '</button>')) +
     '<button class="buy share" onclick="shareProduct(\'' + p.id + '\')">' + t('shareBtn') + '</button>' +
     '<button class="buy share" onclick="toggleFav(\'' + p.id + '\')">' + (favs.has(p.id) ? t('inFavs') : t('addFav')) + '</button>' +
     '</div></div>' +
@@ -880,16 +880,27 @@ function guestChoice(kind){
   window._pendingCheckout = true;
   openAccount();
 }
+function closeGuest(){ document.getElementById('gmodal').classList.remove('open'); window._buyNow = null; }
+function buyNow(id){
+  const p = PRODUCTS.find(x => x.id === id); if (!p) return;
+  if (isSold(p)) { toast(t('soldToast')); return; }
+  if (isComing(p)) { toast(t('comingToast')); return; }
+  window._buyNow = [id]; window._buyNowAt = Date.now();
+  checkout();
+}
 async function checkoutPay(){
   const n = document.getElementById('cnotice');
   try {
-    const r = await fetch(FN + 'store-checkout', { method:'POST', headers:{ 'Content-Type':'application/json' }, body: JSON.stringify({ items: cart, method: delivery }) });
+    const bn = (window._buyNow && (Date.now() - (window._buyNowAt || 0) < 600000)) ? window._buyNow : null; window._buyNow = null;
+    const r = await fetch(FN + 'store-checkout', { method:'POST', headers:{ 'Content-Type':'application/json' }, body: JSON.stringify({ items: bn || cart, method: delivery }) });
     const d = await r.json();
     if (d.url) { window.location = d.url; return; }
     if (d.error === 'sold_out') { await loadSold(); cart = cart.filter(id => !SOLD.has(id)); updateCart(); render(); throw new Error('sold'); }
     throw new Error(d.error || 'error');
   } catch(e) {
-    if (n) { n.style.display = 'block'; n.textContent = e.message === 'sold' ? t('soldOutNotice') : t('checkoutFail'); }
+    const msg = e.message === 'sold' ? t('soldOutNotice') : t('checkoutFail');
+    if (n && document.getElementById('drawer').classList.contains('open')) { n.style.display = 'block'; n.textContent = msg; }
+    else toast(msg);
   }
 }
 function openCart(){ updateCart(); document.getElementById('drawer').classList.add('open'); document.getElementById('backdrop').classList.add('open'); }
