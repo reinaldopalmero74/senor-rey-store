@@ -128,10 +128,12 @@ Deno.serve(async (req) => {
 
   let items: unknown;
   let method = "shipping";
+  let lang = "en";
   try {
     const body = await req.json();
     items = body?.items;
     if (body?.method === "pickup") method = "pickup";
+    if (body?.lang === "es") lang = "es";
   } catch {
     return json({ error: "bad_json" }, 400);
   }
@@ -166,7 +168,7 @@ Deno.serve(async (req) => {
     form.set("shipping_options[0][shipping_rate_data][tax_behavior]", "exclusive");
     form.set("shipping_options[0][shipping_rate_data][fixed_amount][amount]", String(feeCents));
     form.set("shipping_options[0][shipping_rate_data][fixed_amount][currency]", "usd");
-    form.set("shipping_options[0][shipping_rate_data][display_name]", feeCents >= 3900 ? "Envío asegurado con firma" : feeCents >= 2500 ? "Envío con firma" : "Envío estándar");
+    form.set("shipping_options[0][shipping_rate_data][display_name]", feeCents >= 3900 ? (lang === "es" ? "Envío asegurado con firma" : "Insured shipping with signature") : feeCents >= 2500 ? (lang === "es" ? "Envío con firma" : "Shipping with signature") : (lang === "es" ? "Envío estándar" : "Standard shipping"));
     form.set("shipping_options[0][shipping_rate_data][delivery_estimate][minimum][unit]", "business_day");
     form.set("shipping_options[0][shipping_rate_data][delivery_estimate][minimum][value]", "3");
     form.set("shipping_options[0][shipping_rate_data][delivery_estimate][maximum][unit]", "business_day");

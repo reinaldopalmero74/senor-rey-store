@@ -1068,7 +1068,7 @@ async function checkoutPay(){
   const n = document.getElementById('cnotice');
   try {
     const bn = (window._buyNow && (Date.now() - (window._buyNowAt || 0) < 600000)) ? window._buyNow : null; window._buyNow = null;
-    const r = await fetch(FN + 'store-checkout', { method:'POST', headers:{ 'Content-Type':'application/json' }, body: JSON.stringify({ items: bn || cart, method: delivery }) });
+    const r = await fetch(FN + 'store-checkout', { method:'POST', headers:{ 'Content-Type':'application/json' }, body: JSON.stringify({ items: bn || cart, method: delivery, lang: lang }) });
     const d = await r.json();
     if (d.url) { window.location = d.url; return; }
     if (d.error === 'sold_out') { await loadSold(); cart = cart.filter(id => !SOLD.has(id)); updateCart(); render(); throw new Error('sold'); }
