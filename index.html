@@ -355,8 +355,7 @@
   .hslide{ position:absolute; inset:0; opacity:0; animation:hfade 45s ease-in-out infinite; }
   .hslide::before{ content:''; position:absolute; inset:0; background-image:var(--bg); background-position:center; background-size:cover; filter:blur(16px) brightness(.5); transform:scale(1.25); }
   .hslide::after{ content:''; position:absolute; inset:0; background-image:var(--bg); background-position:center; background-size:contain; background-repeat:no-repeat; }
-  .hslide:first-child{ animation-delay:-1s; }
-  @keyframes hfade{ 0%{ opacity:0; transform:scale(1.02); } 2%{ opacity:1; } 9%{ opacity:1; } 11.5%{ opacity:0; transform:scale(1.06); } 100%{ opacity:0; transform:scale(1.06); } }
+  @keyframes hfade{ 0%{ opacity:0; transform:scale(1.02); } 2%{ opacity:1; } 11%{ opacity:1; } 13%{ opacity:0; transform:scale(1.06); } 100%{ opacity:0; transform:scale(1.06); } }
   #heroCta{ cursor:pointer; background:var(--gold); color:var(--navy); border:0; border-radius:3px; letter-spacing:1.5px; box-shadow:0 6px 18px rgba(0,0,0,.35); transition:opacity .18s ease, transform .18s ease; }
   #heroCta.swap{ opacity:0; transform:translateY(4px); }
   #heroCta.off{ background:#16283C; color:var(--gold2); border:1.5px dashed var(--gold); box-shadow:none; pointer-events:none; }
@@ -829,8 +828,8 @@ function heroTick(){
   const s1 = document.querySelector('.hslide'); if (!s1) return;
   let idx = 0;
   const anims = s1.getAnimations ? s1.getAnimations() : [];
-  if (anims.length && anims[0].currentTime != null) { const c = anims[0].currentTime / 1000; idx = Math.floor(((c + 44) % 45) / 5) % 9; }
-  else { idx = Math.floor(Date.now() / 5000) % 9; }
+  if (anims.length && anims[0].currentTime != null) { idx = Math.floor((anims[0].currentTime / 1000) / 5) % 9; }
+  else { idx = Math.floor(performance.now() / 5000) % 9; }
   const h = HEROSLIDES[idx]; if (!h) return;
   const key = idx + '|' + lang; if (key === _heroKey) return; _heroKey = key;
   const tok = ++_heroTok;
