@@ -115,6 +115,7 @@ Deno.serve(async (req) => {
             ship_name: sd?.name ?? cd?.name ?? null,
             ship_address: sd?.address ?? null,
             method: session.metadata?.method === 'pickup' ? 'pickup' : 'shipping',
+            lang: session.metadata?.lang === 'es' ? 'es' : 'en',
             status: 'paid',
           },
           { onConflict: 'session_id', ignoreDuplicates: true }
@@ -153,8 +154,14 @@ Deno.serve(async (req) => {
               const nextEn = ord.method === 'pickup'
                 ? 'You chose free local pickup: we will email you to arrange the meeting at a public location in Miami.'
                 : `We will let you know when your order ships. Estimated delivery: 3–7 business days. ${tierEn}`.trim();
-              const text =
-`Hola ${first ? first + ', ' : ''}¡gracias por tu compra en Señor Rey Marketplace!
+              // Idioma del correo = idioma de la tienda al pagar (decisión de
+              // Rey, 2026-11-20): un solo idioma, nunca bilingüe mezclado.
+              const es = session.metadata?.lang === 'es';
+              const subject = es
+                ? `Confirmación de tu orden ${num} — Señor Rey Marketplace`
+                : `Your order ${num} is confirmed — Señor Rey Marketplace`;
+              const text = es
+                ? `Hola ${first ? first + ', ' : ''}¡gracias por tu compra en Señor Rey Marketplace!
 
 Tu orden ${num} está confirmada.
 
@@ -168,17 +175,26 @@ Guarda tu número de orden: cuando recibas tu compra, puedes dejar tu reseña en
 ¿Preguntas? Escríbenos a ventas@senorrey.com
 
 — Señor Rey Marketplace
-https://senorrey.com/
+https://senorrey.com/`
+                : `Hi ${first ? first + ', ' : ''}thank you for your purchase at Señor Rey Marketplace!
 
-———— English ————
-Hi ${first ? first + ', ' : ''}thank you for your purchase at Señor Rey Marketplace!
-Your order ${num} is confirmed. Total: ${money(total)}.
+Your order ${num} is confirmed.
+
+${itemLines}
+Total: ${money(total)}
+
 ${nextEn}
-Questions? Email us at ventas@senorrey.com`;
-              const html =
-`<div style="font-family:Georgia,serif;background:#0d0b09;color:#e8ddc9;padding:28px;border-radius:10px;max-width:560px">
+
+Keep your order number: once you receive your purchase, you can leave a review on the item's page using this number and your email.
+
+Questions? Email us at ventas@senorrey.com
+
+— Señor Rey Marketplace
+https://senorrey.com/`;
+              const html = es
+                ? `<div style="font-family:Georgia,serif;background:#0d0b09;color:#e8ddc9;padding:28px;border-radius:10px;max-width:560px">
   <div style="text-align:center;font-size:22px;letter-spacing:2px;color:#c9a24d">SEÑOR REY MARKETPLACE</div>
-  <p style="text-align:center;color:#9c8f78;margin:6px 0 20px">Confirmación de orden · Order confirmation</p>
+  <p style="text-align:center;color:#9c8f78;margin:6px 0 20px">Confirmación de orden</p>
   <p>Hola ${first ? esc(first) + ', ' : ''}¡gracias por tu compra! Tu orden está confirmada.</p>
   <p style="font-size:20px;color:#c9a24d">Orden ${esc(num)}</p>
   <ul style="padding-left:18px">${itemRows}</ul>
@@ -186,8 +202,17 @@ Questions? Email us at ventas@senorrey.com`;
   <p>${esc(nextEs)}</p>
   <p>Guarda tu número de orden: cuando recibas tu compra, puedes dejar tu reseña en la página del artículo usando este número y tu correo.</p>
   <p>¿Preguntas? <a href="mailto:ventas@senorrey.com" style="color:#c9a24d">ventas@senorrey.com</a></p>
-  <hr style="border:none;border-top:1px solid #3a332a;margin:20px 0">
-  <p style="color:#9c8f78">Hi ${first ? esc(first) + ', ' : ''}thank you for your purchase! Your order ${esc(num)} is confirmed. ${esc(nextEn)} Questions? Email us at ventas@senorrey.com</p>
+</div>`
+                : `<div style="font-family:Georgia,serif;background:#0d0b09;color:#e8ddc9;padding:28px;border-radius:10px;max-width:560px">
+  <div style="text-align:center;font-size:22px;letter-spacing:2px;color:#c9a24d">SEÑOR REY MARKETPLACE</div>
+  <p style="text-align:center;color:#9c8f78;margin:6px 0 20px">Order confirmation</p>
+  <p>Hi ${first ? esc(first) + ', ' : ''}thank you for your purchase! Your order is confirmed.</p>
+  <p style="font-size:20px;color:#c9a24d">Order ${esc(num)}</p>
+  <ul style="padding-left:18px">${itemRows}</ul>
+  <p><strong>Total: ${money(total)}</strong></p>
+  <p>${esc(nextEn)}</p>
+  <p>Keep your order number: once you receive your purchase, you can leave a review on the item's page using this number and your email.</p>
+  <p>Questions? <a href="mailto:ventas@senorrey.com" style="color:#c9a24d">ventas@senorrey.com</a></p>
 </div>`;
               const resp = await fetch('https://api.resend.com/emails', {
                 method: 'POST',
@@ -196,7 +221,7 @@ Questions? Email us at ventas@senorrey.com`;
                   from: 'Señor Rey Marketplace <ventas@senorrey.com>',
                   to: [cd.email],
                   reply_to: 'ventas@senorrey.com',
-                  subject: `Confirmación de tu orden ${num} — Señor Rey Marketplace`,
+                  subject,
                   text,
                   html,
                 }),

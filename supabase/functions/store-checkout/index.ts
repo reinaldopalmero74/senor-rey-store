@@ -176,6 +176,7 @@ Deno.serve(async (req) => {
   }
   form.set("metadata[items]", ids.join(","));
   form.set("metadata[method]", method);
+  form.set("metadata[lang]", lang);
   ids.forEach((id, i) => {
     const p = CATALOG[id];
     form.set(`line_items[${i}][quantity]`, "1");
