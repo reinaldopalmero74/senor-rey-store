@@ -115,6 +115,11 @@
   .comment .who{ font-weight:bold; font-size:14px; }
   .comment .when{ color:var(--mut); font-size:12px; margin-left:8px; }
   .comment .txt{ font-size:14.5px; line-height:1.5; margin-top:4px; }
+  .vbadge{ color:var(--gold); font-size:11px; font-weight:700; letter-spacing:.5px; margin-left:8px; text-transform:uppercase; }
+  .cform input, .cform textarea, .cform select{ background:#131F30; color:#E8EDF1; border-color:#2A3D55; }
+  .locknote{ background:#0D1520; border:1px dashed #2A3D55; color:#A9B8C4; border-radius:10px; padding:12px 14px; font-size:14px; line-height:1.55; }
+  .gv-t{ font-size:14px; font-weight:600; color:#E8EDF1; margin-top:4px; }
+  .asbuyer{ font-size:14px; color:var(--gold2); }
   .cform{ border-top:1px solid var(--line); margin-top:14px; padding-top:14px; display:grid; gap:9px; }
   .cform input, .cform textarea, .cform select{ padding:10px 12px; border:1px solid var(--line); border-radius:9px; font-size:14.5px; font-family:inherit; width:100%; }
   .cform textarea{ min-height:74px; resize:vertical; }
@@ -435,7 +440,7 @@
   <details><summary data-i18n="faq6q">What if my order arrives damaged or different from the description?</summary><p data-i18n="faq6a">Write to us with your order number as soon as you receive it and we'll resolve it with you directly. Keep the box and packaging until we close the case.</p></details>
   <details><summary data-i18n="faq7q">Do you ship outside the United States?</summary><p data-i18n="faq7a">For now we only ship <b>within the United States</b>.</p></details>
   <details><summary data-i18n="faq9q">Do you have a physical store I can visit?</summary><p data-i18n="faq9a">No. Señor Rey Marketplace is an <b>online-only store</b> — there is no storefront or walk-in location. Every order is shipped anywhere in the U.S., or picked up by appointment at a public meeting point in Miami.</p></details>
-  <details><summary data-i18n="faq8q">Can I leave a review of my purchase?</summary><p data-i18n="faq8a">Of course! When your order is delivered, you'll get an email with the link to leave your review. You can also write it on the item's page, in the <b>"Customer comments"</b> section.</p></details>
+  <details><summary data-i18n="faq8q">Can I leave a review of my purchase?</summary><p data-i18n="faq8a">Of course! When your order is delivered, you'll get an email with the link to leave your review. You can also write it on the item's page, in the <b>"Customer comments"</b> section. Reviews are for verified buyers only — sign in with the email you bought with, or verify with your order number.</p></details>
 </div>
 <footer>
   <div class="fin">
@@ -742,7 +747,7 @@ en: { titleTag:"Señor Rey Marketplace — Direct Sales", topbar:"Shipping acros
   faq5q:"Are the items authentic?", faq5a:"Yes. Every piece is <b>inspected and verified before it is listed</b>, and sold exactly as shown in the photos. These are one-of-a-kind items: when they sell, they're gone from the store.",
   faq6q:"What if my order arrives damaged or different from the description?", faq6a:"Write to us with your order number as soon as you receive it and we'll resolve it with you directly. Keep the box and packaging until we close the case.",
   faq7q:"Do you ship outside the United States?", faq7a:"For now we only ship <b>within the United States</b>.",
-  faq9q:"Do you have a physical store I can visit?", faq9a:"No. Señor Rey Marketplace is an <b>online-only store</b> — there is no storefront or walk-in location. Every order is shipped anywhere in the U.S., or picked up by appointment at a public meeting point in Miami.", faq8q:"Can I leave a review of my purchase?", faq8a:"Of course! When your order is delivered, you'll get an email with the link to leave your review. You can also write it on the item's page, in the <b>\"Customer comments\"</b> section.",
+  faq9q:"Do you have a physical store I can visit?", faq9a:"No. Señor Rey Marketplace is an <b>online-only store</b> — there is no storefront or walk-in location. Every order is shipped anywhere in the U.S., or picked up by appointment at a public meeting point in Miami.", faq8q:"Can I leave a review of my purchase?", faq8a:"Of course! When your order is delivered, you'll get an email with the link to leave your review. You can also write it on the item's page, in the <b>\"Customer comments\"</b> section. Reviews are for verified buyers only — sign in with the email you bought with, or verify with your order number.",
   footAbout:"Direct sales of selected products", footHelp:"HELP", footHow:"How to buy", footShip:"Shipping & delivery", footFaq:"Frequently asked questions", footContact:"CONTACT", footContactTxt:"Write to us before you buy and we'll confirm every detail.",
   payLine:"WE ACCEPT VISA · MASTERCARD · AMEX · DISCOVER · APPLE PAY — VIA STRIPE", termsLink:"Terms & conditions", privLink:"Privacy policy",
   cartTitle:"Your cart", orderTitle:"Order status", orderNumPh:"Order number (e.g. SRM-1001)", orderEmailPh:"Your purchase email", orderBtn:"Check status",
@@ -750,7 +755,7 @@ en: { titleTag:"Señor Rey Marketplace — Direct Sales", topbar:"Shipping acros
   soldLbl:"Sold", comingLbl:"Coming soon", comingToast:"This item isn't on sale yet — coming soon", viewProduct:"View product", addCartShort:"+ Cart", favAttr:"Favorite", badgeTest:"Test", inFavs:"♥ In your favorites", addFav:"♡ Add to favorites", shareBtn:"🔗 Share this product",
   addToCartBtn:"🛒 Add to cart", buyNowBtn:"Buy now — pay by card", availSoon:"Available soon",
   commentsH:"Comments & reviews", loadingTxt:"Loading…", firstComment:"Be the first to comment on this product.", commentsFail:"Comments couldn't load right now.", yourNamePh:"Your name",
-  rate5:"★★★★★ — Excellent", rate4:"★★★★ — Very good", rate3:"★★★ — Good", rate2:"★★ — Fair", rate1:"★ — Poor", commentPh:"Write your comment about this product…", postBtn:"Post comment", nameBodyErr:"Please write your name and the comment.", postFail:"It couldn't be posted. Please try again.", postedToast:"Comment posted ✓",
+  rate5:"★★★★★ — Excellent", rate4:"★★★★ — Very good", rate3:"★★★ — Good", rate2:"★★ — Fair", rate1:"★ — Poor", commentPh:"Write your comment about this product…", postBtn:"Post comment", nameBodyErr:"Please write your name and the comment.", postFail:"It couldn't be posted. Please try again.", postedToast:"Comment posted ✓", verifiedLbl:"Verified purchase", onlyBuyers:"Reviews are enabled only for customers who bought this item.", guestT:"Bought as a guest? Verify your purchase to review:", orderPh:"Order number (from your confirmation email)", emailPh:"Email used at checkout", verifyBtn:"Verify my purchase", verifyFail:"We couldn't verify that purchase. Check the order number and the email.", buyerAs:"Reviewing as a verified buyer:", bodyErr:"Please write your comment.",
   relH:"You may also like", dmTitle:"How do you receive it?", dmShip:"🚚 Shipping", dmPickup:"📍 Pickup", dmShipNote:"Shipping across the U.S. The rate adjusts to your order's value: orders of $200+ ship with signature, and $1,000+ are fully insured.", dmPickupNote:"By appointment at a public meeting point in Miami. After your purchase we'll agree on the day, time and spot by email.",
   shipRowLbl:"Shipping", shipRowLblSig:"Shipping with signature", shipRowLblIns:"Insured shipping", pickupRowLbl:"Pickup", totalLbl:"Total", cartNote:"Every item is one of a kind. Payment is processed securely by Stripe.", payNowBtn:"Pay now", cartEmpty:"Your cart is empty.<br>Tap a product to view it and add it.",
   soldToast:"That item has already sold", addedToast:"Added to cart ✓", soldOutNotice:"One of the items just sold and was removed from your cart.", checkoutFail:"The combined payment couldn't be opened. Each item can also be paid individually with \"Buy now\" on its page.",
@@ -770,7 +775,7 @@ es: { titleTag:"Señor Rey Marketplace — Venta directa", topbar:"Envío a todo
   faq5q:"¿Los artículos son auténticos?", faq5a:"Sí. Cada pieza se <b>revisa y verifica antes de publicarse</b>, y se vende tal como se muestra en las fotos. Son artículos únicos: cuando se venden, desaparecen de la tienda.",
   faq6q:"¿Qué pasa si mi orden llega dañada o diferente a lo descrito?", faq6a:"Escríbenos con tu número de orden apenas la recibas y lo resolvemos contigo directamente. Guarda la caja y el empaque hasta que cerremos el caso.",
   faq7q:"¿Hacen envíos fuera de Estados Unidos?", faq7a:"Por ahora solo enviamos <b>dentro de Estados Unidos</b>.",
-  faq9q:"¿Tienen una tienda física que pueda visitar?", faq9a:"No. Señor Rey Marketplace es una <b>tienda solo en línea</b>: no hay local ni atención al público en un establecimiento. Cada orden se envía a cualquier parte de EE. UU., o se recoge con cita previa en un punto de encuentro público en Miami.", faq8q:"¿Puedo dejar un review de mi compra?", faq8a:"¡Claro! Cuando tu orden se entregue, te llega un correo con el enlace para dejar tu review. También puedes escribirlo en la página del artículo, en la sección <b>\"Comentarios de clientes\"</b>.",
+  faq9q:"¿Tienen una tienda física que pueda visitar?", faq9a:"No. Señor Rey Marketplace es una <b>tienda solo en línea</b>: no hay local ni atención al público en un establecimiento. Cada orden se envía a cualquier parte de EE. UU., o se recoge con cita previa en un punto de encuentro público en Miami.", faq8q:"¿Puedo dejar un review de mi compra?", faq8a:"¡Claro! Cuando tu orden se entregue, te llega un correo con el enlace para dejar tu review. También puedes escribirlo en la página del artículo, en la sección <b>\"Comentarios de clientes\"</b>. Las reseñas son solo para compradores verificados: inicia sesión con el correo de tu compra o verifica con tu número de orden.",
   footAbout:"Venta directa de productos seleccionados", footHelp:"AYUDA", footHow:"Cómo comprar", footShip:"Envíos y entregas", footFaq:"Preguntas frecuentes", footContact:"CONTACTO", footContactTxt:"Escríbenos antes de comprar y confirmamos cada detalle.",
   payLine:"ACEPTAMOS VISA · MASTERCARD · AMEX · DISCOVER · APPLE PAY — VÍA STRIPE", termsLink:"Términos y condiciones", privLink:"Política de privacidad",
   cartTitle:"Tu carrito", orderTitle:"Estado de tu orden", orderNumPh:"Número de orden (ej. SRM-1001)", orderEmailPh:"Tu email de compra", orderBtn:"Ver estado",
@@ -778,7 +783,7 @@ es: { titleTag:"Señor Rey Marketplace — Venta directa", topbar:"Envío a todo
   soldLbl:"Vendido", comingLbl:"Muy pronto", comingToast:"Este artículo aún no está a la venta — muy pronto", viewProduct:"Ver producto", addCartShort:"+ Carrito", favAttr:"Favorito", badgeTest:"Prueba", inFavs:"♥ En tus favoritos", addFav:"♡ Añadir a favoritos", shareBtn:"🔗 Compartir este producto",
   addToCartBtn:"🛒 Añadir al carrito", buyNowBtn:"Comprar ahora — pagar con tarjeta", availSoon:"Disponible pronto",
   commentsH:"Comentarios y reseñas", loadingTxt:"Cargando…", firstComment:"Sé el primero en comentar este producto.", commentsFail:"Los comentarios no cargaron en este momento.", yourNamePh:"Tu nombre",
-  rate5:"★★★★★ — Excelente", rate4:"★★★★ — Muy bueno", rate3:"★★★ — Bueno", rate2:"★★ — Regular", rate1:"★ — Malo", commentPh:"Escribe tu comentario sobre este producto…", postBtn:"Publicar comentario", nameBodyErr:"Escribe tu nombre y el comentario.", postFail:"No se pudo publicar. Inténtalo de nuevo.", postedToast:"Comentario publicado ✓",
+  rate5:"★★★★★ — Excelente", rate4:"★★★★ — Muy bueno", rate3:"★★★ — Bueno", rate2:"★★ — Regular", rate1:"★ — Malo", commentPh:"Escribe tu comentario sobre este producto…", postBtn:"Publicar comentario", nameBodyErr:"Escribe tu nombre y el comentario.", postFail:"No se pudo publicar. Inténtalo de nuevo.", postedToast:"Comentario publicado ✓", verifiedLbl:"Compra verificada", onlyBuyers:"Las reseñas están habilitadas solo para los clientes que compraron este artículo.", guestT:"¿Compraste como invitado? Verifica tu compra para reseñar:", orderPh:"Número de orden (está en tu correo de confirmación)", emailPh:"Correo que usaste al pagar", verifyBtn:"Verificar mi compra", verifyFail:"No pudimos verificar esa compra. Revisa el número de orden y el correo.", buyerAs:"Reseñando como comprador verificado:", bodyErr:"Escribe tu comentario.",
   relH:"También te puede interesar", dmTitle:"¿Cómo lo recibes?", dmShip:"🚚 Envío", dmPickup:"📍 Recoger", dmShipNote:"Envío a todo EE. UU. El flete se ajusta al valor de tu orden: las de $200+ viajan con firma y las de $1,000+ con seguro completo.", dmPickupNote:"Con cita previa en un punto de encuentro público en Miami. Tras tu compra acordamos el día, la hora y el punto por correo.",
   shipRowLbl:"Envío", shipRowLblSig:"Envío con firma", shipRowLblIns:"Envío asegurado", pickupRowLbl:"Recoger", totalLbl:"Total", cartNote:"Cada artículo es único. El pago se procesa seguro en Stripe.", payNowBtn:"Pagar ahora", cartEmpty:"Tu carrito está vacío.<br>Toca un producto para verlo y añadirlo.",
   soldToast:"Ese artículo ya se vendió", addedToast:"Añadido al carrito ✓", soldOutNotice:"Uno de los artículos ya se vendió y salió de tu carrito.", checkoutFail:"No se pudo abrir el pago combinado. Cada artículo también se puede pagar individual con \"Comprar ahora\" en su página.",
@@ -954,11 +959,9 @@ function openDetail(id, keep){
     '<button class="buy share" onclick="toggleFav(\'' + p.id + '\')">' + (favs.has(p.id) ? t('inFavs') : t('addFav')) + '</button>' +
     '</div></div>' +
     '<div class="comments"><h3>' + t('commentsH') + '</h3><div id="clist"><div class="cempty">' + t('loadingTxt') + '</div></div>' +
-    '<div class="cform"><input id="cname" maxlength="40" placeholder="' + t('yourNamePh') + '">' +
-    '<select id="crating"><option value="5">' + t('rate5') + '</option><option value="4">' + t('rate4') + '</option><option value="3">' + t('rate3') + '</option><option value="2">' + t('rate2') + '</option><option value="1">' + t('rate1') + '</option></select>' +
-    '<textarea id="cbody" maxlength="600" placeholder="' + t('commentPh') + '"></textarea>' +
-    '<button class="buy navy" onclick="postComment(\'' + p.id + '\')">' + t('postBtn') + '</button><div class="notice" id="cerr"></div></div></div>';
+    '<div class="cform" id="cform"></div></div>';
   loadComments(p.id);
+  paintReviewForm(p.id);
   const rel = PRODUCTS.filter(x => x.id !== p.id && x.cat === p.cat && !x.hidden).slice(0, 3);
   document.getElementById('rel').innerHTML = rel.length ? '<h3>' + t('relH') + '</h3><div class="relgrid">' +
     rel.map(r => '<div class="mini" onclick="openDetail(\'' + r.id + '\')"><img src="' + (r.photos[0] || '') + '"><div>' + r.brand + ' — ' + pname(r) + '<br><b>' + money(r.price) + '</b></div></div>').join('') + '</div>' : '';
@@ -981,7 +984,7 @@ function closeDetail(){ document.getElementById('sheet').classList.remove('open'
 function esc(t){ return String(t).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c])); }
 function commentHTML(c){
   const f = new Date(c.created_at).toLocaleDateString(lang === 'es' ? 'es-US' : 'en-US', { day:'numeric', month:'short', year:'numeric' });
-  return '<div class="comment"><span class="who">' + esc(c.name) + '</span><span class="when">' + f + '</span>' +
+  return '<div class="comment"><span class="who">' + esc(c.name) + '</span>' + (c.verified ? '<span class="vbadge">✓ ' + t('verifiedLbl') + '</span>' : '') + '<span class="when">' + f + '</span>' +
     '<div class="stars">' + '★'.repeat(c.rating) + '☆'.repeat(5 - c.rating) + '</div><div class="txt">' + esc(c.body) + '</div></div>';
 }
 async function loadComments(id){
@@ -992,20 +995,65 @@ async function loadComments(id){
     box.innerHTML = (d.comments && d.comments.length) ? d.comments.map(commentHTML).join('') : '<div class="cempty">' + t('firstComment') + '</div>';
   } catch(e) { box.innerHTML = '<div class="cempty">' + t('commentsFail') + '</div>'; }
 }
-async function postComment(id){
-  const name = document.getElementById('cname').value.trim(), body = document.getElementById('cbody').value.trim(),
-        rating = document.getElementById('crating').value, err = document.getElementById('cerr');
-  if (!name || !body) { err.style.display = 'block'; err.textContent = t('nameBodyErr'); return; }
+/* ===== Reseñas solo para compradores verificados ===== */
+let _reviewProof = null;
+async function reviewToken(){ try { if (typeof sb !== 'undefined' && sb) { const { data } = await sb.auth.getSession(); if (data && data.session) return data.session.access_token; } } catch(e) {} return null; }
+function reviewFormHTML(id, name){
+  return '<div class="asbuyer">✓ ' + t('buyerAs') + ' <b>' + esc(name || '') + '</b></div>' +
+    '<select id="crating"><option value="5">' + t('rate5') + '</option><option value="4">' + t('rate4') + '</option><option value="3">' + t('rate3') + '</option><option value="2">' + t('rate2') + '</option><option value="1">' + t('rate1') + '</option></select>' +
+    '<textarea id="cbody" maxlength="600" placeholder="' + t('commentPh') + '"></textarea>' +
+    '<button class="buy navy" onclick="postComment(\'' + id + '\')">' + t('postBtn') + '</button><div class="notice" id="cerr"></div>';
+}
+async function paintReviewForm(id){
+  const box = document.getElementById('cform'); if (!box) return;
+  _reviewProof = null;
+  const tok = await reviewToken();
+  if (tok) {
+    box.innerHTML = '<div class="cempty">' + t('loadingTxt') + '</div>';
+    try {
+      const r = await fetch(FN + 'store-comments', { method:'POST', headers:{ 'Content-Type':'application/json', 'Authorization':'Bearer ' + tok }, body: JSON.stringify({ action:'check', item: id }) });
+      const d = await r.json();
+      if (d.canReview) { box.innerHTML = reviewFormHTML(id, d.name); return; }
+    } catch(e) {}
+    box.innerHTML = '<div class="locknote">🔒 ' + t('onlyBuyers') + '</div>';
+    return;
+  }
+  box.innerHTML = '<div class="locknote">🔒 ' + t('onlyBuyers') + '</div>' +
+    '<div class="gv-t">' + t('guestT') + '</div>' +
+    '<input id="vorder" maxlength="24" placeholder="' + t('orderPh') + '">' +
+    '<input id="vemail" type="email" maxlength="60" placeholder="' + t('emailPh') + '">' +
+    '<button class="buy navy" onclick="verifyGuest(\'' + id + '\')">' + t('verifyBtn') + '</button><div class="notice" id="verr"></div>';
+}
+async function verifyGuest(id){
+  const order = document.getElementById('vorder').value.trim(), email = document.getElementById('vemail').value.trim(), err = document.getElementById('verr');
+  if (!order || !email) { err.style.display = 'block'; err.textContent = t('verifyFail'); return; }
   try {
-    const r = await fetch(FN + 'store-comments', { method:'POST', headers:{ 'Content-Type':'application/json' }, body: JSON.stringify({ item: id, name, rating: Number(rating), body }) });
+    const r = await fetch(FN + 'store-comments', { method:'POST', headers:{ 'Content-Type':'application/json' }, body: JSON.stringify({ action:'check', item: id, order_number: order, email }) });
+    const d = await r.json();
+    if (!d.canReview) { err.style.display = 'block'; err.textContent = t('verifyFail'); return; }
+    _reviewProof = { order_number: order, email };
+    document.getElementById('cform').innerHTML = reviewFormHTML(id, d.name);
+  } catch(e) { err.style.display = 'block'; err.textContent = t('verifyFail'); }
+}
+async function postComment(id){
+  const bodyEl = document.getElementById('cbody'); if (!bodyEl) return;
+  const body = bodyEl.value.trim(), rating = document.getElementById('crating').value, err = document.getElementById('cerr');
+  if (!body) { if (err) { err.style.display = 'block'; err.textContent = t('bodyErr'); } return; }
+  const payload = { item: id, rating: Number(rating), body };
+  const headers = { 'Content-Type':'application/json' };
+  const tok = await reviewToken();
+  if (tok) headers['Authorization'] = 'Bearer ' + tok;
+  else if (_reviewProof) { payload.order_number = _reviewProof.order_number; payload.email = _reviewProof.email; }
+  try {
+    const r = await fetch(FN + 'store-comments', { method:'POST', headers, body: JSON.stringify(payload) });
     const d = await r.json();
     if (!d.comment) throw new Error(d.error || 'error');
     const box = document.getElementById('clist');
     if (box.querySelector('.cempty')) box.innerHTML = '';
     box.insertAdjacentHTML('afterbegin', commentHTML(d.comment));
-    document.getElementById('cbody').value = '';
+    bodyEl.value = '';
     toast(t('postedToast'));
-  } catch(e) { err.style.display = 'block'; err.textContent = t('postFail'); }
+  } catch(e) { if (err) { err.style.display = 'block'; err.textContent = t('postFail'); } }
 }
 /* ===== Carrito ===== */
 let delivery = 'shipping';
