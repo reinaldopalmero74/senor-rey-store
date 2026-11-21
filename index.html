@@ -189,15 +189,15 @@
   .omodal{ position:fixed; inset:0; background:rgba(8,15,24,.7); z-index:90; display:none; align-items:flex-start; justify-content:center; padding:40px 14px; overflow:auto; }
   .omodal.open{ display:flex; }
   #tmodal{ z-index:95; }
-  .tcard{ background:#fff; border-radius:14px; max-width:560px; width:100%; padding:20px; position:relative; box-sizing:border-box; display:flex; flex-direction:column; max-height:calc(100vh - 60px); }
-  .tcard h3{ margin:0 24px 4px 0; }
+  .tcard{ color:#2B2620; background:#fff; border-radius:14px; max-width:560px; width:100%; padding:20px; position:relative; box-sizing:border-box; display:flex; flex-direction:column; max-height:calc(100vh - 60px); }
+  .tcard h3{ margin:0 24px 4px 0; color:var(--navy); }
   .tcard .ox{ position:absolute; top:10px; right:12px; background:none; border:0; font-size:18px; cursor:pointer; }
   .thint{ font-size:12.5px; color:#5A6B78; margin:2px 0 8px; }
   .tscroll{ overflow-y:auto; -webkit-overflow-scrolling:touch; border:1px solid #E5DCC6; border-radius:10px; padding:12px 16px; margin-bottom:12px; flex:1 1 auto; min-height:140px; background:#FFFDF8; }
   .tscroll h1{ font-size:18px; color:var(--navy); margin:0 0 4px; }
   .tscroll .fecha{ color:#5A6B78; font-size:12px; margin-bottom:6px; }
-  .tscroll h2{ font-size:14.5px; color:var(--navy); margin:15px 0 4px; }
-  .tscroll p, .tscroll li{ font-size:13px; line-height:1.6; }
+  .tscroll h2{ font-size:15.5px; color:var(--navy); margin:15px 0 4px; }
+  .tscroll p, .tscroll li{ font-size:14.5px; line-height:1.65; color:#2B2620; }
   .tscroll ul{ padding-left:18px; margin:4px 0; }
   .tscroll .final{ background:#FAF6EE; border:1px solid #E5DCC6; border-left:4px solid var(--gold); border-radius:8px; padding:10px 12px; margin-top:6px; }
   #tAccept:disabled{ opacity:.45; cursor:not-allowed; }
@@ -1398,7 +1398,7 @@ function promoRulesHTML(){
     'Los artículos se cuentan con el correo usado al pagar: debe ser el mismo correo de tu cuenta.',
     'Solo hay un ganador por edición: el primero en llegar a 10, según la fecha y hora de su orden.',
     'El premio es un artículo sorpresa elegido por Señor Rey Marketplace. No tiene valor en efectivo, no es transferible ni canjeable por otros productos.',
-    'Avisaremos al ganador por correo electrónico. Debe responder dentro de 7 días; si no responde, el premio pasa al siguiente cliente en la tabla de posiciones.',
+    'Avisaremos al ganador por correo electrónico. Debe responder dentro de 24 horas; si no responde, el premio pasa al siguiente cliente en la tabla de posiciones.',
     'La entrega del premio es por recogida local con cita en un punto público de Miami, o por envío dentro de Estados Unidos.',
     'Una cuenta por persona. Las cuentas u órdenes con fraude o abuso serán descalificadas.',
     'Señor Rey Marketplace puede modificar estas reglas o dar por terminada la promoción en cualquier momento.'
@@ -1408,7 +1408,7 @@ function promoRulesHTML(){
     'Items are counted under the email used at checkout: it must be the same email as your account.',
     'There is only one winner per edition: the first to reach 10, by the date and time of the order.',
     'The prize is a surprise gift item chosen by Señor Rey Marketplace. It has no cash value, is non-transferable and cannot be exchanged for other products.',
-    'The winner is notified by email and must reply within 7 days; if there is no reply, the prize goes to the next customer in the standings.',
+    'The winner is notified by email and must reply within 24 hours; if there is no reply, the prize goes to the next customer in the standings.',
     'The prize is delivered by local pickup by appointment at a public meeting point in Miami, or shipped within the United States.',
     'One account per person. Accounts or orders involving fraud or abuse will be disqualified.',
     'Señor Rey Marketplace may modify these rules or end the promotion at any time.'
