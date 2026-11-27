@@ -585,30 +585,7 @@
 <script>
 // ===== CATÁLOGO — añadir un producto = un bloque aquí (name/desc/meta en EN + nameEs/descEs/metaEs) =====
 const PRODUCTS = [
-  { id:"aretes-tiffany", brand:"Tiffany & Co.", cat:"Joyería",
-    name:"Victoria® Vine Climber Earrings — rose gold with diamonds", nameEs:"Aretes Victoria® Vine Climber — oro rosa con diamantes",
-    price:2675, was:6400, badge:"", rating:"",
-    desc:"Tiffany Victoria® Vine Climber earrings in 18K rose gold (Au750) with round and marquise diamonds, approx. 0.33 ct in total.\n\nNew, unworn, in their original Tiffany & Co. blue box. Patented security closures (Pat. No. 6,557,220). Engravings: ©Tiffany & Co. · Au750 · Pat. No. 6557220.\n\nRetail price: $6,400. Here, direct with no middlemen.",
-    descEs:"Aretes Tiffany Victoria® Vine Climber en oro rosa de 18K (Au750) con diamantes redondos y marquesa, aprox. 0.33 ct en total.\n\nNuevos, sin usar, en su caja azul original de Tiffany & Co. Cierres patentados de seguridad (Pat. No. 6,557,220). Grabados: ©Tiffany & Co. · Au750 · Pat. No. 6557220.\n\nPrecio de tienda: $6,400. Aquí, directo y sin intermediarios.",
-    meta:"Condition: New, unworn · Includes: original Tiffany box · Shipping: insured, signature required",
-    metaEs:"Condición: Nuevo, sin usar · Incluye: caja original Tiffany · Envío: asegurado, con firma",
-    photos:["assets/ejemplo-aretes.jpg","assets/aretes-2.jpg","assets/aretes-3.jpg","assets/aretes-4.jpg","assets/aretes-5.jpg","assets/aretes-6.jpg","assets/aretes-7.jpg"],
-    link:"", status:"sold" },  { id:"anillo-lock-tiffany", brand:"Tiffany & Co.", cat:"Joyería",
-    name:"Lock Ring — rose gold with pavé diamonds, size 6", nameEs:"Lock Ring — oro rosa con diamantes pavé, talla 6",
-    price:2400, was:6400, badge:"", rating:"",
-    desc:"Tiffany Lock ring in 18K rose gold with pavé diamonds. The Lock is one of Tiffany & Co.'s iconic collections: a symbol of togetherness with its swivel mechanism inspired by a padlock.\n\nNew, unworn, in its original Tiffany & Co. blue box. Size 6.",
-    descEs:"Anillo Tiffany Lock en oro rosa de 18K con diamantes en pavé. El Lock es una de las colecciones icónicas de Tiffany & Co.: un símbolo de unión con su mecanismo giratorio inspirado en un candado.\n\nNuevo, sin usar, en su caja azul original de Tiffany & Co. Talla 6.",
-    meta:"Condition: New, unworn · Size: 6 · Includes: original Tiffany box · Shipping: insured, signature required",
-    metaEs:"Condición: Nuevo, sin usar · Talla: 6 · Incluye: caja original Tiffany · Envío: asegurado, con firma",
-    photos:["assets/lock-1.jpg","assets/lock-2.jpg","assets/lock-3.jpg","assets/lock-4.jpg","assets/lock-5.jpg","assets/lock-6.jpg"],
-    link:"", status:"sold" },  { id:"cartera-kenzo-rue-vivienne", brand:"Kenzo", cat:"Bolsos",
-    name:"'Rue Vivienne' Large Bag — beige canvas and black leather, with strap", nameEs:"'Rue Vivienne' Large Bag — canvas beige y cuero negro, con correa",
-    price:650, was:830, badge:"", rating:"",
-    desc:"Kenzo 'Rue Vivienne' large bag with strap, from NIGO's era as the house's artistic director.\n\nBeige canvas with trims, handle and details in black leather. Raised Kenzo Paris front plaque and silver-tone metal clasp. Top handle and detachable, adjustable shoulder strap.\n\nNew, unused. Retail price: $830–$1,140.",
-    descEs:"Cartera Kenzo 'Rue Vivienne' grande con correa, de la era de NIGO como director artístico de la casa.\n\nCanvas beige con ribetes, asa y detalles en cuero negro. Placa frontal Kenzo Paris en relieve y cierre metálico plateado. Asa de mano y correa de hombro desmontable y ajustable.\n\nNueva, sin usar. Precio retail: $830–$1,140.",
-    meta:"Condition: New, unused · Includes: detachable shoulder strap · Shipping: insured, signature required",
-    metaEs:"Condición: Nuevo, sin usar · Incluye: correa de hombro desmontable · Envío: asegurado, con firma",
-    photos:["assets/kenzo-1.jpg"], link:"", status:"sold" },  { id:"afnan-9pm", brand:"Afnan", cat:"Perfumes",
+  { id:"afnan-9pm", brand:"Afnan", cat:"Perfumes",
     name:"9 PM Eau de Parfum Spray 3.4 oz — for men", nameEs:"9 PM Eau de Parfum Spray 3.4 oz — para hombre",
     price:45, was:75, badge:"", rating:"4.35", votes:17358,
     desc:"The warm, spicy and seductive fragrance of 9 PM is a gripping fresh fragrance for men and women, launched in 2020 — famous as one of the best night-out scents for its price.\n\nFragrance notes — Top: Apple, Cinnamon, Wild Lavender and Bergamot. Heart: Orange Blossom and Lily of the Valley. Base: Vanilla, Tonka Bean, Amber and Patchouli.\n\nEau de Parfum spray, 3.4 fl oz (100 ml). Brand new and sealed in its box.",
@@ -1366,7 +1343,7 @@ function buildCats(){
     b.onclick = () => { cat = c; buildCats(); render(); }; catsEl.appendChild(b); });
   buildTiles();
 }
-const TILEIMG = { 'Perfumes':'assets/afnan-9pm-hero.jpg', 'Joyería':'assets/se186-1.jpg', 'Bolsos':'assets/kenzo-1.jpg' };
+const TILEIMG = { 'Perfumes':'assets/afnan-9pm-hero.jpg', 'Joyería':'assets/se186-1.jpg' };
 function goCat(c){ cat = c; buildCats(); render(); document.getElementById('productos').scrollIntoView({behavior:'smooth'}); }
 function buildTiles(){ const el = document.getElementById('tiles'); if (!el) return; el.innerHTML = ''; CATS.slice(1).forEach(c => { if (!TILEIMG[c]) return; const d = document.createElement('div'); d.className = 'tile'; d.innerHTML = '<img src="' + TILEIMG[c] + '" alt="" loading="lazy"><span>' + catName(c) + '</span>'; d.onclick = () => goCat(c); el.appendChild(d); }); revealScan(); }
 const HEROSLIDES = [
