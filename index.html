@@ -47,6 +47,7 @@
   .badge{ position:absolute; top:10px; left:10px; background:var(--navy); color:var(--cream); font-size:10.5px; font-weight:700; letter-spacing:1.5px; padding:5px 10px; border-radius:4px; text-transform:uppercase; }
   .badge.off{ background:var(--gold); color:var(--navy); }
   .badge.sold{ background:var(--red); }
+  .badge.od{ font-size:10px; letter-spacing:.5px; white-space:nowrap; }
   .bd{ padding:12px 14px 14px; display:flex; flex-direction:column; gap:4px; flex:1; }
   .brand{ font-size:11px; letter-spacing:2px; color:var(--gold); font-weight:800; text-transform:uppercase; }
   .bd h4{ font-size:15.5px; font-weight:600; line-height:1.3; }
@@ -103,7 +104,7 @@
   .grid.list .card{ flex-direction:row; }
   .grid.list .ph{ width:170px; flex:none; aspect-ratio:1/1; }
   @media (max-width:560px){ .grid.list .ph{ width:120px; } }
-  .heart{ position:absolute; top:8px; right:8px; background:rgba(255,255,255,.92); border:0; width:34px; height:34px; border-radius:50%; font-size:16px; cursor:pointer; color:#B0BEC9; box-shadow:0 1px 5px rgba(0,0,0,.18); }
+  .heart{ position:absolute; bottom:8px; right:8px; background:rgba(255,255,255,.92); border:0; width:34px; height:34px; border-radius:50%; font-size:16px; cursor:pointer; color:#B0BEC9; box-shadow:0 1px 5px rgba(0,0,0,.18); }
   .heart.on{ color:#C0392B; }
   .quickadd{ margin-top:8px; }
 
@@ -736,67 +737,67 @@ const PRODUCTS = [
     link:"", status:"live"
   },  { id:"aretes-bebe-14k", brand:"Madi K", cat:"Joyería",
     name:"Baby Ball Earrings 3mm — 14K yellow gold, safety screwback", nameEs:"Aretes de bebé bolita 3mm — oro amarillo 14K, rosca de seguridad",
-    price:77, was:117, badge:"", rating:"",
-    desc:"The classic first earrings for babies and little girls: 3mm polished balls in 14K yellow gold with safety screw backs — they stay put and don't poke.\n\nHollow, lightweight and nickel free, made for delicate ears and everyday wear. Made in the USA.",
-    descEs:"Los clásicos primeros aretes para bebés y niñas: bolitas pulidas de 3mm en oro amarillo de 14K con rosca de seguridad — se quedan en su sitio y no pinchan.\n\nHuecos, livianos y sin níquel, pensados para orejas delicadas y uso diario. Hechos en EE. UU.",
-    meta:"Condition: New · Ball: 3mm · Back: safety screwback · Weight: approx. 0.20 g the pair",
-    metaEs:"Condición: Nuevos · Bolita: 3mm · Cierre: rosca de seguridad · Peso: aprox. 0.20 g el par",
+    price:77, was:117, badge:"BajoPedido", rating:"",
+    desc:"The classic first earrings for babies and little girls: 3mm polished balls in 14K yellow gold with safety screw backs — they stay put and don't poke.\n\nHollow, lightweight and nickel free, made for delicate ears and everyday wear. Made in the USA.\n\nBrand new. This piece is ordered especially for you when you check out: delivery in 7 to 12 business days.",
+    descEs:"Los clásicos primeros aretes para bebés y niñas: bolitas pulidas de 3mm en oro amarillo de 14K con rosca de seguridad — se quedan en su sitio y no pinchan.\n\nHuecos, livianos y sin níquel, pensados para orejas delicadas y uso diario. Hechos en EE. UU.\n\nNuevo. Esta pieza se ordena especialmente para ti al comprar: entrega en 7 a 12 días laborables.",
+    meta:"Condition: New · Ball: 3mm · Back: safety screwback · Weight: approx. 0.20 g the pair · Delivery: 7 to 12 business days",
+    metaEs:"Condición: Nuevos · Bolita: 3mm · Cierre: rosca de seguridad · Peso: aprox. 0.20 g el par · Entrega: 7 a 12 días laborables",
     photos:["assets/gk241-1.jpg","assets/gk241-2.jpg","assets/gk241-3.jpg","assets/gk241-4.jpg"],
     link:"", status:"live" },  { id:"studs-bola-14k-6mm", brand:"14K Gold", cat:"Joyería",
     name:"Ball Stud Earrings 6mm — 14K yellow gold", nameEs:"Studs de bolita 6mm — oro amarillo 14K",
-    price:92, was:138, badge:"", rating:"",
-    desc:"The everyday classic: 6mm polished ball studs in 14K yellow gold with post and push backs.\n\nHollow and light — approx. 0.24 g the pair — with a bright polished finish. Made in the USA.",
-    descEs:"El clásico de todos los días: studs de bolita pulida de 6mm en oro amarillo de 14K, con poste y mariposa.\n\nHuecos y livianos — aprox. 0.24 g el par — con acabado pulido brillante. Hechos en EE. UU.",
-    meta:"Condition: New · Ball: 6mm · Back: post & push back · Weight: approx. 0.24 g the pair",
-    metaEs:"Condición: Nuevos · Bolita: 6mm · Cierre: poste y mariposa · Peso: aprox. 0.24 g el par",
+    price:92, was:138, badge:"BajoPedido", rating:"",
+    desc:"The everyday classic: 6mm polished ball studs in 14K yellow gold with post and push backs.\n\nHollow and light — approx. 0.24 g the pair — with a bright polished finish. Made in the USA.\n\nBrand new. This piece is ordered especially for you when you check out: delivery in 7 to 12 business days.",
+    descEs:"El clásico de todos los días: studs de bolita pulida de 6mm en oro amarillo de 14K, con poste y mariposa.\n\nHuecos y livianos — aprox. 0.24 g el par — con acabado pulido brillante. Hechos en EE. UU.\n\nNuevo. Esta pieza se ordena especialmente para ti al comprar: entrega en 7 a 12 días laborables.",
+    meta:"Condition: New · Ball: 6mm · Back: post & push back · Weight: approx. 0.24 g the pair · Delivery: 7 to 12 business days",
+    metaEs:"Condición: Nuevos · Bolita: 6mm · Cierre: poste y mariposa · Peso: aprox. 0.24 g el par · Entrega: 7 a 12 días laborables",
     photos:["assets/x6mmg-1.jpg","assets/x6mmg-2.jpg","assets/x6mmg-3.jpg","assets/x6mmg-4.jpg"],
     link:"", status:"live" },  { id:"argollas-14k-9mm", brand:"Madi K", cat:"Joyería",
     name:"Endless Hoop Earrings 9mm — 14K yellow gold", nameEs:"Argollitas endless 9mm — oro amarillo 14K",
-    price:77, was:115, badge:"", rating:"",
-    desc:"Small endless hoops in 14K yellow gold: a clean, continuous circle with a hidden wire-and-catch closure and no visible clasp.\n\n1.25mm tube, hollow and nickel free — approx. 0.20 g the pair. Made in the USA.",
-    descEs:"Argollitas endless en oro amarillo de 14K: un círculo limpio y continuo con cierre oculto de alambre, sin broche visible.\n\nTubo de 1.25mm, huecas y sin níquel — aprox. 0.20 g el par. Hechas en EE. UU.",
-    meta:"Condition: New · Diameter: 9mm · Tube: 1.25mm · Closure: hidden wire & catch",
-    metaEs:"Condición: Nuevas · Diámetro: 9mm · Tubo: 1.25mm · Cierre: alambre oculto",
+    price:77, was:115, badge:"BajoPedido", rating:"",
+    desc:"Small endless hoops in 14K yellow gold: a clean, continuous circle with a hidden wire-and-catch closure and no visible clasp.\n\n1.25mm tube, hollow and nickel free — approx. 0.20 g the pair. Made in the USA.\n\nBrand new. This piece is ordered especially for you when you check out: delivery in 7 to 12 business days.",
+    descEs:"Argollitas endless en oro amarillo de 14K: un círculo limpio y continuo con cierre oculto de alambre, sin broche visible.\n\nTubo de 1.25mm, huecas y sin níquel — aprox. 0.20 g el par. Hechas en EE. UU.\n\nNuevo. Esta pieza se ordena especialmente para ti al comprar: entrega en 7 a 12 días laborables.",
+    meta:"Condition: New · Diameter: 9mm · Tube: 1.25mm · Closure: hidden wire & catch · Delivery: 7 to 12 business days",
+    metaEs:"Condición: Nuevas · Diámetro: 9mm · Tubo: 1.25mm · Cierre: alambre oculto · Entrega: 7 a 12 días laborables",
     photos:["assets/se183-1.jpg","assets/se183-2.jpg","assets/se183-3.jpg","assets/se183-4.jpg"],
     link:"", status:"live" },  { id:"argollas-14k-15mm", brand:"Madi K", cat:"Joyería",
     name:"Endless Hoop Earrings 15mm — 14K yellow gold", nameEs:"Argollas endless 15mm — oro amarillo 14K",
-    price:117, was:175, badge:"", rating:"",
-    desc:"Endless hoops in 14K yellow gold, 15mm — the size that goes with everything. Hidden wire-and-catch closure for a clean, continuous circle.\n\n1.25mm tube, hollow and nickel free — approx. 0.34 g the pair. Made in the USA.",
-    descEs:"Argollas endless en oro amarillo de 14K, 15mm — el tamaño que combina con todo. Cierre oculto de alambre para un círculo limpio y continuo.\n\nTubo de 1.25mm, huecas y sin níquel — aprox. 0.34 g el par. Hechas en EE. UU.",
-    meta:"Condition: New · Diameter: 15mm · Tube: 1.25mm · Closure: hidden wire & catch",
-    metaEs:"Condición: Nuevas · Diámetro: 15mm · Tubo: 1.25mm · Cierre: alambre oculto",
+    price:117, was:175, badge:"BajoPedido", rating:"",
+    desc:"Endless hoops in 14K yellow gold, 15mm — the size that goes with everything. Hidden wire-and-catch closure for a clean, continuous circle.\n\n1.25mm tube, hollow and nickel free — approx. 0.34 g the pair. Made in the USA.\n\nBrand new. This piece is ordered especially for you when you check out: delivery in 7 to 12 business days.",
+    descEs:"Argollas endless en oro amarillo de 14K, 15mm — el tamaño que combina con todo. Cierre oculto de alambre para un círculo limpio y continuo.\n\nTubo de 1.25mm, huecas y sin níquel — aprox. 0.34 g el par. Hechas en EE. UU.\n\nNuevo. Esta pieza se ordena especialmente para ti al comprar: entrega en 7 a 12 días laborables.",
+    meta:"Condition: New · Diameter: 15mm · Tube: 1.25mm · Closure: hidden wire & catch · Delivery: 7 to 12 business days",
+    metaEs:"Condición: Nuevas · Diámetro: 15mm · Tubo: 1.25mm · Cierre: alambre oculto · Entrega: 7 a 12 días laborables",
     photos:["assets/se186-1.jpg","assets/se186-2.jpg","assets/se186-3.jpg","assets/se186-4.jpg"],
     link:"", status:"live" },  { id:"medalla-caridad-10k", brand:"10K Gold", cat:"Joyería",
     name:"Our Lady of Charity Medal 11.5mm — 10K yellow gold", nameEs:"Medalla Virgen de la Caridad del Cobre 11.5mm — oro amarillo 10K",
-    price:154, was:231, badge:"", rating:"",
-    desc:"Solid medal of Our Lady of Charity of El Cobre, patroness of Cuba, in 10K yellow gold with a polished finish. 11.5mm round, approx. 0.80 g.\n\nMedal only — pair it with one of our 14K rope chains.",
-    descEs:"Medalla maciza de la Virgen de la Caridad del Cobre, patrona de Cuba, en oro amarillo de 10K con acabado pulido. Redonda de 11.5mm, aprox. 0.80 g.\n\nSolo la medalla — combínala con una de nuestras cadenas rope de 14K.",
-    meta:"Condition: New · Diameter: 11.5mm · Weight: approx. 0.80 g · Chain not included",
-    metaEs:"Condición: Nueva · Diámetro: 11.5mm · Peso: aprox. 0.80 g · Cadena no incluida",
+    price:154, was:231, badge:"BajoPedido", rating:"",
+    desc:"Solid medal of Our Lady of Charity of El Cobre, patroness of Cuba, in 10K yellow gold with a polished finish. 11.5mm round, approx. 0.80 g.\n\nMedal only — pair it with one of our 14K rope chains.\n\nBrand new. This piece is ordered especially for you when you check out: delivery in 7 to 12 business days.",
+    descEs:"Medalla maciza de la Virgen de la Caridad del Cobre, patrona de Cuba, en oro amarillo de 10K con acabado pulido. Redonda de 11.5mm, aprox. 0.80 g.\n\nSolo la medalla — combínala con una de nuestras cadenas rope de 14K.\n\nNuevo. Esta pieza se ordena especialmente para ti al comprar: entrega en 7 a 12 días laborables.",
+    meta:"Condition: New · Diameter: 11.5mm · Weight: approx. 0.80 g · Chain not included · Delivery: 7 to 12 business days",
+    metaEs:"Condición: Nueva · Diámetro: 11.5mm · Peso: aprox. 0.80 g · Cadena no incluida · Entrega: 7 a 12 días laborables",
     photos:["assets/caridad-1.jpg","assets/caridad-2.jpg","assets/caridad-3.jpg","assets/caridad-4.jpg"],
     link:"", status:"live" },  { id:"medalla-caridad-14k", brand:"14K Gold", cat:"Joyería",
     name:"Our Lady of Charity Medal 11.5mm — 14K yellow gold", nameEs:"Medalla Virgen de la Caridad del Cobre 11.5mm — oro amarillo 14K",
-    price:250, was:375, badge:"", rating:"",
-    desc:"Solid medal of Our Lady of Charity of El Cobre, patroness of Cuba, in 14K yellow gold with a polished finish. 11.5mm round, approx. 0.97 g.\n\nMedal only — pair it with one of our 14K rope chains.",
-    descEs:"Medalla maciza de la Virgen de la Caridad del Cobre, patrona de Cuba, en oro amarillo de 14K con acabado pulido. Redonda de 11.5mm, aprox. 0.97 g.\n\nSolo la medalla — combínala con una de nuestras cadenas rope de 14K.",
-    meta:"Condition: New · Diameter: 11.5mm · Weight: approx. 0.97 g · Chain not included",
-    metaEs:"Condición: Nueva · Diámetro: 11.5mm · Peso: aprox. 0.97 g · Cadena no incluida",
+    price:250, was:375, badge:"BajoPedido", rating:"",
+    desc:"Solid medal of Our Lady of Charity of El Cobre, patroness of Cuba, in 14K yellow gold with a polished finish. 11.5mm round, approx. 0.97 g.\n\nMedal only — pair it with one of our 14K rope chains.\n\nBrand new. This piece is ordered especially for you when you check out: delivery in 7 to 12 business days.",
+    descEs:"Medalla maciza de la Virgen de la Caridad del Cobre, patrona de Cuba, en oro amarillo de 14K con acabado pulido. Redonda de 11.5mm, aprox. 0.97 g.\n\nSolo la medalla — combínala con una de nuestras cadenas rope de 14K.\n\nNuevo. Esta pieza se ordena especialmente para ti al comprar: entrega en 7 a 12 días laborables.",
+    meta:"Condition: New · Diameter: 11.5mm · Weight: approx. 0.97 g · Chain not included · Delivery: 7 to 12 business days",
+    metaEs:"Condición: Nueva · Diámetro: 11.5mm · Peso: aprox. 0.97 g · Cadena no incluida · Entrega: 7 a 12 días laborables",
     photos:["assets/caridad-1.jpg","assets/caridad-2.jpg","assets/caridad-3.jpg","assets/caridad-4.jpg"],
     link:"", status:"live" },  { id:"cadena-rope-14k-18", brand:"Leslie's", cat:"Joyería",
     name:"Rope Chain 0.8mm, 18 in — solid 14K yellow gold", nameEs:"Cadena rope 0.8mm, 18\" — oro amarillo 14K sólido",
-    price:200, was:293, badge:"", rating:"",
-    desc:"Fine solid rope chain in 14K yellow gold, made in Italy. 0.8mm wide, 18 inches long, with a spring-ring clasp.\n\nThe perfect chain for medals and small pendants. Approx. 0.75 g. Lifetime guarantee from the maker.",
-    descEs:"Cadena rope fina y sólida en oro amarillo de 14K, hecha en Italia. 0.8mm de ancho, 18 pulgadas de largo, con cierre de argolla de resorte.\n\nLa cadena perfecta para medallas y colgajos pequeños. Aprox. 0.75 g. Garantía de por vida del fabricante.",
-    meta:"Condition: New · Length: 18 in · Width: 0.8mm · Clasp: spring ring · Made in Italy",
-    metaEs:"Condición: Nueva · Largo: 18\" · Ancho: 0.8mm · Cierre: argolla de resorte · Hecha en Italia",
+    price:200, was:293, badge:"BajoPedido", rating:"",
+    desc:"Fine solid rope chain in 14K yellow gold, made in Italy. 0.8mm wide, 18 inches long, with a spring-ring clasp.\n\nThe perfect chain for medals and small pendants. Approx. 0.75 g. Lifetime guarantee from the maker.\n\nBrand new. This piece is ordered especially for you when you check out: delivery in 7 to 12 business days.",
+    descEs:"Cadena rope fina y sólida en oro amarillo de 14K, hecha en Italia. 0.8mm de ancho, 18 pulgadas de largo, con cierre de argolla de resorte.\n\nLa cadena perfecta para medallas y colgajos pequeños. Aprox. 0.75 g. Garantía de por vida del fabricante.\n\nNuevo. Esta pieza se ordena especialmente para ti al comprar: entrega en 7 a 12 días laborables.",
+    meta:"Condition: New · Length: 18 in · Width: 0.8mm · Clasp: spring ring · Made in Italy · Delivery: 7 to 12 business days",
+    metaEs:"Condición: Nueva · Largo: 18\" · Ancho: 0.8mm · Cierre: argolla de resorte · Hecha en Italia · Entrega: 7 a 12 días laborables",
     photos:["assets/rope-1.jpg","assets/rope-2.jpg","assets/rope-3.jpg","assets/rope18-4.jpg"],
     link:"", status:"live" },  { id:"cadena-rope-14k-20", brand:"Leslie's", cat:"Joyería",
     name:"Rope Chain 0.8mm, 20 in — solid 14K yellow gold", nameEs:"Cadena rope 0.8mm, 20\" — oro amarillo 14K sólido",
-    price:214, was:313, badge:"", rating:"",
-    desc:"Fine solid rope chain in 14K yellow gold, made in Italy. 0.8mm wide, 20 inches long, with a spring-ring clasp.\n\nThe perfect chain for medals and small pendants. Approx. 0.80 g. Lifetime guarantee from the maker.",
-    descEs:"Cadena rope fina y sólida en oro amarillo de 14K, hecha en Italia. 0.8mm de ancho, 20 pulgadas de largo, con cierre de argolla de resorte.\n\nLa cadena perfecta para medallas y colgajos pequeños. Aprox. 0.80 g. Garantía de por vida del fabricante.",
-    meta:"Condition: New · Length: 20 in · Width: 0.8mm · Clasp: spring ring · Made in Italy",
-    metaEs:"Condición: Nueva · Largo: 20\" · Ancho: 0.8mm · Cierre: argolla de resorte · Hecha en Italia",
+    price:214, was:313, badge:"BajoPedido", rating:"",
+    desc:"Fine solid rope chain in 14K yellow gold, made in Italy. 0.8mm wide, 20 inches long, with a spring-ring clasp.\n\nThe perfect chain for medals and small pendants. Approx. 0.80 g. Lifetime guarantee from the maker.\n\nBrand new. This piece is ordered especially for you when you check out: delivery in 7 to 12 business days.",
+    descEs:"Cadena rope fina y sólida en oro amarillo de 14K, hecha en Italia. 0.8mm de ancho, 20 pulgadas de largo, con cierre de argolla de resorte.\n\nLa cadena perfecta para medallas y colgajos pequeños. Aprox. 0.80 g. Garantía de por vida del fabricante.\n\nNuevo. Esta pieza se ordena especialmente para ti al comprar: entrega en 7 a 12 días laborables.",
+    meta:"Condition: New · Length: 20 in · Width: 0.8mm · Clasp: spring ring · Made in Italy · Delivery: 7 to 12 business days",
+    metaEs:"Condición: Nueva · Largo: 20\" · Ancho: 0.8mm · Cierre: argolla de resorte · Hecha en Italia · Entrega: 7 a 12 días laborables",
     photos:["assets/rope-1.jpg","assets/rope-2.jpg","assets/rope-3.jpg","assets/rope20-4.jpg"],
     link:"", status:"live" },  { id:"qg-10bc154-18", brand:"Señor Rey", cat:"Joyería",
     name:"Cuban Link Chain 6mm — 18 in, 10K yellow gold", nameEs:"Cadena Cuban Link 6mm — 18 in, oro amarillo 10K",
@@ -1424,7 +1425,7 @@ function render(){
     const d = document.createElement('div'); d.className = 'card'; d.onclick = () => openDetail(p.id);
     d.innerHTML =
       '<div class="ph">' + (p.photos && p.photos[0] ? '<img src="' + p.photos[0] + '" alt="">' : '') +
-      (sold ? '<span class="badge sold">' + t('soldLbl') + '</span>' : coming ? '<span class="badge off">' + t('comingLbl') + '</span>' : (p.badge ? '<span class="badge' + (p.badge.startsWith('-') ? ' off' : '') + '">' + (p.badge === 'Prueba' ? t('badgeTest') : p.badge === 'BajoPedido' ? t('badgeOnDemand') : p.badge) + '</span>' : '')) +
+      (sold ? '<span class="badge sold">' + t('soldLbl') + '</span>' : coming ? '<span class="badge off">' + t('comingLbl') + '</span>' : (p.badge ? '<span class="badge' + (p.badge.startsWith('-') ? ' off' : '') + (p.badge === 'BajoPedido' ? ' od' : '') + '">' + (p.badge === 'Prueba' ? t('badgeTest') : p.badge === 'BajoPedido' ? t('badgeOnDemand') : p.badge) + '</span>' : '')) +
       '<button class="heart' + (favs.has(p.id) ? ' on' : '') + '" title="' + t('favAttr') + '">♥</button></div>' +
       '<div class="bd"><div class="brand">' + p.brand + '</div><h4>' + pname(p) + '</h4>' + stars(p) +
       '<div class="pricerow"><span class="price">' + money(p.price) + '</span>' + (p.was ? '<span class="was">' + money(p.was) + '</span>' : '') + '</div>' +
