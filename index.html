@@ -1494,7 +1494,7 @@ function openDetail(id, keep){
     rel.map(r => '<div class="mini" onclick="openDetail(\'' + r.id + '\')"><img src="' + (r.photos[0] || '') + '"><div>' + r.brand + ' — ' + pname(r) + '<br><b>' + money(r.price) + '</b></div></div>').join('') + '</div>' : '';
   document.getElementById('sheet').classList.add('open');
   document.getElementById('sheet').scrollTop = 0;
-  history.replaceState(null, '', '#' + id);
+  if (!keep && location.hash !== '#' + id) { history.pushState({ d: id }, '', '#' + id); detailPushed = true; }
   renderRecent();
 }
 function zoom(){ const m = document.getElementById('mainimg'); if (!m || m.style.display === 'none') return; document.getElementById('lightimg').src = m.src; document.getElementById('lightbox').classList.add('open'); }
@@ -1506,7 +1506,14 @@ async function shareProduct(id){
 }
 function swap(el){ const v = document.getElementById('mainvid'); if (v) { v.style.display = 'none'; v.pause(); } const m = document.getElementById('mainimg'); m.style.display = ''; m.src = el.src; el.parentElement.querySelectorAll('img').forEach(i => i.classList.toggle('on', i === el)); }
 function swapVid(el){ const v = document.getElementById('mainvid'); const m = document.getElementById('mainimg'); if (m) m.style.display = 'none'; if (v) { v.style.display = ''; v.currentTime = 0; v.play(); } el.parentElement.querySelectorAll('img').forEach(i => i.classList.toggle('on', i === el)); }
-function closeDetail(){ document.getElementById('sheet').classList.remove('open'); current = null; history.replaceState(null, '', location.pathname); }
+var detailPushed = false;
+function closeDetail(){ if (detailPushed) { history.back(); } else { closeDetailUI(); } }
+function closeDetailUI(){ document.getElementById('sheet').classList.remove('open'); current = null; detailPushed = false; if (location.hash) history.replaceState(null, '', location.pathname); }
+window.addEventListener('popstate', function(){
+  const h = location.hash.replace('#', '');
+  if (h && PRODUCTS.some(p => p.id === h)) { if (!current || current.id !== h) openDetail(h, true); }
+  else if (current) { document.getElementById('sheet').classList.remove('open'); current = null; detailPushed = false; }
+});
 /* ===== Comentarios ===== */
 function esc(t){ return String(t).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c])); }
 function commentHTML(c){
